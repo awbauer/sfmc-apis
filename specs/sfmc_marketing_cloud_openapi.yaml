@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: Salesforce Marketing Cloud Engagement REST APIs
-  version: 0.9.0
+  version: 0.17.0
   description: Working OpenAPI/Swagger-style specification generated from the SFMC permission/scope matrix you supplied and normalized against Salesforce Marketing Cloud Engagement documentation. It covers the endpoint families present in that matrix, adds narrative descriptions for each operation, and preserves original permission IDs, user-permission paths, and installed-package scopes as vendor extensions. Because Salesforce does not publish a single complete machine-readable contract for every route in this matrix, some operations still use broader schemas where the official reference is descriptive, polymorphic, or fragmented across pages.
 servers:
 - url: https://{subdomain}.rest.marketingcloudapis.com
@@ -160,7 +160,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/DomainVerificationCollectionResponse'
         '400':
           description: Bad request.
         '401':
@@ -199,7 +199,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/DomainVerificationCollectionResponse'
         '400':
           description: Bad request.
         '401':
@@ -245,7 +245,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/DomainVerificationBulkResultResponse'
         '400':
           description: Bad request.
         '401':
@@ -291,7 +291,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/DomainVerificationBulkResultResponse'
         '400':
           description: Bad request.
         '401':
@@ -337,7 +337,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/DomainVerificationBulkResultResponse'
         '400':
           description: Bad request.
         '401':
@@ -383,7 +383,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/DomainVerificationBulkResultResponse'
         '400':
           description: Bad request.
         '401':
@@ -2195,7 +2195,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/AsyncOperationAcceptedResponse'
         '400':
           description: Bad request.
         '401':
@@ -2250,7 +2250,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/AsyncOperationAcceptedResponse'
         '400':
           description: Bad request.
         '401':
@@ -2302,7 +2302,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/AsyncOperationStatusResponse'
         '400':
           description: Bad request.
         '401':
@@ -2351,7 +2351,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/AsyncOperationStatusResponse'
         '400':
           description: Bad request.
         '401':
@@ -2400,7 +2400,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/AsyncOperationStatusResponse'
         '400':
           description: Bad request.
         '401':
@@ -2449,7 +2449,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/SmsDeliveryResultsResponse'
         '400':
           description: Bad request.
         '401':
@@ -2507,7 +2507,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/SmsHistoryResponse'
         '400':
           description: Bad request.
         '401':
@@ -2556,7 +2556,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/SmsDeliveryResultsResponse'
         '400':
           description: Bad request.
         '401':
@@ -2599,7 +2599,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/SmsDeliveryResultsResponse'
         '400':
           description: Bad request.
         '401':
@@ -2642,7 +2642,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/SmsHistoryResponse'
         '400':
           description: Bad request.
         '401':
@@ -2685,7 +2685,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/SmsDeliveryReportResponse'
         '400':
           description: Bad request.
         '401':
@@ -2734,7 +2734,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/AsyncOperationAcceptedResponse'
         '400':
           description: Bad request.
         '401':
@@ -2777,7 +2777,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/SmsSubscriptionResponse'
         '400':
           description: Bad request.
         '401':
@@ -2805,7 +2805,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/GenericRequestBody'
+              $ref: '#/components/schemas/SmsSubscriptionRequest'
   /sms/v1/messageList/{id}/deliveryReport/{tokenId}:
     post:
       tags:
@@ -2832,7 +2832,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/SmsDeliveryReportResponse'
         '400':
           description: Bad request.
         '401':
@@ -2985,7 +2985,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/SmsKeywordResponse'
         '400':
           description: Bad request.
         '401':
@@ -3024,7 +3024,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/SmsKeywordResponse'
         '400':
           description: Bad request.
         '401':
@@ -3054,7 +3054,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/GenericRequestBody'
+              $ref: '#/components/schemas/SmsKeywordRequest'
   /sms/v1/message/optin:
     post:
       tags:
@@ -4740,7 +4740,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/JourneyEventDefinitionResponse'
         '400':
           description: Bad request.
         '401':
@@ -4782,7 +4782,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/JourneyEventDefinitionResponse'
         '400':
           description: Bad request.
         '401':
@@ -4824,7 +4824,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/JourneyEventDefinitionResponse'
         '400':
           description: Bad request.
         '401':
@@ -4873,7 +4873,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/JourneyInteractionDetailResponse'
         '400':
           description: Bad request.
         '401':
@@ -4915,7 +4915,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/JourneyInteractionDetailResponse'
         '400':
           description: Bad request.
         '401':
@@ -4952,7 +4952,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/JourneyEventDefinitionListResponse'
         '400':
           description: Bad request.
         '401':
@@ -4988,7 +4988,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/JourneyEventDefinitionListResponse'
         '400':
           description: Bad request.
         '401':
@@ -5031,7 +5031,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/JourneyInteractionListResponse'
         '400':
           description: Bad request.
         '401':
@@ -5067,7 +5067,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/JourneyInteractionListResponse'
         '400':
           description: Bad request.
         '401':
@@ -5109,7 +5109,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/JourneyInteractionListResponse'
         '400':
           description: Bad request.
         '401':
@@ -5709,7 +5709,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/PushApplicationResponse'
         '400':
           description: Bad request.
         '401':
@@ -5752,7 +5752,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/PushApplicationKeyResponse'
         '400':
           description: Bad request.
         '401':
@@ -5794,7 +5794,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/PushApplicationKeyResponse'
         '400':
           description: Bad request.
         '401':
@@ -5836,7 +5836,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/PushApplicationKeyResponse'
         '400':
           description: Bad request.
         '401':
@@ -5928,7 +5928,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/PushLocationResponse'
         '400':
           description: Bad request.
         '401':
@@ -5964,7 +5964,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/PushLocationResponse'
         '400':
           description: Bad request.
         '401':
@@ -5992,7 +5992,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/GenericRequestBody'
+              $ref: '#/components/schemas/PushLocationRequest'
   /push/v1/location/{locationId}:
     get:
       tags:
@@ -6013,7 +6013,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/PushLocationResponse'
         '400':
           description: Bad request.
         '401':
@@ -6055,7 +6055,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/PushLocationResponse'
         '400':
           description: Bad request.
         '401':
@@ -6097,7 +6097,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/PushLocationResponse'
         '400':
           description: Bad request.
         '401':
@@ -6140,7 +6140,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/PushMessageListResponse'
         '400':
           description: Bad request.
         '401':
@@ -6176,7 +6176,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/PushMessageListResponse'
         '400':
           description: Bad request.
         '401':
@@ -6204,7 +6204,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/GenericRequestBody'
+              $ref: '#/components/schemas/PushMessageRequest'
   /push/v1/message/{messageID}:
     get:
       tags:
@@ -6274,7 +6274,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/PushDeliveryResultsResponse'
         '400':
           description: Bad request.
         '401':
@@ -6323,7 +6323,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/PushDeliveryResultsResponse'
         '400':
           description: Bad request.
         '401':
@@ -6372,7 +6372,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/PushDeliveryResultsResponse'
         '400':
           description: Bad request.
         '401':
@@ -6421,7 +6421,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/PushDeliveryResultsResponse'
         '400':
           description: Bad request.
         '401':
@@ -6567,7 +6567,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/PushMessageResponse'
         '400':
           description: Bad request.
         '401':
@@ -6609,7 +6609,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/PushMessageResponse'
         '400':
           description: Bad request.
         '401':
@@ -6637,7 +6637,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/GenericRequestBody'
+              $ref: '#/components/schemas/PushMessageRequest'
   /push/v1/contacts/refreshList/{id}:
     post:
       tags:
@@ -9002,7 +9002,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/EndpointDiscoveryResponse'
         '400':
           description: Bad request.
         '401':
@@ -9044,7 +9044,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/SingleEndpointDiscoveryResponse'
         '400':
           description: Bad request.
         '401':
@@ -9080,7 +9080,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/TokenContextResponse'
         '400':
           description: Bad request.
         '401':
@@ -9465,6 +9465,463 @@ components:
                 type: string
               definitionInstanceId:
                 type: string
+      additionalProperties: true
+    DomainVerificationRecord:
+      type: object
+      properties:
+        id:
+          type: string
+        domain:
+          type: string
+        status:
+          type: string
+        validationType:
+          type: string
+        validatedDate:
+          type: string
+          format: date-time
+        createdDate:
+          type: string
+          format: date-time
+      additionalProperties: true
+    DomainVerificationCollectionResponse:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DomainVerificationRecord'
+        count:
+          type: integer
+      additionalProperties: true
+    DomainVerificationBulkResultResponse:
+      type: object
+      properties:
+        requestId:
+          type: string
+        status:
+          type: string
+        successCount:
+          type: integer
+        failureCount:
+          type: integer
+        results:
+          type: array
+          items:
+            type: object
+            properties:
+              domain:
+                type: string
+              success:
+                type: boolean
+              message:
+                type: string
+      additionalProperties: true
+    AsyncOperationAcceptedResponse:
+      type: object
+      properties:
+        tokenId:
+          type: string
+        operationId:
+          type: string
+        requestId:
+          type: string
+        status:
+          type: string
+          example: Queued
+        message:
+          type: string
+      additionalProperties: true
+    AsyncOperationStatusResponse:
+      type: object
+      properties:
+        tokenId:
+          type: string
+        operationId:
+          type: string
+        status:
+          type: string
+          enum: [Queued, Processing, Complete, Error]
+        percentComplete:
+          type: integer
+        completedDate:
+          type: string
+          format: date-time
+        message:
+          type: string
+      additionalProperties: true
+    SmsDeliveryRecord:
+      type: object
+      properties:
+        mobileNumber:
+          type: string
+        contactKey:
+          type: string
+        subscriberKey:
+          type: string
+        status:
+          type: string
+        deliveredDate:
+          type: string
+          format: date-time
+        messageId:
+          type: string
+        messageText:
+          type: string
+      additionalProperties: true
+    SmsDeliveryResultsResponse:
+      type: object
+      properties:
+        tokenId:
+          type: string
+        count:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/SmsDeliveryRecord'
+      additionalProperties: true
+    SmsHistoryResponse:
+      type: object
+      properties:
+        tokenId:
+          type: string
+        messageId:
+          type: string
+        mobileNumber:
+          type: string
+        history:
+          type: array
+          items:
+            type: object
+            properties:
+              eventType:
+                type: string
+              eventDate:
+                type: string
+                format: date-time
+              status:
+                type: string
+              description:
+                type: string
+      additionalProperties: true
+    SmsDeliveryReportResponse:
+      type: object
+      properties:
+        tokenId:
+          type: string
+        reportId:
+          type: string
+        status:
+          type: string
+        downloadUrl:
+          type: string
+          format: uri
+      additionalProperties: true
+    SmsSubscriptionRequest:
+      type: object
+      properties:
+        mobileNumber:
+          type: string
+        contactKey:
+          type: string
+        keyword:
+          type: string
+        shortCode:
+          type: string
+        subscribe:
+          type: boolean
+        resubscribe:
+          type: boolean
+      additionalProperties: true
+    SmsSubscriptionResponse:
+      type: object
+      properties:
+        mobileNumber:
+          type: string
+        contactKey:
+          type: string
+        keyword:
+          type: string
+        subscriptionStatus:
+          type: string
+        message:
+          type: string
+      additionalProperties: true
+    SmsKeywordRequest:
+      type: object
+      properties:
+        keyword:
+          type: string
+        shortCode:
+          type: string
+        longCode:
+          type: string
+        countryCode:
+          type: string
+        messageId:
+          type: string
+        name:
+          type: string
+      additionalProperties: true
+    SmsKeywordResponse:
+      type: object
+      properties:
+        keywordId:
+          type: string
+        keyword:
+          type: string
+        shortCode:
+          type: string
+        longCode:
+          type: string
+        countryCode:
+          type: string
+        status:
+          type: string
+      additionalProperties: true
+    PushApplicationResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        status:
+          type: string
+        platform:
+          type: string
+        createdDate:
+          type: string
+          format: date-time
+      additionalProperties: true
+    PushApplicationKeyResponse:
+      type: object
+      properties:
+        appId:
+          type: string
+        key:
+          type: string
+        keyType:
+          type: string
+        enabled:
+          type: boolean
+      additionalProperties: true
+    PushLocationRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        latitude:
+          type: number
+        longitude:
+          type: number
+        radius:
+          type: number
+        description:
+          type: string
+      additionalProperties: true
+    PushLocationResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        latitude:
+          type: number
+        longitude:
+          type: number
+        radius:
+          type: number
+        status:
+          type: string
+      additionalProperties: true
+    PushMessageRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        applicationId:
+          type: string
+        alert:
+          type: string
+        sound:
+          type: string
+        badge:
+          oneOf:
+          - type: integer
+          - type: string
+        custom:
+          type: object
+          additionalProperties: true
+        scheduledTime:
+          type: string
+          format: date-time
+      additionalProperties: true
+    PushMessageResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        applicationId:
+          type: string
+        status:
+          type: string
+        alert:
+          type: string
+        createdDate:
+          type: string
+          format: date-time
+      additionalProperties: true
+    PushMessageListResponse:
+      type: object
+      properties:
+        count:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/PushMessageResponse'
+      additionalProperties: true
+    PushDeliveryResultsResponse:
+      type: object
+      properties:
+        tokenId:
+          type: string
+        count:
+          type: integer
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              deviceId:
+                type: string
+              contactKey:
+                type: string
+              status:
+                type: string
+              deliveredDate:
+                type: string
+                format: date-time
+              messageId:
+                type: string
+      additionalProperties: true
+    JourneyEventDefinitionResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        eventDefinitionKey:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+        dataExtensionId:
+          type: string
+        createdDate:
+          type: string
+          format: date-time
+      additionalProperties: true
+    JourneyEventDefinitionListResponse:
+      type: object
+      properties:
+        count:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/JourneyEventDefinitionResponse'
+      additionalProperties: true
+    JourneyInteractionSummary:
+      type: object
+      properties:
+        id:
+          type: string
+        key:
+          type: string
+        name:
+          type: string
+        status:
+          type: string
+        versionNumber:
+          type: integer
+        lastPublishedDate:
+          type: string
+          format: date-time
+      additionalProperties: true
+    JourneyInteractionListResponse:
+      type: object
+      properties:
+        count:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/JourneyInteractionSummary'
+      additionalProperties: true
+    JourneyInteractionDetailResponse:
+      allOf:
+      - $ref: '#/components/schemas/JourneyInteractionSummary'
+      - type: object
+        properties:
+          activities:
+            type: array
+            items:
+              type: object
+              additionalProperties: true
+          defaults:
+            type: object
+            additionalProperties: true
+          stats:
+            type: object
+            additionalProperties: true
+    EndpointDiscoveryItem:
+      type: object
+      properties:
+        endpointType:
+          type: string
+        url:
+          type: string
+          format: uri
+      additionalProperties: true
+    EndpointDiscoveryResponse:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/EndpointDiscoveryItem'
+      additionalProperties: true
+    SingleEndpointDiscoveryResponse:
+      type: object
+      properties:
+        endpointType:
+          type: string
+        url:
+          type: string
+          format: uri
+      additionalProperties: true
+    TokenContextResponse:
+      type: object
+      properties:
+        organization:
+          type: object
+          additionalProperties: true
+        user:
+          type: object
+          additionalProperties: true
+        businessUnit:
+          type: object
+          additionalProperties: true
+        scopes:
+          type: array
+          items:
+            type: string
       additionalProperties: true
     GenericRequestBody:
       type: object

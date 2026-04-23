@@ -1,25 +1,24 @@
 # Salesforce Marketing Cloud Engagement REST OpenAPI Spec
 
-## Project purpose
+## What this project is
 
-This project turns a large slice of the Salesforce Marketing Cloud Engagement REST surface into a usable OpenAPI 3.0.3 contract.
+This project is a hand-built OpenAPI 3.0.3 contract for a broad slice of the Salesforce Marketing Cloud Engagement REST API surface.
 
-The starting point was the SFMC REST permission and installed-package scope matrix. From there, the spec was normalized into valid OpenAPI paths, enriched with endpoint narrative, and annotated with SFMC-specific vendor extensions:
+It is not an official Salesforce export. It is a developer artifact built from:
 
-- `x-sfmc-permission-ids`
-- `x-sfmc-user-permission-paths`
-- `x-sfmc-installed-package-scopes`
-- `x-original-marketing-cloud-paths`
+- the SFMC REST permission and installed-package scope matrix
+- Salesforce REST reference pages
+- normalization work required to turn the published route inventory into valid OpenAPI paths and reusable schemas
 
-This is not a verbatim export from Salesforce. It is a developer-facing integration artifact built from official SFMC documentation plus the supplied permission matrix.
+The goal is simple: give developers one place to understand SFMC REST routes, auth expectations, scopes, and payload shapes without bouncing across dozens of documentation pages.
 
-## Artifact
+## Primary artifact
 
 - `sfmc_marketing_cloud_openapi.yaml`
 
-## What the spec covers
+## What is in the YAML
 
-Current API families in the YAML:
+The spec currently includes route coverage for:
 
 - OAuth, token, discovery, token context
 - address validation
@@ -40,198 +39,209 @@ Current API families in the YAML:
 - Event Notification Service
 - audit logging
 
-## Current maturity
+The spec also carries SFMC-specific vendor extensions on operations:
 
-Best way to read the spec today:
+- `x-sfmc-permission-ids`
+- `x-sfmc-user-permission-paths`
+- `x-sfmc-installed-package-scopes`
+- `x-original-marketing-cloud-paths`
 
-- **broad endpoint inventory** across major SFMC REST families
-- **permission and scope map** for installed packages and user permissions
-- **partially hardened contract** with many concrete request and response models in the highest-value areas
-- **still mixed strictness** across long-tail operational routes where Salesforce docs are fragmented, polymorphic, or only loosely typed
+Those are useful when you need to line up runtime behavior with installed package scopes and SFMC UI permissions.
 
-The spec is useful now for:
+## Current state
 
-- internal API documentation
-- middleware and adapter design
-- route discovery and permission planning
-- client implementation planning
-- codegen experiments on the better-modeled families
-- onboarding developers who need one place to understand the SFMC REST surface
+Spec version: `0.17.0`
+
+This is a usable integration artifact now, but it is still mixed in strictness.
+
+What is solid enough to use today:
+
+- route inventory across the covered families
+- permission and scope mapping
+- auth and discovery documentation
+- many concrete request and response models in the most important write flows
+- enough structure to support internal docs, middleware design, and selective client generation
+
+What is still uneven:
+
+- some long-tail routes still fall back to broad request or response objects
+- some operational status/detail endpoints still need tighter schemas
+- some normalized paths still need one more doc-verification pass against current Salesforce references
 
 ## What changed in the latest pass
 
-Spec version: `0.16.0`
-
-This pass tightened two of the biggest remaining weak spots.
+This pass focused on the remaining operational long tail and utility surfaces.
 
 ### Executed in this pass
 
-1. **Contacts long-tail response cleanup**
-   - tightened delete analytics and delete-operation monitoring routes
-   - tightened Contact Builder schema and attribute-group retrieval routes
-   - replaced broad fallback contracts on these routes with concrete contact-oriented schemas
-   - wired attribute-set and contact upsert operations to specific request and response schemas
+1. **MobileConnect operational response cleanup**
+   - added typed async accepted and async status envelopes
+   - tightened SMS delivery, history, and delivery-report responses
+   - added concrete subscription and keyword request/response schemas
 
-2. **Journey Builder lifecycle and status cleanup**
-   - tightened:
-     - journey audit retrieval
-     - publish status lookup
-     - contact exit request
-     - contact exit status lookup
-     - contact membership lookup
-     - publish / pause / resume / stop lifecycle actions
-   - added route-specific Journey Builder schemas instead of using only generic success envelopes
+2. **Mobile Push detail and reporting cleanup**
+   - added application, application-key, location, message, and delivery-result schemas
+   - rewired key Mobile Push detail routes away from the broad generic success envelope
 
-3. **Fallback-schema language cleanup**
-   - removed the lingering explicit placeholder wording from the fallback schema descriptions
-   - the YAML now describes fallback objects honestly as broad compatibility schemas, not TODO placeholders
+3. **Journey Builder collection/detail cleanup**
+   - added typed collection and detail response models for interactions and event definitions
 
-## What is in better shape now
+4. **Utility and discovery cleanup**
+   - added typed responses for endpoint discovery and token context
+   - added typed domain verification collection and bulk-result envelopes
 
-These sections are relatively stronger:
+5. **Documentation alignment**
+   - updated this README and the backlog so they reflect the actual YAML on disk
 
-- auth and token flows
-- transactional email and transactional SMS core routes
-- Data Extension row operations
-- Content Builder assets and categories
-- ENS callbacks and subscriptions
-- campaigns, approvals, tags, and file-location keys
-- Contacts core upsert/delete-monitoring routes
-- Journey Builder lifecycle and contact-exit routes
+## Best ways to use this project
 
-## What still needs more work
+### Use it as the contract for an internal SFMC client
 
-The spec is better, but it is still not fully strict.
+That is the strongest use case.
 
-Main remaining gaps:
+A small internal client or gateway can use this spec to:
 
-- MobileConnect detail/status/reporting routes
-- Mobile Push detail/status/reporting routes
-- Contacts audience and preference long-tail variants
-- Journey Builder collection/detail responses outside the lifecycle/status routes
-- utility/discovery routes that still use broad fallback success bodies
-- broader response typing and more realistic examples across long-tail endpoints
+- centralize token acquisition and refresh
+- handle tenant endpoint discovery once
+- enforce consistent retries and throttling behavior
+- keep BU targeting explicit
+- hide SFMC route quirks from app teams
 
-## How developers should use this
+### Use it as a route and permission map
 
-### 1. Treat it as the contract layer for an integration wrapper
+Even when you do not generate a client, the spec is useful for:
 
-This artifact is most valuable as the contract for a small internal SFMC client or gateway. That lets you:
+- finding the right endpoint family
+- checking installed-package scope requirements
+- checking SFMC UI permission dependencies
+- reviewing route variants by key vs id
 
-- centralize auth and token refresh
-- hide subdomain discovery from app teams
-- enforce consistent error handling and retries
-- map SFMC quirks into cleaner internal abstractions
-- keep permission and scope decisions explicit
+### Use codegen selectively
 
-### 2. Do not assume every route is fully codegen-ready
+Some families are modeled tightly enough for SDK experiments. Others still need hand-tuning.
 
-Some families are solid enough for SDK generation experiments. Others still use fallback schemas because SFMC does not publish one consistent machine-readable contract across the whole REST surface.
+Before generating a client for a family, check whether that family still relies on:
 
-Use the YAML as:
+- `GenericRequestBody`
+- `GenericResponse`
 
-- a primary route catalog
-- a documentation source
-- a starter contract for hand-tuned clients
-- a codegen source only after checking the target family’s strictness level
+If it does, expect manual work.
 
-### 3. Model around business unit context early
+## Developer guidance for working with SFMC
 
-SFMC auth is tenant-aware and BU-sensitive. Build this into your client from the start.
+### Auth model
 
-Important points:
+Build around tenant-specific auth and short-lived access tokens.
 
-- OAuth server-to-server integrations use the tenant-specific auth base and `v2/token`
-- access tokens expire after 20 minutes
-- `account_id` lets you target a child business unit when requesting the token
-- REST base URLs can vary by tenant and should be discovered rather than hard-coded citeturn975084search10
+Practical rules:
 
-### 4. Plan scopes from the permission matrix, not just from endpoint names
+- keep auth base URL separate from REST base URL
+- cache the token and refresh early
+- support `account_id` when you need child business unit context
+- treat discovery and token-context routes as bootstrap helpers, not business APIs
 
-The same functional area can require different installed-package scopes depending on operation type.
+### Business unit targeting
+
+A lot of SFMC confusion is really BU confusion.
+
+Build your client so BU context is explicit:
+
+- accept BU / MID input at the client boundary
+- resolve token context once and log it
+- do not assume the token always points at the intended BU
+
+### Scopes and permissions
+
+Do not infer installed-package scopes from endpoint names alone.
 
 Examples:
 
-- read vs write for Data Extensions
-- email send vs email write for transactional messaging
-- `journeys_read` for Journey Builder management routes in the supplied permission matrix
-- Contacts read/write separation through `list_and_subscribers_read` and `list_and_subscribers_write` citeturn975084search8
+- read and write routes in the same family often split across different scopes
+- send routes can differ from create/update routes in the same family
+- user permissions and installed-package scopes are related but not identical concerns
 
-### 5. Prefer newer messaging patterns where appropriate
+Use the vendor extensions in the spec when planning package setup or access troubleshooting.
 
-For new build work:
+### Messaging choices
 
-- prefer **transactional messaging** for modern email and SMS send-definition flows
-- use classic triggered sends only when you are tied to older patterns or existing assets
+For new work:
 
-That matches Salesforce’s current messaging direction. citeturn975084search10
+- prefer transactional messaging when it fits the use case
+- use classic triggered sends mainly for legacy compatibility or existing asset patterns
 
-## Developer implementation notes
+### Error handling
 
-### Auth checklist
+Across SFMC, you should consistently handle at least:
 
-- use tenant-specific auth subdomain
-- request tokens with server-to-server credentials
-- cache token with safe early refresh
-- support optional `account_id` per request context
-- keep auth base URL separate from REST base URL
+- `400`
+- `401`
+- `403`
+- `404`
+- `429`
+- `5xx`
 
-### Error-handling checklist
+At minimum, log request identifiers or correlation fields when SFMC returns them.
 
-- handle `400`, `401`, `403`, `404`, `429`, and `5xx` consistently
-- retry only where the operation is safe and idempotent enough
-- log correlation IDs or request IDs from SFMC responses when present
-- distinguish validation failures from permission/scope failures
+### Testing strategy
 
-### Codegen checklist
+Good first smoke tests:
 
-Before generating a client for a family, verify:
+1. acquire a token
+2. confirm discovery endpoints
+3. confirm token context / BU assumptions
+4. test one write and one read in each family you care about
+5. test one permission failure and one throttling scenario
 
-- request bodies are not still using broad fallback schemas
-- success responses are not still using broad fallback envelopes
-- normalized path variants match the current Salesforce docs for the routes you plan to implement
-- enums and pagination semantics are acceptable for your target language/runtime
+## Helpful references for developers
 
-### Testing checklist
+Official Salesforce references worth keeping open while developing:
 
-- validate the YAML in Swagger Editor or another OpenAPI validator
-- exercise token acquisition and BU scoping first
-- test at least one happy path and one auth/scope failure per family
-- test throttling and duplicate-send protections where relevant
-- confirm Journey Builder and Contacts routes in a sandbox before production use
+- Marketing Cloud REST API overview  
+  https://developer.salesforce.com/docs/marketing/marketing-cloud/guide/rest-api-overview.html
 
-## SFMC-specific references developers should keep handy
+- REST API permission IDs and installed-package scopes  
+  https://developer.salesforce.com/docs/marketing/marketing-cloud/references/mc_rest_rest_permission_scopes/rest-permissions-and-scopes.html
 
-### Official Salesforce references
+- Server-to-server access token flow  
+  https://developer.salesforce.com/docs/marketing/marketing-cloud/guide/access-token-s2s.html
 
-- REST API overview and reference entry point: developer.salesforce.com SFMC REST overview citeturn975084search10
-- REST permission IDs and installed-package scopes: Salesforce permission/scope matrix citeturn975084search8turn975084search15
-- server-to-server token flow and `account_id`: Salesforce access token guide citeturn975084search10
-- Journey Builder API specification: Journey Builder API guide citeturn975084search5
-- event definition schema: Journey event-definition schema guide citeturn975084search19
-- publish status route: Journey publish-status reference citeturn975084search2
-- contact-exit status route: Journey contact-exit status reference citeturn975084search0
-- Contacts update route and data model references: Contacts REST references citeturn975084search4turn975084search21turn975084search13
-- Push API summary: Mobile Push reference summary citeturn975084search12
+- API Integration Permission Scopes  
+  https://developer.salesforce.com/docs/marketing/marketing-cloud/guide/api-integration.html
 
-### Practical companion references to keep nearby
+- Transactional Messaging comparison and guidance  
+  https://developer.salesforce.com/docs/marketing/marketing-cloud/guide/transactional-messaging-comparison.html
 
-These are not separate project artifacts, but they are worth keeping open while building:
+- Transactional Messaging Email reference  
+  https://developer.salesforce.com/docs/marketing/marketing-cloud/references/mc_rest_transactional_messaging_email
 
-- installed package configuration in SFMC
-- business unit hierarchy and MID mapping for `account_id`
-- naming standards for external keys, definition keys, and data extension keys
-- send-governance rules for SMS, email, and push
-- your internal retry, idempotency, and observability standards
+- Transactional Messaging SMS reference  
+  https://developer.salesforce.com/docs/marketing/marketing-cloud/references/mc_rest_transactional_messaging_sms
 
-## Files in this project
+- Contacts REST reference entry points  
+  https://developer.salesforce.com/docs/marketing/marketing-cloud/references/mc_rest_contacts
+
+- Journey Builder API reference  
+  https://developer.salesforce.com/docs/marketing/marketing-cloud/references/mc_rest_interaction
+
+- MobilePush API reference  
+  https://developer.salesforce.com/docs/marketing/marketing-cloud/references/mc_rest_push
+
+- Content Builder API reference  
+  https://developer.salesforce.com/docs/marketing/marketing-cloud/guide/content-api.html
+
+- Event Notification Service reference  
+  https://developer.salesforce.com/docs/marketing/marketing-cloud/references/mc_rest_platformEventsNotification
+
+## Suggested workflow for teams using this spec
+
+1. start from the YAML for route discovery and scope planning
+2. verify the exact route behavior in the linked Salesforce docs for the family you are implementing
+3. generate or hand-build a small typed client only for the families you need
+4. patch local schema gaps as you learn more from real API calls
+5. feed those improvements back into the YAML
+
+## Project files
 
 - `sfmc_marketing_cloud_openapi.yaml`
 - `README_sfmc_openapi.md`
-- `TODO_sfmc_openapi.md`
-
-## Backlog
-
-Open work is tracked separately in:
-
 - `TODO_sfmc_openapi.md`

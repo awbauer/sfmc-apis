@@ -1,113 +1,85 @@
 # SFMC OpenAPI Backlog
 
-## Current status snapshot
+## Current snapshot
 
-- Spec version: `0.16.0`
-- Broad fallback request schema references still remain
-- Broad fallback success response schema references still remain
+- Spec version: `0.17.0`
+- Remaining `GenericRequestBody` references: `85`
+- Remaining `GenericResponse` references: `132`
+
+Important note:
+
+The YAML still contains a meaningful amount of broad fallback modeling. This is still useful, but it is not a fully strict, codegen-clean SFMC contract yet.
 
 ## Highest-priority next steps
 
-### 1. MobileConnect status/detail routes
+### 1. Reduce fallback schemas in the biggest remaining route clusters
 
-Tighten the remaining legacy MobileConnect operational routes.
+Focus on the families still carrying the most broad request/response envelopes:
 
-Focus areas:
+- Contacts preference and audience variants
+- Journey Builder route variants not covered by the main lifecycle/detail pass
+- legacy MobileConnect variants not yet tightened
+- remaining Mobile Push list/status variants
+- utility and auth edge routes
 
-- import-send status and delivery-report responses
-- queue import status
-- refresh-list status
-- message delivery and history payloads
-- subscription and keyword administration responses
-
-### 2. Mobile Push status/detail routes
-
-Focus areas:
-
-- application and key detail responses
-- message detail and list responses
-- delivery results by app/contact/list/tag
-- refresh-list status
-
-### 3. Contacts long tail, part 2
-
-The core Contact Builder routes are better. The remaining work is in edge and collection variants.
+### 2. Tighten remaining Contacts long tail
 
 Focus areas:
 
 - preference search variants
 - audience search and count variants
-- richer attribute-group and schema nested objects
-- stricter enums and nested arrays where the docs are stable enough
+- richer schema and attribute-group nesting
+- stricter nested arrays and enums where the docs are stable enough
 
-### 4. Journey Builder collection/detail precision
-
-The lifecycle routes are better now. The remaining work is in richer collection and detail bodies.
+### 3. Tighten remaining Journey Builder detail variants
 
 Focus areas:
 
-- interaction collection/list responses
-- interaction detail responses
-- event-definition list/detail responses
-- audit result detail
-- publish / pause / resume / stop response nuance by route variant
+- route variants by key vs id
+- publish / pause / resume / stop response differences
+- interaction detail nesting
+- event-definition nested fields
+- audit result structure
 
-### 5. Utility and discovery routes
+### 4. Validate normalized paths against current docs
+
+Prioritize route families where the permission matrix was clearly truncated or inconsistent.
 
 Focus areas:
 
-- endpoint discovery responses
-- token-context response
-- domain-verification bulk result envelopes
-- any remaining file-location edge cases
+- legacy MobileConnect routes
+- Journey lifecycle routes with query-string variants
+- utility and discovery routes
+- any key-vs-id path pair where the doc shape is unclear
 
-### 6. Examples
+### 5. Improve examples
 
-Add or improve realistic examples for:
+Add realistic examples for:
 
-- OAuth token requests and responses
-- transactional email definition and send
-- transactional SMS definition and send
+- token acquisition and BU targeting
+- transactional email definition + send
+- transactional SMS definition + send
 - contact upsert / delete / restrict
-- journey event injection and contact exit
-- push message create and send
-- MobileConnect import/status flows
+- Journey event injection and contact exit
+- MobileConnect import and status polling
+- Mobile Push create and send
 - ENS callback and subscription setup
 - Data Extension async write and polling
 
-## Quality work still needed
+### 6. OpenAPI validation and tooling
 
-### Canonical doc verification
+- validate in Swagger Editor or another OpenAPI validator
+- import into Swagger UI and Redoc
+- import into Postman
+- attempt at least one generated SDK
+- document any manual fixes needed for codegen consumers
 
-For normalized or ambiguous routes:
-
-- verify final path forms against the current Salesforce docs
-- confirm query-string semantics
-- confirm key-vs-id route variants
-- confirm any route family where the permissions matrix used truncated paths
-
-### Response hardening
-
-For remaining long-tail routes:
-
-- replace broad fallback envelopes with typed success bodies
-- tighten nested arrays and metadata objects
-- add enums where Salesforce behavior is stable enough
-- use `oneOf` where polymorphism is real and documented
-
-### Tooling validation
-
-- run the YAML through an OpenAPI validator
-- test import in Swagger UI, Redoc, and Postman
-- generate at least one SDK and document manual fixes
-- smoke-test a small client against a sandbox tenant
-
-## Good stopping point for v1.0
+## Quality bar for a broader v1.0
 
 Call the spec ready for broader use when:
 
-- high-value request bodies no longer rely on broad fallback schemas
-- major success responses are typed in the main API families
-- examples exist for the most-used write operations
-- normalized paths have been verified where possible
-- the file validates cleanly and supports at least one usable generated client
+- high-value write routes no longer rely heavily on fallback request bodies
+- the main success responses in core families are typed
+- examples exist for the most-used write and polling flows
+- normalized paths have been checked against current Salesforce docs
+- the YAML validates cleanly in common tooling
