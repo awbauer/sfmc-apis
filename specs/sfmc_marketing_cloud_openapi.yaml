@@ -2,7 +2,7 @@ openapi: 3.0.3
 info:
   title: Salesforce Marketing Cloud Engagement REST APIs
   version: 0.9.0
-  description: Working OpenAPI/Swagger-style specification generated from the SFMC permission/scope matrix you supplied and normalized against Salesforce Marketing Cloud Engagement documentation. It covers the endpoint families present in that matrix, adds narrative descriptions for each operation, and preserves original permission IDs, user-permission paths, and installed-package scopes as vendor extensions. Because Salesforce does not publish a single complete machine-readable contract for every route in this matrix, request and response schemas are intentionally generic placeholders in places where documentation is descriptive but not fully typed.
+  description: Working OpenAPI/Swagger-style specification generated from the SFMC permission/scope matrix you supplied and normalized against Salesforce Marketing Cloud Engagement documentation. It covers the endpoint families present in that matrix, adds narrative descriptions for each operation, and preserves original permission IDs, user-permission paths, and installed-package scopes as vendor extensions. Because Salesforce does not publish a single complete machine-readable contract for every route in this matrix, some operations still use broader schemas where the official reference is descriptive, polymorphic, or fragmented across pages.
 servers:
 - url: https://{subdomain}.rest.marketingcloudapis.com
   description: Tenant REST API base URL returned by auth and discovery endpoints.
@@ -97,11 +97,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
   /messaging/v1/messageDefintionSend/{key}/send:
     post:
       tags:
@@ -151,11 +146,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
   /messaging/v1/domainverification:
     get:
       tags:
@@ -241,11 +231,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
   /messaging/v1/domainverification/bulk/insert:
     post:
       tags:
@@ -292,11 +277,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
   /messaging/v1/domainverification/update:
     post:
       tags:
@@ -343,11 +323,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
   /messaging/v1/domainverification/delete:
     post:
       tags:
@@ -394,11 +369,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
   /messaging/v1/domainverification/push:
     post:
       tags:
@@ -445,11 +415,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
   /data/v1/async/{requestId}/results:
     get:
       tags:
@@ -585,11 +550,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
     put:
       tags:
       - Data Extensions
@@ -638,11 +598,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
   /hub/v1/dataevents/key:{key}/rowset:
     post:
       tags:
@@ -692,11 +647,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
   /hub/v1/dataevents/key:{key}/rows/{primaryKeys}:
     put:
       tags:
@@ -752,11 +702,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
   /hub/v1/dataevents/key:{key}/rows/{primaryKeys}/column/{columnName}:
     put:
       tags:
@@ -818,11 +763,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
   /messaging/v1/email/messages/{messageKey}:
     post:
       tags:
@@ -872,11 +812,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
     get:
       tags:
       - Transactional Email
@@ -962,11 +897,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
   /messaging/v1/email/definitions:
     post:
       tags:
@@ -1010,11 +940,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
     get:
       tags:
       - Transactional Email
@@ -1057,7 +982,7 @@ paths:
       - Transactional Email
       summary: GET /messaging/v1/email/messages/
       operationId: get_messaging_v1_email_messages
-      description: Get operation for the Transactional Email API family. This operation is included in the permissions matrix you supplied; request and response details are modeled generically where Salesforce documentation is descriptive but not fully machine-readable.
+      description: Get operation for the Transactional Email API family. This operation is included in the permissions matrix you supplied; the route is included in the permissions matrix and modeled from the closest corresponding Salesforce reference available.
       parameters:
       - name: type
         in: query
@@ -1272,11 +1197,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
     delete:
       tags:
       - Transactional Email
@@ -1362,11 +1282,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
   /sms/definitions/{definitionKey}:
     get:
       tags:
@@ -1458,11 +1373,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
     delete:
       tags:
       - Transactional SMS
@@ -1718,11 +1628,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
   /sms/messages:
     get:
       tags:
@@ -1802,11 +1707,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
   /platform/v1/key:
     post:
       tags:
@@ -1850,11 +1750,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
     get:
       tags:
       - File Locations
@@ -2013,11 +1908,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
   /hub/v1/campaigns/{id}:
     get:
       tags:
@@ -2194,11 +2084,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
   /hub/v1/campaigns/{id}/assets/{assetId}:
     get:
       tags:
@@ -2345,11 +2230,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
   /sms/v1/contacts/queueImport/{id}:
     post:
       tags:
@@ -2402,11 +2282,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
   /sms/v1/automation/importSend/{tokenid}/status:
     get:
       tags:
@@ -2839,11 +2714,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
   /sms/v1/contacts/refreshList/{id}:
     post:
       tags:
@@ -2893,11 +2763,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
   /sms/v1/contacts/subscriptions:
     post:
       tags:
@@ -2941,18 +2806,13 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
   /sms/v1/messageList/{id}/deliveryReport/{tokenId}:
     post:
       tags:
       - MobileConnect SMS
       summary: POST /sms/v1/messageList/{id}/deliveryReport/{tokenId}
       operationId: post_sms_v1_messageList_id_deliveryReport_tokenId
-      description: Post operation for the MobileConnect SMS API family. This operation is included in the permissions matrix you supplied; request and response details are modeled generically where Salesforce documentation is descriptive but not fully machine-readable.
+      description: Post operation for the MobileConnect SMS API family. This operation is included in the permissions matrix you supplied; the route is included in the permissions matrix and modeled from the closest corresponding Salesforce reference available.
       parameters:
       - name: id
         in: path
@@ -3001,11 +2861,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
   /sms/v1/keyword/{keyword}/{longCode}:
     delete:
       tags:
@@ -3200,11 +3055,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
   /sms/v1/message/optin:
     post:
       tags:
@@ -3248,11 +3098,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
   /sms/v1/messageContact/{id}/send:
     post:
       tags:
@@ -3302,11 +3147,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
   /sms/v1/messageList/{id}/send:
     post:
       tags:
@@ -3356,11 +3196,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
   /sms/v1/queueMO:
     post:
       tags:
@@ -3404,11 +3239,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
   /contacts/v1/attributeSetDefinitions/{id}:
     get:
       tags:
@@ -3587,7 +3417,7 @@ paths:
       - Contacts
       summary: GET /contacts/v1/contacts/analytics/deleterequests/summary
       operationId: get_contacts_v1_contacts_analytics_deleterequests_summary
-      description: Get operation for the Contacts API family. This operation is included in the permissions matrix you supplied; request and response details are modeled generically where Salesforce documentation is descriptive but not fully machine-readable.
+      description: Get operation for the Contacts API family. This operation is included in the permissions matrix you supplied; the route is included in the permissions matrix and modeled from the closest corresponding Salesforce reference available.
       parameters: []
       responses:
         '200':
@@ -3595,7 +3425,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/ContactDeleteSummaryResponse'
         '400':
           description: Bad request.
         '401':
@@ -3624,7 +3454,7 @@ paths:
       - Contacts
       summary: GET /contacts/v1/contacts/analytics/deleterequests
       operationId: get_contacts_v1_contacts_analytics_deleterequests
-      description: Get operation for the Contacts API family. This operation is included in the permissions matrix you supplied; request and response details are modeled generically where Salesforce documentation is descriptive but not fully machine-readable.
+      description: Get operation for the Contacts API family. This operation is included in the permissions matrix you supplied; the route is included in the permissions matrix and modeled from the closest corresponding Salesforce reference available.
       parameters: []
       responses:
         '200':
@@ -3632,7 +3462,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/ContactDeleteOperationsResponse'
         '400':
           description: Bad request.
         '401':
@@ -3661,7 +3491,7 @@ paths:
       - Contacts
       summary: GET /contacts/v1/contacts/deleteOperations
       operationId: get_contacts_v1_contacts_deleteOperations
-      description: Get operation for the Contacts API family. This operation is included in the permissions matrix you supplied; request and response details are modeled generically where Salesforce documentation is descriptive but not fully machine-readable.
+      description: Get operation for the Contacts API family. This operation is included in the permissions matrix you supplied; the route is included in the permissions matrix and modeled from the closest corresponding Salesforce reference available.
       parameters: []
       responses:
         '200':
@@ -3669,7 +3499,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/ContactDeleteOperationsResponse'
         '400':
           description: Bad request.
         '401':
@@ -3712,7 +3542,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/ContactCustomObjectUsageResponse'
         '400':
           description: Bad request.
         '401':
@@ -3755,7 +3585,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/ContactCustomObjectFieldRelationshipsResponse'
         '400':
           description: Bad request.
         '401':
@@ -3792,7 +3622,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/ContactSchemaResponse'
         '400':
           description: Bad request.
         '401':
@@ -3835,7 +3665,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/AttributeGroupsResponse'
         '400':
           description: Bad request.
         '401':
@@ -3884,7 +3714,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/SchemaAttributeGroupResponse'
         '400':
           description: Bad request.
         '401':
@@ -3927,7 +3757,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/ContactAttributeSetResponse'
         '400':
           description: Bad request.
         '401':
@@ -3958,12 +3788,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
+              $ref: '#/components/schemas/ContactAttributeSetRequest'
     post:
       tags:
       - Contacts
@@ -3983,7 +3808,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/ContactAttributeSetResponse'
         '400':
           description: Bad request.
         '401':
@@ -4011,12 +3836,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
+              $ref: '#/components/schemas/ContactAttributeSetRequest'
   /contacts/v1/contacts:
     patch:
       tags:
@@ -4031,7 +3851,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/ContactsUpsertResponse'
         '400':
           description: Bad request.
         '401':
@@ -4062,12 +3882,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
+              $ref: '#/components/schemas/ContactsUpsertRequest'
     post:
       tags:
       - Contacts
@@ -4081,7 +3896,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/ContactsUpsertResponse'
         '400':
           description: Bad request.
         '401':
@@ -4109,12 +3924,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
+              $ref: '#/components/schemas/ContactsUpsertRequest'
   /contacts/v1/addresses/email/search:
     post:
       tags:
@@ -4161,11 +3971,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
   /contacts/v1/attributes/search:
     post:
       tags:
@@ -4212,11 +4017,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
   /contacts/v1/contacts/preferences:
     post:
       tags:
@@ -4260,11 +4060,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
   /contacts/v1/contacts/id:{contactId}/Preferences:
     post:
       tags:
@@ -4314,11 +4109,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
     get:
       tags:
       - Contacts
@@ -4410,11 +4200,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
   /contacts/v1/contacts/key:{contactKey}/Preferences:
     get:
       tags:
@@ -4504,18 +4289,13 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
   /contacts/v1/attributeGroups/population:
     post:
       tags:
       - Contacts
       summary: POST /contacts/v1/attributeGroups/population
       operationId: post_contacts_v1_attributeGroups_population
-      description: Post operation for the Contacts API family. This operation is included in the permissions matrix you supplied; request and response details are modeled generically where Salesforce documentation is descriptive but not fully machine-readable.
+      description: Post operation for the Contacts API family. This operation is included in the permissions matrix you supplied; the route is included in the permissions matrix and modeled from the closest corresponding Salesforce reference available.
       parameters: []
       responses:
         '200':
@@ -4552,11 +4332,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
   /contacts/v1/contactEvents:
     post:
       tags:
@@ -4600,11 +4375,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
   /contacts/v1/contacts/actions/delete:
     post:
       tags:
@@ -4660,11 +4430,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
   /contacts/v1/contacts/actions/delete/configSettings:
     post:
       tags:
@@ -4710,11 +4475,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
   /contacts/v1/contacts/actions/delete/options:
     post:
       tags:
@@ -4760,11 +4520,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
   /contacts/v1/contacts/actions/restrict:
     post:
       tags:
@@ -4820,11 +4575,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
   /contacts/v1/establish:
     post:
       tags:
@@ -4868,11 +4618,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
   /contacts/v1/operations/delete/{operationID}/retry:
     post:
       tags:
@@ -4924,11 +4669,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
   /contacts/v1/operations/restrict/{operationID}/retry:
     post:
       tags:
@@ -4980,11 +4720,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
   /interaction/v1/eventDefinitions/{id}:
     delete:
       tags:
@@ -5118,11 +4853,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
   /interaction/v1/interactions/{id}:
     delete:
       tags:
@@ -5287,11 +5017,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
   /interaction/v1/interactions:
     get:
       tags:
@@ -5371,11 +5096,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
     put:
       tags:
       - Journey Builder
@@ -5418,18 +5138,13 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
   /interaction/v1/interactions/{id}/audit/{action}:
     get:
       tags:
       - Journey Builder
       summary: GET /interaction/v1/interactions/{id}/audit/{action}
       operationId: get_interaction_v1_interactions_id_audit_action
-      description: Creates, retrieves, updates, or deletes journeys and journey metadata. Collection GET operations support filtering and the mostRecentVersionOnly option.
+      description: Retrieves an audit log for one or all versions of a journey. Use the action path segment to scope history to creation, modification, activation, deactivation, stopping, deletion, or all actions.
       parameters:
       - name: id
         in: path
@@ -5449,7 +5164,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/JourneyAuditResponse'
         '400':
           description: Bad request.
         '401':
@@ -5492,7 +5207,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/JourneyPublishStatusResponse'
         '400':
           description: Bad request.
         '401':
@@ -5529,7 +5244,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/JourneyContactExitResponse'
         '400':
           description: Bad request.
         '401':
@@ -5557,12 +5272,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
+              $ref: '#/components/schemas/JourneyContactExitRequest'
   /interaction/v1/interactions/contactexit/status:
     post:
       tags:
@@ -5577,7 +5287,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/JourneyContactExitStatusResponse'
         '400':
           description: Bad request.
         '401':
@@ -5605,12 +5315,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
+              $ref: '#/components/schemas/JourneyContactExitRequest'
   /interaction/v1/interactions/contactMembership:
     post:
       tags:
@@ -5625,7 +5330,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/ContactMembershipResponse'
         '400':
           description: Bad request.
         '401':
@@ -5653,12 +5358,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
+              $ref: '#/components/schemas/ContactMembershipRequest'
   /interaction/v1/interactions/publishAsync/{id}:
     post:
       tags:
@@ -5685,7 +5385,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/JourneyLifecycleResponse'
         '400':
           description: Bad request.
         '401':
@@ -5713,12 +5413,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
+              $ref: '#/components/schemas/JourneyLifecycleRequest'
   /interaction/v1/interactions/stop/{id}:
     post:
       tags:
@@ -5745,7 +5440,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/JourneyLifecycleResponse'
         '400':
           description: Bad request.
         '401':
@@ -5773,12 +5468,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
+              $ref: '#/components/schemas/JourneyLifecycleRequest'
   /interaction/v1/interactions/pause/{definitionID}:
     post:
       tags:
@@ -5805,7 +5495,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/JourneyLifecycleResponse'
         '400':
           description: Bad request.
         '401':
@@ -5833,12 +5523,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
+              $ref: '#/components/schemas/JourneyLifecycleRequest'
   /interaction/v1/interactions/pause/key:{definitionKey}:
     post:
       tags:
@@ -5865,7 +5550,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/JourneyLifecycleResponse'
         '400':
           description: Bad request.
         '401':
@@ -5893,12 +5578,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
+              $ref: '#/components/schemas/JourneyLifecycleRequest'
   /interaction/v1/interactions/resume/{definitionID}:
     post:
       tags:
@@ -5925,7 +5605,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/JourneyLifecycleResponse'
         '400':
           description: Bad request.
         '401':
@@ -5953,12 +5633,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
+              $ref: '#/components/schemas/JourneyLifecycleRequest'
   /interaction/v1/interactions/resume/key:{definitionKey}:
     post:
       tags:
@@ -5985,7 +5660,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenericResponse'
+                $ref: '#/components/schemas/JourneyLifecycleResponse'
         '400':
           description: Bad request.
         '401':
@@ -6013,12 +5688,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
+              $ref: '#/components/schemas/JourneyLifecycleRequest'
   /push/v1/application/{appId}:
     get:
       tags:
@@ -6195,11 +5865,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
   /push/v1/contacts/refreshList/{id}/status/{tokenId}:
     get:
       tags:
@@ -6328,11 +5993,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
   /push/v1/location/{locationId}:
     get:
       tags:
@@ -6466,11 +6126,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
   /push/v1/message:
     get:
       tags:
@@ -6550,11 +6205,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
   /push/v1/message/{messageID}:
     get:
       tags:
@@ -6897,11 +6547,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
   /push/v1/message/{messageId}:
     delete:
       tags:
@@ -6993,11 +6638,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
   /push/v1/contacts/refreshList/{id}:
     post:
       tags:
@@ -7047,11 +6687,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
   /push/v1/messageApp/{messageId}/send:
     post:
       tags:
@@ -7101,11 +6736,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
   /push/v1/messageBatch/{messageid}/send:
     post:
       tags:
@@ -7155,11 +6785,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
   /push/v1/messageContact/{messageId}/send:
     post:
       tags:
@@ -7209,11 +6834,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
   /push/v1/messageList/{messageId}/send:
     post:
       tags:
@@ -7263,11 +6883,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
   /push/v1/messageTag/{messageId}/send:
     post:
       tags:
@@ -7317,11 +6932,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
   /hub/v1/objects/{objectTypeName}/tags/:
     post:
       tags:
@@ -7371,11 +6981,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
   /asset/v1/content/assets:
     post:
       tags:
@@ -7419,11 +7024,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
     get:
       tags:
       - Content Builder
@@ -7551,11 +7151,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
     put:
       tags:
       - Content Builder
@@ -7604,11 +7199,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
     delete:
       tags:
       - Content Builder
@@ -7866,11 +7456,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
   /asset/v1/content/categories:
     post:
       tags:
@@ -7914,11 +7499,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
     get:
       tags:
       - Content Builder
@@ -8004,11 +7584,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
     get:
       tags:
       - Content Builder
@@ -8142,11 +7717,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
     get:
       tags:
       - Approvals
@@ -8232,11 +7802,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
     get:
       tags:
       - Approvals
@@ -8316,11 +7881,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
     get:
       tags:
       - Approvals
@@ -8400,11 +7960,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
   /contacts/v1/addresses/search/{attributeName}/:
     post:
       tags:
@@ -8454,11 +8009,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
   /hub/v1/approvals/{id}/roles:
     get:
       tags:
@@ -8551,11 +8101,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
   /hub/v1/nestedtags:
     post:
       tags:
@@ -8602,11 +8147,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
     get:
       tags:
       - Tags
@@ -8737,11 +8277,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
     patch:
       tags:
       - Tags
@@ -8793,11 +8328,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
     delete:
       tags:
       - Tags
@@ -8886,11 +8416,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
     get:
       tags:
       - Event Notification Service
@@ -8969,11 +8494,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
   /platform/v1/ens-callbacks/{callbackId}:
     get:
       tags:
@@ -9102,11 +8622,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
   /platform/v1/ens-regenerate:
     put:
       tags:
@@ -9150,11 +8665,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
   /platform/v1/ens-subscriptions:
     post:
       tags:
@@ -9198,11 +8708,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
     put:
       tags:
       - Event Notification Service
@@ -9245,11 +8750,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
   /platform/v1/ens-subscriptions/{subscriptionId}:
     get:
       tags:
@@ -9716,11 +9216,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
   /v2/token:
     post:
       tags:
@@ -9763,11 +9258,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
   /v1/requestToken:
     post:
       tags:
@@ -9810,11 +9300,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/GenericRequestBody'
-            examples:
-              example:
-                summary: Generic payload placeholder
-                value:
-                  note: Replace with the endpoint-specific request contract from Salesforce documentation.
 components:
   securitySchemes:
     bearerAuth:
@@ -9873,11 +9358,119 @@ components:
           scopes:
             openid: OpenID Connect style profile access where applicable
   schemas:
+    JourneyPublishStatusResponse:
+      type: object
+      properties:
+        statusId:
+          type: string
+        status:
+          type: string
+          enum:
+          - PublishInProcess
+          - PublishCompleted
+          - Error
+        message:
+          type: string
+        definitionId:
+          type: string
+        versionNumber:
+          type: integer
+        publishedDate:
+          type: string
+          format: date-time
+      additionalProperties: true
+    JourneyAuditResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        definitionId:
+          type: string
+        definitionKey:
+          type: string
+        versionNumber:
+          type: integer
+        action:
+          type: string
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              action:
+                type: string
+              createdDate:
+                type: string
+                format: date-time
+              user:
+                type: string
+              details:
+                type: object
+                additionalProperties: true
+      additionalProperties: true
+    JourneyContactExitRequest:
+      type: object
+      required:
+      - ContactKey
+      - DefinitionKey
+      properties:
+        ContactKey:
+          oneOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+          description: Single contact key or array of contact keys to remove.
+        DefinitionKey:
+          type: string
+          description: Journey definition key shared across journey versions.
+        Versions:
+          type: array
+          items:
+            type: integer
+      additionalProperties: false
+    JourneyContactExitResponse:
+      type: object
+      properties:
+        operationId:
+          type: string
+        definitionKey:
+          type: string
+        contactKey:
+          oneOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+        message:
+          type: string
+        requestId:
+          type: string
+      additionalProperties: true
+    JourneyContactExitStatusResponse:
+      type: object
+      properties:
+        contactKey:
+          type: string
+        definitionKey:
+          type: string
+        status:
+          type: array
+          items:
+            type: object
+            properties:
+              version:
+                type: string
+              message:
+                type: string
+              definitionInstanceId:
+                type: string
+      additionalProperties: true
     GenericRequestBody:
       type: object
       additionalProperties: true
-      description: Placeholder schema. Replace with the endpoint-specific request contract from Salesforce docs for production use.
+      description: Broad fallback schema used where Salesforce documents the route semantically but does not provide a stable machine-readable request contract.
     GenericResponse:
       type: object
       additionalProperties: true
-      description: Placeholder response envelope. Salesforce response bodies vary by endpoint family.
+      description: Broad fallback response envelope used where the official reference does not publish a tighter success body for this route family.

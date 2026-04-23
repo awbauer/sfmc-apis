@@ -2,74 +2,78 @@
 
 ## Current status snapshot
 
-- Spec version: `0.15.0`
-- Remaining `GenericRequestBody` references: **60**
-- Remaining `GenericResponse` references: **100**
+- Spec version: `0.16.0`
+- Broad fallback request schema references still remain
+- Broad fallback success response schema references still remain
 
 ## Highest-priority next steps
 
-### 1. Contacts long tail
+### 1. MobileConnect status/detail routes
 
-Tighten the remaining Contacts and Contact Builder routes that still rely on broad contracts.
-
-Focus areas:
-
-- schema and attribute-group retrieval responses
-- delete/restrict analytics and status variants
-- preference search variants
-- audience search/count variants beyond current top-level contracts
-
-### 2. Journey Builder response precision
-
-Keep the request side as-is and harden the success bodies.
+Tighten the remaining legacy MobileConnect operational routes.
 
 Focus areas:
 
-- publish async result detail
-- stop / pause / resume response envelopes
-- audit action response detail
-- key-vs-id lifecycle route variants where source rows were truncated
+- import-send status and delivery-report responses
+- queue import status
+- refresh-list status
+- message delivery and history payloads
+- subscription and keyword administration responses
 
-### 3. MobileConnect detail and status routes
-
-Focus areas:
-
-- delivery report/status variants
-- message history/detail routes
-- async import and list-refresh status payloads
-- richer message and delivery result substructures
-
-### 4. Mobile Push detail and status routes
+### 2. Mobile Push status/detail routes
 
 Focus areas:
 
 - application and key detail responses
-- message detail variants
-- delivery results
-- refresh-list status responses
+- message detail and list responses
+- delivery results by app/contact/list/tag
+- refresh-list status
 
-### 5. Domain verification and utility routes
+### 3. Contacts long tail, part 2
+
+The core Contact Builder routes are better. The remaining work is in edge and collection variants.
 
 Focus areas:
 
-- bulk insert/update/delete/push result envelopes
+- preference search variants
+- audience search and count variants
+- richer attribute-group and schema nested objects
+- stricter enums and nested arrays where the docs are stable enough
+
+### 4. Journey Builder collection/detail precision
+
+The lifecycle routes are better now. The remaining work is in richer collection and detail bodies.
+
+Focus areas:
+
+- interaction collection/list responses
+- interaction detail responses
+- event-definition list/detail responses
+- audit result detail
+- publish / pause / resume / stop response nuance by route variant
+
+### 5. Utility and discovery routes
+
+Focus areas:
+
 - endpoint discovery responses
 - token-context response
+- domain-verification bulk result envelopes
 - any remaining file-location edge cases
 
 ### 6. Examples
 
-Add production-useful examples for:
+Add or improve realistic examples for:
 
-- OAuth token request and response
-- transactional email definition + send
-- transactional SMS definition + send
+- OAuth token requests and responses
+- transactional email definition and send
+- transactional SMS definition and send
 - contact upsert / delete / restrict
-- journey event injection
-- push message create + send
-- asset create / query
-- ENS callback + subscription setup
-- data extension async row write + result polling
+- journey event injection and contact exit
+- push message create and send
+- MobileConnect import/status flows
+- ENS callback and subscription setup
+- Data Extension async write and polling
 
 ## Quality work still needed
 
@@ -77,30 +81,33 @@ Add production-useful examples for:
 
 For normalized or ambiguous routes:
 
-- verify route forms against current Salesforce docs
-- confirm exact query-string semantics
-- verify id-vs-key route variants
+- verify final path forms against the current Salesforce docs
+- confirm query-string semantics
+- confirm key-vs-id route variants
+- confirm any route family where the permissions matrix used truncated paths
 
 ### Response hardening
 
-For long-tail routes:
+For remaining long-tail routes:
 
-- replace broad envelopes with typed success bodies
+- replace broad fallback envelopes with typed success bodies
 - tighten nested arrays and metadata objects
 - add enums where Salesforce behavior is stable enough
+- use `oneOf` where polymorphism is real and documented
 
 ### Tooling validation
 
-- run the YAML through OpenAPI validators
-- test import in Swagger UI / Redoc / Postman
-- test at least one codegen target and document any manual fixes needed
+- run the YAML through an OpenAPI validator
+- test import in Swagger UI, Redoc, and Postman
+- generate at least one SDK and document manual fixes
+- smoke-test a small client against a sandbox tenant
 
 ## Good stopping point for v1.0
 
 Call the spec ready for broader use when:
 
-- generic request bodies are removed from top-priority operational routes
+- high-value request bodies no longer rely on broad fallback schemas
 - major success responses are typed in the main API families
-- examples are present for the most-used write operations
-- normalized paths are verified where possible
+- examples exist for the most-used write operations
+- normalized paths have been verified where possible
 - the file validates cleanly and supports at least one usable generated client
