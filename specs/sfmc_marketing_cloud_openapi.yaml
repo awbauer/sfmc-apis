@@ -39,6 +39,8 @@ servers:
   variables:
     subdomain:
       default: YOUR_SUBDOMAIN
+security:
+- bearerAuth: []
 tags:
 - name: Auth
   description: OAuth 2.0 and legacy token endpoints for Marketing Cloud Engagement
@@ -497,6 +499,21 @@ components:
               resources
             ott_channels_send: Send OTT messages across registered channels
             ott_channels_write: Create, update, and delete OTT channel resources
+  parameters:
+    page:
+      name: $page
+      in: query
+      required: false
+      schema:
+        type: integer
+      description: One-based page index.
+    pageSize:
+      name: $pageSize
+      in: query
+      required: false
+      schema:
+        type: integer
+      description: Page size.
   schemas:
     JourneyPublishStatusResponse:
       type: object

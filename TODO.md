@@ -19,11 +19,11 @@ This file now tracks task status explicitly:
 ## P1 — Cross-cutting architecture
 
 7. ⬜ **Scope the auth host per operation** — Auth/discovery server scoping still needs explicit operation-level overrides (or a split auth spec).
-8. ⬜ **Add a root-level default `security:`** — Root-level `security:` default is still missing; auth/discovery routes already use `security: []`.
+8. ✅ **Add a root-level default `security:`** — Root-level `security:` now defaults to `bearerAuth`; auth/discovery routes still override with `security: []`.
 9. 🟡 **Introduce shared error schemas and reusable responses** — Some families use shared responses; rollout to every operation remains incomplete.
 10. 🟡 **Codify `additionalProperties` policy** — Many schemas conform; full repo-wide sweep still pending.
-11. 🟡 **Mark legacy routes deprecated** — Several legacy routes are flagged, but not all superseded variants are consistently marked.
-12. ⬜ **Add reusable paging parameters** — Not yet fully centralized and applied across all collection GETs.
+11. 🟡 **Mark legacy routes deprecated** — Legacy auth token, Automation Studio beta routes, and core MobileConnect send entry points are now flagged; additional superseded variants still need a consistency sweep.
+12. ✅ **Add reusable paging parameters** — Shared `components.parameters.page` and `pageSize` now back the live collection paging usage on Automation Studio.
 
 ## P2 — Replace fallback schemas with typed models
 
