@@ -1,15 +1,13 @@
-# SFMC OpenAPI Backlog
+# SFMC Migration Toolkit Backlog
 
 ## Current snapshot
 
-- Spec version: `0.18.0`
+- Spec version: `0.19.0`
 - Remaining `GenericRequestBody` references: `93`
 - Remaining `GenericResponse` references: `150`
 - Fallback density by file (highest first): contacts `38`, content_builder `22`, mobile_push `19`, event_notification_service `18`, transactional_sms `15`, transactional_email `15`, transactional_ott `15`, mobileconnect_sms `15`, automation_studio `15`, tags `13`, data_extensions `12`, campaigns `10`, approvals `10`, journey_builder `6`, domain_verification `5`, file_locations `4`, groupconnect_chat `4`, triggered_email `2`, audit_logging `2`, address_validation `2`, discovery `1`, auth `0`.
 
-Important note:
-
-The YAML still contains a meaningful amount of broad fallback modeling. It is useful as a route map but is not yet a strict, codegen-clean SFMC contract. The items in §P0 are hard defects that block spec validation today.
+This backlog tracks the work needed before agents can rely on this repo as a complete migration toolkit for SFMC: spec hygiene, typed schemas for migration-critical write flows, recipe coverage, and agent tooling. Migration recipes live in `specs/migrations/` and must stay in sync with the OpenAPI operations they invoke (enforced by `npm run check:migrations`). The items in §P0 are hard defects that block spec validation today.
 
 ## Recently completed
 
@@ -295,6 +293,20 @@ Current naming (`post_v2_token`, `get_messaging_v1_email_messages`) is
 regular but fragile against future additions. Add an explicit check.
 
 ---
+
+## Migration coverage backlog
+
+Gaps to close in the recipe library (`specs/migrations/*.yaml`) and surrounding agent tooling:
+
+- Add `export-data-extension-rows` once a REST read path is documented here (DE row export is currently SOAP-only in SFMC and is not covered by this inventory).
+- Add `export-content-builder-assets-full-tenant` recipe that walks every category tree, not just a single folder.
+- Add `import-journey-event-definitions` as a standalone recipe (today event definitions are embedded in `import-journey-definitions`).
+- Add `export-contacts-by-attribute-set` once the Contacts search endpoints are typed (see §15).
+- Add `import-contacts-upsert` once the upsert body is typed (see §15).
+- Add `export-audit-events` with cursor/paging once the audit envelope is typed (see §27).
+- Extend `check-migration-extensions.mjs` to enforce that every operation referenced by a recipe step also carries `x-sfmc-installed-package-scopes` (catch silent scope drift).
+- Add `x-idempotent: true` on read-only GETs so recipes can blind-retry 5xx without per-step annotation.
+- Teach `mcp-server.mjs` a `plan_migration` tool that composes an export recipe with a matching import recipe (explicit cross-tenant use case, kept out of the recipe schema on purpose).
 
 ## Quality bar for a broader v1.0
 

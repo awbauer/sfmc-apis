@@ -1,0 +1,49 @@
+id: export-content-builder-folders
+name: Export the Content Builder folder tree
+description: Lists every Content Builder category (folder) the caller can see and
+  fetches each one in detail so the resulting structure can be rebuilt in another
+  tenant.
+direction: export
+source_system: salesforce-marketing-cloud
+target_system: generic-json
+family: content_builder
+prerequisites:
+  scopes:
+    - documents_and_images_read
+    - email_read
+  inputs_required: []
+steps:
+  - id: list_categories
+    operation_id: get_asset_v1_content_categories
+    why: Enumerate every category (folder) visible to the caller.
+    outputs:
+      items: "$.items"
+      total: "$.count"
+    retry:
+      on_status: [429, 502, 503, 504]
+      max_attempts: 5
+      backoff: exponential
+    idempotency:
+      key_source: "literal:list"
+      notes: Read-only list.
+  - id: describe_category
+    operation_id: get_asset_v1_content_categories_id
+    why: Fetch full details (parentId, memberId, description) per category — the
+      list response occasionally elides these on large tenants.
+    inputs:
+      id:
+        source: "step.list_categories.output.items[*].id"
+        required: true
+    outputs:
+      category: "$"
+    retry:
+      on_status: [429, 502, 503, 504]
+      max_attempts: 5
+      backoff: exponential
+    idempotency:
+      key_source: "inputs.id"
+      notes: Read-only.
+idempotency_notes: Entire recipe is read-only. Safe to re-run.
+references:
+  - url: https://developer.salesforce.com/docs/marketing/marketing-cloud/guide/content-api.html
+    title: Content Builder API reference

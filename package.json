@@ -2,12 +2,19 @@
   "name": "sfmc-apis",
   "version": "0.1.0",
   "private": true,
-  "description": "Salesforce Marketing Cloud Engagement REST OpenAPI spec and docs build",
+  "description": "Agent-oriented migration toolkit for Salesforce Marketing Cloud Engagement: OpenAPI contract, migration recipes, catalog builder, and MCP server stub.",
   "scripts": {
     "build": "node scripts/build-swagger-site.mjs",
+    "catalog": "node scripts/build-migration-catalog.mjs",
     "validate:openapi": "npx -y @apidevtools/swagger-cli validate specs/sfmc_marketing_cloud_openapi.yaml",
     "lint:openapi": "npx -y @stoplight/spectral-cli lint --fail-severity=error specs/sfmc_marketing_cloud_openapi.yaml",
     "check:scopes": "node scripts/check-scope-sync.mjs",
-    "validate": "npm run validate:openapi && npm run lint:openapi && npm run check:scopes"
+    "check:migrations": "node scripts/check-migration-extensions.mjs",
+    "mcp": "node scripts/mcp-server.mjs",
+    "validate": "npm run validate:openapi && npm run lint:openapi && npm run check:scopes && npm run check:migrations && npm run catalog"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.4",
+    "js-yaml": "^4.1.0"
   }
 }

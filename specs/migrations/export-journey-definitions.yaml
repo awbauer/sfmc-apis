@@ -1,0 +1,71 @@
+id: export-journey-definitions
+name: Export Journey Builder definitions and their event definitions
+description: Lists every journey (interaction) in the tenant, fetches full
+  definitions, and also exports the event definitions they depend on so the set
+  can be replayed in another tenant.
+direction: export
+source_system: salesforce-marketing-cloud
+target_system: generic-json
+family: journey_builder
+prerequisites:
+  scopes:
+    - journeys_read
+  inputs_required: []
+steps:
+  - id: list_journeys
+    operation_id: get_interaction_v1_interactions
+    why: Enumerate every journey the caller can see, across versions.
+    inputs:
+      extras:
+        source: literal
+        value: all
+      mostRecentVersionOnly:
+        source: literal
+        value: false
+    outputs:
+      items: "$.items"
+      total: "$.count"
+    retry:
+      on_status: [429, 502, 503, 504]
+      max_attempts: 5
+      backoff: exponential
+  - id: fetch_journey_detail
+    operation_id: get_interaction_v1_interactions_id
+    why: Fetch the full journey definition (activities, goals, exits) per id.
+    inputs:
+      id:
+        source: "step.list_journeys.output.items[*].id"
+        required: true
+    outputs:
+      journey: "$"
+    retry:
+      on_status: [429, 502, 503, 504]
+      max_attempts: 5
+      backoff: exponential
+  - id: list_event_definitions
+    operation_id: get_interaction_v1_eventDefinitions
+    why: Journeys reference event definitions by key; export them as a separate
+      artifact so the import recipe can re-create them first.
+    outputs:
+      items: "$.items"
+    retry:
+      on_status: [429, 502, 503, 504]
+      max_attempts: 5
+      backoff: exponential
+  - id: fetch_event_definition
+    operation_id: get_interaction_v1_eventDefinitions_id
+    why: Pull the full event definition payload per id.
+    inputs:
+      id:
+        source: "step.list_event_definitions.output.items[*].id"
+        required: true
+    outputs:
+      event_definition: "$"
+    retry:
+      on_status: [429, 502, 503, 504]
+      max_attempts: 5
+      backoff: exponential
+idempotency_notes: Entire recipe is read-only. Safe to re-run end-to-end.
+references:
+  - url: https://developer.salesforce.com/docs/marketing/marketing-cloud/references/mc_rest_interaction
+    title: Journey Builder REST reference

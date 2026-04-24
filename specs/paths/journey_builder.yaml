@@ -5,6 +5,7 @@ paths:
       - Journey Builder
       summary: POST /interaction/v1/events
       operationId: post_interaction_v1_events
+      x-migration-direction: control-plane
       description: Fires a Journey Builder event to inject a contact into a journey.
         Salesforce requires contactKey, eventDefinitionKey, and any event data needed
         by the event definition; successful calls return an eventInstanceId.
@@ -97,6 +98,7 @@ paths:
       - Journey Builder
       summary: GET /interaction/v1/eventDefinitions/{id}
       operationId: get_interaction_v1_eventDefinitions_id
+      x-migration-direction: export
       description: Creates, retrieves, updates, or deletes Journey Builder event definitions.
         Event definitions describe the external event contract that can start or feed
         a journey.
@@ -236,6 +238,7 @@ paths:
       - Journey Builder
       summary: GET /interaction/v1/interactions/{id}
       operationId: get_interaction_v1_interactions_id
+      x-migration-direction: export
       description: Creates, retrieves, updates, or deletes journeys and journey metadata.
         Collection GET operations support filtering and the mostRecentVersionOnly
         option.
@@ -281,6 +284,7 @@ paths:
       - Journey Builder
       summary: GET /interaction/v1/eventDefinitions
       operationId: get_interaction_v1_eventDefinitions
+      x-migration-direction: export
       description: Creates, retrieves, updates, or deletes Journey Builder event definitions.
         Event definitions describe the external event contract that can start or feed
         a journey.
@@ -319,6 +323,7 @@ paths:
       - Journey Builder
       summary: POST /interaction/v1/eventDefinitions
       operationId: post_interaction_v1_eventDefinitions
+      x-migration-direction: import
       description: Creates, retrieves, updates, or deletes Journey Builder event definitions.
         Event definitions describe the external event contract that can start or feed
         a journey.
@@ -364,6 +369,7 @@ paths:
       - Journey Builder
       summary: GET /interaction/v1/interactions
       operationId: get_interaction_v1_interactions
+      x-migration-direction: export
       description: Creates, retrieves, updates, or deletes journeys and journey metadata.
         Collection GET operations support filtering and the mostRecentVersionOnly
         option.
@@ -402,6 +408,7 @@ paths:
       - Journey Builder
       summary: POST /interaction/v1/interactions
       operationId: post_interaction_v1_interactions
+      x-migration-direction: import
       description: Creates, retrieves, updates, or deletes journeys and journey metadata.
         Collection GET operations support filtering and the mostRecentVersionOnly
         option.
@@ -717,8 +724,9 @@ paths:
       - Journey Builder
       summary: POST /interaction/v1/interactions/publishAsync/{id}
       operationId: post_interaction_v1_interactions_publishAsync_id
+      x-migration-direction: control-plane
       description: 'Performs an operational lifecycle action on a journey version.
-        These routes are used by release and operations teams to publish, pause, resume,
+        These control-plane routes are invoked by migration agents to publish, pause, resume,
         or stop journeys without opening the UI. Note: the source permissions matrix
         truncated this route in at least one place; the OpenAPI path here normalizes
         the placeholder so the spec remains valid.'
@@ -776,8 +784,9 @@ paths:
       - Journey Builder
       summary: POST /interaction/v1/interactions/stop/{id}
       operationId: post_interaction_v1_interactions_stop_id
+      x-migration-direction: control-plane
       description: 'Performs an operational lifecycle action on a journey version.
-        These routes are used by release and operations teams to publish, pause, resume,
+        These control-plane routes are invoked by migration agents to publish, pause, resume,
         or stop journeys without opening the UI. Note: the source permissions matrix
         truncated this route in at least one place; the OpenAPI path here normalizes
         the placeholder so the spec remains valid.'
@@ -835,8 +844,9 @@ paths:
       - Journey Builder
       summary: POST /interaction/v1/interactions/pause/{definitionID}
       operationId: post_interaction_v1_interactions_pause_definitionID
+      x-migration-direction: control-plane
       description: Performs an operational lifecycle action on a journey version.
-        These routes are used by release and operations teams to publish, pause, resume,
+        These control-plane routes are invoked by migration agents to publish, pause, resume,
         or stop journeys without opening the UI.
       parameters:
       - name: definitionID
@@ -893,7 +903,7 @@ paths:
       summary: POST /interaction/v1/interactions/pause/key:{definitionKey}
       operationId: post_interaction_v1_interactions_pause_key_definitionKey
       description: Performs an operational lifecycle action on a journey version.
-        These routes are used by release and operations teams to publish, pause, resume,
+        These control-plane routes are invoked by migration agents to publish, pause, resume,
         or stop journeys without opening the UI.
       parameters:
       - name: definitionKey
@@ -949,8 +959,9 @@ paths:
       - Journey Builder
       summary: POST /interaction/v1/interactions/resume/{definitionID}
       operationId: post_interaction_v1_interactions_resume_definitionID
+      x-migration-direction: control-plane
       description: Performs an operational lifecycle action on a journey version.
-        These routes are used by release and operations teams to publish, pause, resume,
+        These control-plane routes are invoked by migration agents to publish, pause, resume,
         or stop journeys without opening the UI.
       parameters:
       - name: definitionID
@@ -1007,7 +1018,7 @@ paths:
       summary: POST /interaction/v1/interactions/resume/key:{definitionKey}
       operationId: post_interaction_v1_interactions_resume_key_definitionKey
       description: Performs an operational lifecycle action on a journey version.
-        These routes are used by release and operations teams to publish, pause, resume,
+        These control-plane routes are invoked by migration agents to publish, pause, resume,
         or stop journeys without opening the UI.
       parameters:
       - name: definitionKey
