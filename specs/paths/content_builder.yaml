@@ -35,7 +35,8 @@ paths:
       x-sfmc-user-permission-paths:
       - Content Builder > Assets > Create and Email > Content > Email > Create
       x-sfmc-installed-package-scopes:
-      - saved_content_write and email_write
+      - saved_content_write
+      - email_write
       x-original-marketing-cloud-paths:
       - /asset/v1/content/assets
       requestBody:
@@ -168,7 +169,8 @@ paths:
       x-sfmc-user-permission-paths:
       - Content Builder > Assets > Update and Email > Content > Email > Update
       x-sfmc-installed-package-scopes:
-      - documents_and_images_write and email_write
+      - documents_and_images_write
+      - email_write
       x-original-marketing-cloud-paths:
       - /asset/v1/content/assets/{id}
       requestBody:
@@ -218,7 +220,8 @@ paths:
       x-sfmc-user-permission-paths:
       - Content Builder > Assets > Update and Email > Content > Email > Update
       x-sfmc-installed-package-scopes:
-      - documents_and_images_write and email_write
+      - documents_and_images_write
+      - email_write
       x-original-marketing-cloud-paths:
       - /asset/v1/content/assets/{id}
       requestBody:
@@ -268,7 +271,8 @@ paths:
       x-sfmc-user-permission-paths:
       - Content Builder > Assets > Delete and Email > Content > Email > Delete
       x-sfmc-installed-package-scopes:
-      - documents_and_images_write and email_write
+      - documents_and_images_write
+      - email_write
       x-original-marketing-cloud-paths:
       - /asset/v1/content/assets/{id}
   /asset/v1/content/assets/{id}/channelviews/{viewname}:

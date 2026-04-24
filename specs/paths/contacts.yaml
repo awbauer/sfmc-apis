@@ -848,7 +848,7 @@ paths:
       x-sfmc-user-permission-paths:
       - IMH Contacts > Access
       x-sfmc-installed-package-scopes:
-      - Contacts_access
+      - contacts_write
       x-original-marketing-cloud-paths:
       - /contacts/v1/contacts/preferences
       requestBody:
@@ -899,7 +899,7 @@ paths:
       x-sfmc-user-permission-paths:
       - IMH Contacts > Access
       x-sfmc-installed-package-scopes:
-      - Contacts_access
+      - contacts_write
       x-original-marketing-cloud-paths:
       - /contacts/v1/contacts/id:{contactId}/Preferences
       requestBody:
@@ -949,7 +949,7 @@ paths:
       x-sfmc-user-permission-paths:
       - IMH Contacts > Access
       x-sfmc-installed-package-scopes:
-      - Contacts_access
+      - contacts_read
       x-original-marketing-cloud-paths:
       - /contacts/v1/contacts/id:{contactId}/Preferences
   /contacts/v1/contacts/preferences/search:
@@ -994,7 +994,7 @@ paths:
       x-sfmc-user-permission-paths:
       - IMH Contacts > Access
       x-sfmc-installed-package-scopes:
-      - Contacts_access
+      - contacts_write
       x-original-marketing-cloud-paths:
       - /contacts/v1/contacts/preferences/search?ReferenceType={ReferenceType}
       requestBody:
@@ -1045,7 +1045,7 @@ paths:
       x-sfmc-user-permission-paths:
       - IMH Contacts > Access
       x-sfmc-installed-package-scopes:
-      - Contacts_access
+      - contacts_read
       x-original-marketing-cloud-paths:
       - /contacts/v1/contacts/key:{contactKey}/Preferences
   /contacts/v1/attributeGroups/population:

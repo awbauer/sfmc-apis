@@ -119,8 +119,6 @@ paths:
     $ref: ./paths/transactional_email.yaml#/paths/~1messaging~1v1~1email~1messages
   /messaging/v1/email/definitions:
     $ref: ./paths/transactional_email.yaml#/paths/~1messaging~1v1~1email~1definitions
-  /messaging/v1/email/messages/:
-    $ref: ./paths/transactional_email.yaml#/paths/~1messaging~1v1~1email~1messages~1
   /messaging/v1/email/definitions/{definitionKey}/queue:
     $ref: ./paths/transactional_email.yaml#/paths/~1messaging~1v1~1email~1definitions~1{definitionKey}~1queue
   /messaging/v1/email/definitions/{definitionKey}:
@@ -295,8 +293,6 @@ paths:
     $ref: ./paths/mobile_push.yaml#/paths/~1push~1v1~1location~1{locationId}
   /push/v1/message:
     $ref: ./paths/mobile_push.yaml#/paths/~1push~1v1~1message
-  /push/v1/message/{messageID}:
-    $ref: ./paths/mobile_push.yaml#/paths/~1push~1v1~1message~1{messageID}
   /push/v1/messageApp/{messageId}/deliveries/{tokenId}:
     $ref: ./paths/mobile_push.yaml#/paths/~1push~1v1~1messageApp~1{messageId}~1deliveries~1{tokenId}
   /push/v1/messageContact/{messageId}/deliveries/{tokenId}:
@@ -478,7 +474,10 @@ components:
             file_location_create: Create file locations
             file_location_view: View file locations
             file_location_delete: Delete file locations
-            Contacts_access: Read and write contact preferences
+            contacts_read: Read contact preferences and profile data
+            contacts_write: Create and update contact preferences and profile data
+            data_extensions_read: Read data extension async job and row resources
+            data_extensions_write: Write data extension async job and row resources
             automations_read: Read Automation Studio automations
             automations_write: Create, update, and delete Automation Studio automations
             automations_execute: Start, stop, and pause Automation Studio automations
@@ -1018,6 +1017,190 @@ components:
           stats:
             type: object
             additionalProperties: true
+    JourneyPauseRequest:
+      type: object
+      properties:
+        PauseDuration:
+          type: integer
+          minimum: 0
+        ExtendWaitEndDates:
+          type: boolean
+        AllVersions:
+          type: boolean
+      additionalProperties: false
+    JourneyResumeRequest:
+      type: object
+      properties:
+        AllVersions:
+          type: boolean
+      additionalProperties: false
+    JourneyStopRequest:
+      type: object
+      properties: {}
+      additionalProperties: false
+    JourneyLifecycleRequest:
+      oneOf:
+      - $ref: '#/components/schemas/JourneyPauseRequest'
+      - $ref: '#/components/schemas/JourneyResumeRequest'
+      - $ref: '#/components/schemas/JourneyStopRequest'
+    JourneyPublishAsyncResponse:
+      type: object
+      properties:
+        statusId:
+          type: string
+      required:
+      - statusId
+      additionalProperties: true
+    JourneyLifecycleResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        message:
+          type: string
+        definitionId:
+          type: string
+        versionNumber:
+          type: integer
+      additionalProperties: true
+    JourneyContactMembershipRequest:
+      type: object
+      properties:
+        contactKey:
+          type: string
+        definitionKey:
+          type: string
+        definitionId:
+          type: string
+        versionNumber:
+          type: integer
+      additionalProperties: false
+    JourneyContactMembershipResponse:
+      type: object
+      properties:
+        contactKey:
+          type: string
+        memberships:
+          type: array
+          items:
+            type: object
+            properties:
+              definitionId:
+                type: string
+              definitionKey:
+                type: string
+              versionNumber:
+                type: integer
+              inJourney:
+                type: boolean
+            additionalProperties: true
+      additionalProperties: true
+    ContactMembershipRequest:
+      allOf:
+      - $ref: '#/components/schemas/JourneyContactMembershipRequest'
+    ContactMembershipResponse:
+      allOf:
+      - $ref: '#/components/schemas/JourneyContactMembershipResponse'
+    ContactDeleteSummaryResponse:
+      type: object
+      properties:
+        requestId:
+          type: string
+        operationStatus:
+          type: string
+        resultMessages:
+          type: array
+          items:
+            type: string
+      additionalProperties: true
+    ContactDeleteOperationsResponse:
+      type: object
+      properties:
+        operationID:
+          type: string
+        requestId:
+          type: string
+        status:
+          type: string
+      additionalProperties: true
+    ContactsUpsertRequest:
+      type: object
+      properties:
+        contactKey:
+          type: string
+        values:
+          type: object
+          additionalProperties: true
+      additionalProperties: true
+    ContactsUpsertResponse:
+      type: object
+      properties:
+        contactID:
+          type: string
+        contactKey:
+          type: string
+        operationStatus:
+          type: string
+      additionalProperties: true
+    ContactSchemaResponse:
+      type: object
+      properties:
+        count:
+          type: integer
+        items:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+      additionalProperties: true
+    SchemaAttributeGroupResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+      additionalProperties: true
+    AttributeGroupsResponse:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+      additionalProperties: true
+    ContactAttributeSetRequest:
+      type: object
+      properties:
+        values:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+      additionalProperties: true
+    ContactAttributeSetResponse:
+      type: object
+      properties:
+        updated:
+          type: integer
+      additionalProperties: true
+    ContactCustomObjectFieldRelationshipsResponse:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+      additionalProperties: true
+    ContactCustomObjectUsageResponse:
+      type: object
+      properties:
+        usage:
+          type: object
+          additionalProperties: true
+      additionalProperties: true
     EndpointDiscoveryItem:
       type: object
       properties:

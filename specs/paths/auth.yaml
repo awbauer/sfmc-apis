@@ -76,24 +76,60 @@ paths:
       x-original-marketing-cloud-paths:
       - /v2/userinfo
   /v2/authorize:
-    post:
+    get:
       tags:
       - Auth
-      summary: POST /v2/authorize
-      operationId: post_v2_authorize
+      summary: GET /v2/authorize
+      operationId: get_v2_authorize
       description: Starts the OAuth 2.0 authorization-code flow for web and public
         app integrations. The user authenticates on the Marketing Cloud authorization
         host and is redirected to the configured redirect_uri with a code parameter.
         Use state to protect against CSRF and request only scopes your installed package
         actually has.
-      parameters: []
+      parameters:
+      - name: response_type
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - code
+        description: OAuth response type. Use `code` for the authorization-code flow.
+      - name: client_id
+        in: query
+        required: true
+        schema:
+          type: string
+        description: Installed package client ID.
+      - name: redirect_uri
+        in: query
+        required: true
+        schema:
+          type: string
+          format: uri
+        description: Redirect URI configured for the installed package.
+      - name: state
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Optional opaque CSRF token echoed back on redirect.
+      - name: scope
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Optional space-delimited requested scopes.
       responses:
-        '200':
-          description: Successful response.
-          content:
-            application/json:
+        '302':
+          description: Authorization redirect. The Location header contains the
+            redirect URI with authorization code or error details.
+          headers:
+            Location:
+              description: Redirect target with OAuth result parameters.
               schema:
-                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/AuthAuthorizeResponse
+                type: string
+                format: uri
         '400':
           description: Bad request.
         '401':
@@ -115,18 +151,6 @@ paths:
       - None
       x-original-marketing-cloud-paths:
       - /v2/authorize
-      requestBody:
-        required: false
-        content:
-          application/json:
-            schema:
-              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/AuthAuthorizeRequest
-            example:
-              response_type: code
-              client_id: 7f7f7f7f-aaaa-bbbb-cccc-123456789abc
-              redirect_uri: https://app.example.com/callback
-              state: 9ee4b0ea2a4e4d2a
-              scope: email_read email_send
   /v2/token:
     post:
       tags:
