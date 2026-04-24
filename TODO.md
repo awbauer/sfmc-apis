@@ -2,10 +2,10 @@
 
 ## Current snapshot
 
-- Spec version: `0.17.0`
-- Remaining `GenericRequestBody` references: `82`
-- Remaining `GenericResponse` references: `127`
-- Fallback density by file (highest first): contacts `38`, content_builder `22`, mobile_push `19`, event_notification_service `18`, transactional_sms `15`, transactional_email `15`, mobileconnect_sms `15`, tags `13`, data_extensions `12`, campaigns `10`, approvals `10`, journey_builder `6`, domain_verification `5`, file_locations `4`, triggered_email `2`, audit_logging `2`, address_validation `2`, discovery `1`, auth `0`.
+- Spec version: `0.18.0`
+- Remaining `GenericRequestBody` references: `93`
+- Remaining `GenericResponse` references: `150`
+- Fallback density by file (highest first): contacts `38`, content_builder `22`, mobile_push `19`, event_notification_service `18`, transactional_sms `15`, transactional_email `15`, transactional_ott `15`, mobileconnect_sms `15`, automation_studio `15`, tags `13`, data_extensions `12`, campaigns `10`, approvals `10`, journey_builder `6`, domain_verification `5`, file_locations `4`, groupconnect_chat `4`, triggered_email `2`, audit_logging `2`, address_validation `2`, discovery `1`, auth `0`.
 
 Important note:
 
@@ -13,6 +13,22 @@ The YAML still contains a meaningful amount of broad fallback modeling. It is us
 
 ## Recently completed
 
+- Expanded coverage into a comprehensive inventory of SFMC REST families by adding
+  Automation Studio (`/automation/v1/automations`, `/automation/v1/automations/{id}`,
+  `/automation/v1/automations/{id}/actions/{action}`, and the legacy beta routes
+  under `/legacy/v1/beta/automations/*`), Transactional OTT
+  (`/messaging/v1/ott/definitions`, `/messaging/v1/ott/messages`,
+  and related queue and detail routes), GroupConnect Chat (`/ott/v1/registration`,
+  `/ott/v1/sendMessage`), and Content Builder asset-type taxonomy
+  (`/asset/v1/content/assetTypes`, `/asset/v1/content/assetTypes/{id}`).
+- Declared new `automations_read`, `automations_write`, `automations_execute`,
+  `ott_channels_read`, `ott_channels_send`, `ott_channels_write` oauth2 scopes
+  and added `Automation Studio`, `Transactional OTT`, `GroupConnect Chat`, and
+  `Asset Types` tags.
+- Added typed helper schemas (`AutomationSummary`, `AutomationListResponse`,
+  `AutomationActionRequest`, `AutomationActionResponse`, `ContentAssetTypeItem`,
+  `ContentAssetTypeListResponse`) and reframed the README and `info.description`
+  away from "a broad slice" to a comprehensive-inventory framing.
 - Tightened the core Auth family (`/v2/discovery`, `/v2/userinfo`, `/v2/authorize`,
   `/v2/token`, `/v1/requestToken`) by replacing fallback generic request/response
   schemas with purpose-built auth schemas.

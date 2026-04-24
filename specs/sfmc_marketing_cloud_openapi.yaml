@@ -1,16 +1,21 @@
 openapi: 3.0.3
 info:
   title: Salesforce Marketing Cloud Engagement REST APIs
-  version: 0.17.0
-  description: Working OpenAPI/Swagger-style specification generated from the SFMC
-    permission/scope matrix you supplied and normalized against Salesforce Marketing
-    Cloud Engagement documentation. It covers the endpoint families present in that
-    matrix, adds narrative descriptions for each operation, and preserves original
-    permission IDs, user-permission paths, and installed-package scopes as vendor
-    extensions. Because Salesforce does not publish a single complete machine-readable
-    contract for every route in this matrix, some operations still use broader schemas
-    where the official reference is descriptive, polymorphic, or fragmented across
-    pages.
+  version: 0.18.0
+  description: Working OpenAPI/Swagger-style specification maintained as a comprehensive
+    inventory of Salesforce Marketing Cloud Engagement REST endpoint families, normalized
+    from the SFMC permission/scope matrix and Salesforce's published REST reference
+    pages. It spans the breadth of documented API families including auth, discovery,
+    platform utilities, transactional messaging (email, SMS, and OTT/WhatsApp), classic
+    triggered messaging, MobileConnect, MobilePush, GroupConnect chat (Facebook
+    Messenger, LINE), Contacts, Journey Builder, Automation Studio, Content Builder
+    (assets, categories, asset-type taxonomy), Campaigns, Approvals, Tags, Event
+    Notification Service, Data Extensions, Domain Verification, File Locations,
+    Address Validation, and Audit Logging. Each operation preserves original permission
+    IDs, user-permission paths, and installed-package scopes as vendor extensions.
+    Because Salesforce does not publish a single complete machine-readable contract
+    for every route, some operations still use broader schemas where the official
+    reference is descriptive, polymorphic, or fragmented across pages.
 servers:
 - url: https://{subdomain}.rest.marketingcloudapis.com
   description: Tenant REST API base URL returned by auth and discovery endpoints.
@@ -43,6 +48,9 @@ tags:
 - name: Transactional SMS
   description: Modern transactional messaging endpoints for SMS definitions, queue
     metrics, and sends.
+- name: Transactional OTT
+  description: Modern transactional messaging endpoints for OTT (WhatsApp) definitions,
+    queue metrics, and sends.
 - name: File Locations
   description: Platform endpoints for external file location keys used by imports
     and file-based integrations.
@@ -52,16 +60,24 @@ tags:
 - name: MobileConnect SMS
   description: Legacy MobileConnect operational APIs for imports, sends, opt-in, subscriptions,
     keyword management, and delivery retrieval.
+- name: GroupConnect Chat
+  description: GroupConnect chat messaging registration and sends for Facebook Messenger
+    and LINE channels.
 - name: Contacts
   description: Contact Builder and contact model endpoints for schema, search, preferences,
     delete, restrict, and audience operations.
 - name: Journey Builder
   description: Journey definitions, event definitions, event injection, publication,
     stop, pause, resume, and membership utilities.
+- name: Automation Studio
+  description: Automation Studio automations and legacy beta automation definitions
+    plus start, stop, and pause action controls.
 - name: Mobile Push
   description: MobilePush application, location, message, and delivery endpoints.
 - name: Content Builder
   description: Content Builder assets and folder resources.
+- name: Asset Types
+  description: Content Builder asset type taxonomy listing the supported asset kinds.
 - name: Approvals
   description: Approval item and approval settings endpoints.
 - name: Tags
@@ -379,6 +395,38 @@ paths:
     $ref: ./paths/auth.yaml#/paths/~1v2~1token
   /v1/requestToken:
     $ref: ./paths/auth.yaml#/paths/~1v1~1requestToken
+  /messaging/v1/ott/definitions:
+    $ref: ./paths/transactional_ott.yaml#/paths/~1messaging~1v1~1ott~1definitions
+  /messaging/v1/ott/definitions/{definitionKey}:
+    $ref: ./paths/transactional_ott.yaml#/paths/~1messaging~1v1~1ott~1definitions~1{definitionKey}
+  /messaging/v1/ott/definitions/{definitionKey}/queue:
+    $ref: ./paths/transactional_ott.yaml#/paths/~1messaging~1v1~1ott~1definitions~1{definitionKey}~1queue
+  /messaging/v1/ott/messages/{messageKey}:
+    $ref: ./paths/transactional_ott.yaml#/paths/~1messaging~1v1~1ott~1messages~1{messageKey}
+  /messaging/v1/ott/messages:
+    $ref: ./paths/transactional_ott.yaml#/paths/~1messaging~1v1~1ott~1messages
+  /messaging/v1/ott/messages/:
+    $ref: ./paths/transactional_ott.yaml#/paths/~1messaging~1v1~1ott~1messages~1
+  /ott/v1/registration:
+    $ref: ./paths/groupconnect_chat.yaml#/paths/~1ott~1v1~1registration
+  /ott/v1/sendMessage:
+    $ref: ./paths/groupconnect_chat.yaml#/paths/~1ott~1v1~1sendMessage
+  /automation/v1/automations:
+    $ref: ./paths/automation_studio.yaml#/paths/~1automation~1v1~1automations
+  /automation/v1/automations/{id}:
+    $ref: ./paths/automation_studio.yaml#/paths/~1automation~1v1~1automations~1{id}
+  /automation/v1/automations/{id}/actions/{action}:
+    $ref: ./paths/automation_studio.yaml#/paths/~1automation~1v1~1automations~1{id}~1actions~1{action}
+  /legacy/v1/beta/automations/automation/definition/:
+    $ref: ./paths/automation_studio.yaml#/paths/~1legacy~1v1~1beta~1automations~1automation~1definition~1
+  /legacy/v1/beta/automations/automation/definition/{id}:
+    $ref: ./paths/automation_studio.yaml#/paths/~1legacy~1v1~1beta~1automations~1automation~1definition~1{id}
+  /legacy/v1/beta/automations/notifications/{id}:
+    $ref: ./paths/automation_studio.yaml#/paths/~1legacy~1v1~1beta~1automations~1notifications~1{id}
+  /asset/v1/content/assetTypes:
+    $ref: ./paths/content_builder.yaml#/paths/~1asset~1v1~1content~1assetTypes
+  /asset/v1/content/assetTypes/{id}:
+    $ref: ./paths/content_builder.yaml#/paths/~1asset~1v1~1content~1assetTypes~1{id}
 components:
   securitySchemes:
     bearerAuth:
@@ -431,6 +479,13 @@ components:
             file_location_view: View file locations
             file_location_delete: Delete file locations
             Contacts_access: Read and write contact preferences
+            automations_read: Read Automation Studio automations
+            automations_write: Create, update, and delete Automation Studio automations
+            automations_execute: Start, stop, and pause Automation Studio automations
+            ott_channels_read: Read OTT (WhatsApp, Facebook Messenger, LINE) channel
+              resources
+            ott_channels_send: Send OTT messages across registered channels
+            ott_channels_write: Create, update, and delete OTT channel resources
         authorizationCode:
           authorizationUrl: https://YOUR_SUBDOMAIN.auth.marketingcloudapis.com/v2/authorize
           tokenUrl: https://YOUR_SUBDOMAIN.auth.marketingcloudapis.com/v2/token
@@ -1141,6 +1196,80 @@ components:
       - access_token
       - token_type
       - expires_in
+      additionalProperties: true
+    AutomationSummary:
+      type: object
+      properties:
+        id:
+          type: string
+        key:
+          type: string
+        name:
+          type: string
+        status:
+          type: string
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type: string
+          format: date-time
+      additionalProperties: true
+    AutomationListResponse:
+      type: object
+      properties:
+        count:
+          type: integer
+        page:
+          type: integer
+        pageSize:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/AutomationSummary'
+      additionalProperties: true
+    AutomationActionRequest:
+      type: object
+      properties:
+        action:
+          type: string
+          enum:
+          - start
+          - stop
+          - pause
+      additionalProperties: false
+    AutomationActionResponse:
+      type: object
+      properties:
+        statusId:
+          type: string
+        status:
+          type: string
+        message:
+          type: string
+      additionalProperties: true
+    ContentAssetTypeItem:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        displayName:
+          type: string
+        category:
+          type: string
+      additionalProperties: true
+    ContentAssetTypeListResponse:
+      type: object
+      properties:
+        count:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContentAssetTypeItem'
       additionalProperties: true
     GenericRequestBody:
       type: object
