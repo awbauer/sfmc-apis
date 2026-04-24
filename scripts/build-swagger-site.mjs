@@ -1,13 +1,16 @@
-import { mkdir, copyFile, writeFile, rm } from 'node:fs/promises';
+import { mkdir, copyFile, writeFile, rm, cp } from 'node:fs/promises';
 
 const sourceSpec = 'specs/sfmc_marketing_cloud_openapi.yaml';
+const sourcePathsDir = 'specs/paths';
 const distDir = 'dist';
-const outputSpec = `${distDir}/openapi.yaml`;
+const outputSpec = `${distDir}/sfmc_marketing_cloud_openapi.yaml`;
+const outputPathsDir = `${distDir}/paths`;
 const outputHtml = `${distDir}/index.html`;
 
 await rm(distDir, { recursive: true, force: true });
 await mkdir(distDir, { recursive: true });
 await copyFile(sourceSpec, outputSpec);
+await cp(sourcePathsDir, outputPathsDir, { recursive: true });
 
 const html = `<!doctype html>
 <html lang="en">
@@ -25,7 +28,7 @@ const html = `<!doctype html>
     <script src="https://unpkg.com/swagger-ui-dist@5/swagger-ui-bundle.js" crossorigin></script>
     <script>
       window.ui = SwaggerUIBundle({
-        url: './openapi.yaml',
+        url: './sfmc_marketing_cloud_openapi.yaml',
         dom_id: '#swagger-ui',
         deepLinking: true,
         presets: [SwaggerUIBundle.presets.apis],

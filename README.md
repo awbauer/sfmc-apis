@@ -259,4 +259,5 @@ npm run build
 Build output:
 
 - `dist/index.html` (generated docs site)
-- `dist/openapi.yaml` (copied spec used to generate docs)
+- `dist/sfmc_marketing_cloud_openapi.yaml` (copied root spec used by the docs site)
+- `dist/paths/*.yaml` (copied path fragments required for `$ref` resolution)
