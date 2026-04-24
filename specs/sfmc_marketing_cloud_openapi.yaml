@@ -2,24 +2,33 @@ openapi: 3.0.3
 info:
   title: Salesforce Marketing Cloud Engagement Migration APIs
   version: 0.19.0
-  description: Machine-readable OpenAPI contract used by migration agents to move
-    data, assets, and configuration into and out of Salesforce Marketing Cloud
-    Engagement. Each operation is annotated with vendor extensions describing
-    migration direction (x-migration-direction), bulk capability (x-bulk-capable),
-    and polling relationships (x-polling-endpoint-of) so agents can plan idempotent
-    import and export flows. Coverage spans the documented SFMC REST surface,
-    including auth, discovery, platform utilities, transactional messaging (email,
-    SMS, and OTT/WhatsApp), classic triggered messaging, MobileConnect, MobilePush,
-    GroupConnect chat (Facebook Messenger, LINE), Contacts, Journey Builder,
-    Automation Studio, Content Builder (assets, categories, asset-type taxonomy),
-    Campaigns, Approvals, Tags, Event Notification Service, Data Extensions,
-    Domain Verification, File Locations, Address Validation, and Audit Logging.
-    Each operation also preserves original permission IDs, user-permission paths,
-    and installed-package scopes as vendor extensions. This is not an official
-    Salesforce export; because Salesforce does not publish a single complete
-    machine-readable contract for every route, some operations still use broader
-    schemas where the official reference is descriptive, polymorphic, or fragmented
-    across pages.
+  description: >
+    Machine-readable OpenAPI contract for migration agents to move data, assets,
+    and configuration into and out of Salesforce Marketing Cloud Engagement.
+
+  
+    Each operation includes vendor extensions that guide execution:
+      - x-migration-direction defines import vs export
+      - x-bulk-capable flags bulk support
+      - x-polling-endpoint-of maps async job relationships
+  
+    These annotations enable agents to plan idempotent, reliable migration flows.
+  
+    Coverage spans the documented SFMC REST surface, including:
+      auth, discovery, platform utilities, transactional messaging (email, SMS,
+      OTT/WhatsApp), triggered messaging, MobileConnect, MobilePush,
+      GroupConnect (Facebook Messenger, LINE), Contacts, Journey Builder,
+      Automation Studio, Content Builder (assets, categories, asset types),
+      Campaigns, Approvals, Tags, Event Notification Service, Data Extensions,
+      Domain Verification, File Locations, Address Validation, and Audit Logging.
+  
+    Each operation also retains permission metadata via vendor extensions,
+    including permission IDs, user-permission paths, and installed-package scopes.
+  
+    This is not an official Salesforce export. Salesforce does not publish a
+    single complete machine-readable contract, so some operations use broader
+    schemas where the source documentation is descriptive, polymorphic, or
+    fragmented.
 x-migration-directions:
   description: Allowed values for the per-operation x-migration-direction extension
     used by migration agents consuming this spec.
@@ -39,6 +48,8 @@ servers:
   variables:
     subdomain:
       default: YOUR_SUBDOMAIN
+security:
+- bearerAuth: []
 tags:
 - name: Auth
   description: OAuth 2.0 and legacy token endpoints for Marketing Cloud Engagement
@@ -497,6 +508,21 @@ components:
               resources
             ott_channels_send: Send OTT messages across registered channels
             ott_channels_write: Create, update, and delete OTT channel resources
+  parameters:
+    page:
+      name: $page
+      in: query
+      required: false
+      schema:
+        type: integer
+      description: One-based page index.
+    pageSize:
+      name: $pageSize
+      in: query
+      required: false
+      schema:
+        type: integer
+      description: Page size.
   schemas:
     JourneyPublishStatusResponse:
       type: object

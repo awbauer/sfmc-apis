@@ -962,6 +962,7 @@ paths:
       description: Executes a MobileConnect send or queues MO processing. These are
         legacy MobileConnect send surfaces separate from the newer transactional messaging
         SMS API.
+      deprecated: true
       parameters:
       - name: id
         in: path
@@ -1013,6 +1014,7 @@ paths:
       description: Executes a MobileConnect send or queues MO processing. These are
         legacy MobileConnect send surfaces separate from the newer transactional messaging
         SMS API.
+      deprecated: true
       parameters:
       - name: id
         in: path
@@ -1064,6 +1066,7 @@ paths:
       description: Executes a MobileConnect send or queues MO processing. These are
         legacy MobileConnect send surfaces separate from the newer transactional messaging
         SMS API.
+      deprecated: true
       parameters: []
       responses:
         '200':

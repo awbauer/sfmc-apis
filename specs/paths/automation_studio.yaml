@@ -10,18 +10,8 @@ paths:
         surface; the matching legacy beta routes are retained for compatibility with
         existing integrations.
       parameters:
-      - name: $page
-        in: query
-        required: false
-        schema:
-          type: integer
-        description: One-based page index.
-      - name: $pageSize
-        in: query
-        required: false
-        schema:
-          type: integer
-        description: Page size.
+      - $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/parameters/page
+      - $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/parameters/pageSize
       - name: $orderBy
         in: query
         required: false
@@ -309,6 +299,7 @@ paths:
       description: Creates an automation definition using the legacy beta route. This
         endpoint predates `/automation/v1/automations` and is still in broad use; the
         modern route is preferred for new integrations.
+      deprecated: true
       parameters: []
       responses:
         '200':
@@ -354,6 +345,7 @@ paths:
         beta route. Prefer `/automation/v1/automations/{id}` for new work; this variant
         exposes some detail fields that remain helpful for maintenance of existing
         integrations.
+      deprecated: true
       parameters:
       - name: id
         in: path
@@ -396,6 +388,7 @@ paths:
       operationId: patch_legacy_v1_beta_automations_automation_definition_id
       description: Updates an automation definition via the legacy beta route. Use
         for integrations that predate `/automation/v1/automations/{id}`.
+      deprecated: true
       parameters:
       - name: id
         in: path
@@ -443,6 +436,7 @@ paths:
       summary: DELETE /legacy/v1/beta/automations/automation/definition/{id}
       operationId: delete_legacy_v1_beta_automations_automation_definition_id
       description: Deletes an automation definition via the legacy beta route.
+      deprecated: true
       parameters:
       - name: id
         in: path
@@ -487,6 +481,7 @@ paths:
       description: Retrieves runtime notification configuration for an automation.
         Notifications target completion and error events and are configured separately
         from the automation definition itself.
+      deprecated: true
       parameters:
       - name: id
         in: path
@@ -530,6 +525,7 @@ paths:
       description: Creates or updates runtime notification configuration for an
         automation. Used to register email recipients and delivery rules for completion
         and error events.
+      deprecated: true
       parameters:
       - name: id
         in: path

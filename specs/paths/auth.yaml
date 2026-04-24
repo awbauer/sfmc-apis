@@ -230,6 +230,7 @@ paths:
       description: Legacy authentication route for legacy packages. Use only when
         you are integrating with older package models that do not support OAuth 2.0
         installed-package integrations.
+      deprecated: true
       parameters: []
       responses:
         '200':
