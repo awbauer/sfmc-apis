@@ -1,6 +1,6 @@
 # SFMC Migration Toolkit for Agents
 
-## What this project is
+## About this project
 
 This repo is a toolkit designed to help agents plan and execute migrations into and out of Salesforce Marketing Cloud Engagement (SFMC).
 
