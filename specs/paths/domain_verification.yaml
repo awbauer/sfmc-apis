@@ -1,0 +1,282 @@
+paths:
+  /messaging/v1/domainverification:
+    get:
+      tags:
+      - Domain Verification
+      summary: GET /messaging/v1/domainverification
+      operationId: get_messaging_v1_domainverification
+      description: Lists or creates sending domain-verification records. This resource
+        is part of the operational setup for branded email sending and domain ownership
+        verification.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/DomainVerificationCollectionResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '48'
+      - '600'
+      x-sfmc-user-permission-paths:
+      - Administration > General > Access
+      - Email > Content > Microsite Layout > View
+      x-sfmc-installed-package-scopes:
+      - email_write
+      - saved_content_read
+      x-original-marketing-cloud-paths:
+      - /messaging/v1/domainverification
+    post:
+      tags:
+      - Domain Verification
+      summary: POST /messaging/v1/domainverification
+      operationId: post_messaging_v1_domainverification
+      description: Lists or creates sending domain-verification records. This resource
+        is part of the operational setup for branded email sending and domain ownership
+        verification.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/DomainVerificationCollectionResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '48'
+      - '600'
+      x-sfmc-user-permission-paths:
+      - Administration > General > Access
+      - Email > Content > Microsite Layout > View
+      x-sfmc-installed-package-scopes:
+      - email_write
+      - saved_content_read
+      x-original-marketing-cloud-paths:
+      - /messaging/v1/domainverification
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+  /messaging/v1/domainverification/bulk/insert:
+    post:
+      tags:
+      - Domain Verification
+      summary: POST /messaging/v1/domainverification/bulk/insert
+      operationId: post_messaging_v1_domainverification_bulk_insert
+      description: Performs an administrative domain-verification action. Depending
+        on the route, this can bulk insert domains, update metadata, delete entries,
+        or push pending configuration changes downstream.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/DomainVerificationBulkResultResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '48'
+      - '600'
+      x-sfmc-user-permission-paths:
+      - Administration > General > Access
+      - Email > Content > Microsite Layout > View
+      x-sfmc-installed-package-scopes:
+      - email_write
+      - saved_content_read
+      x-original-marketing-cloud-paths:
+      - /messaging/v1/domainverification/bulk/insert
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+  /messaging/v1/domainverification/update:
+    post:
+      tags:
+      - Domain Verification
+      summary: POST /messaging/v1/domainverification/update
+      operationId: post_messaging_v1_domainverification_update
+      description: Performs an administrative domain-verification action. Depending
+        on the route, this can bulk insert domains, update metadata, delete entries,
+        or push pending configuration changes downstream.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/DomainVerificationBulkResultResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '48'
+      - '600'
+      x-sfmc-user-permission-paths:
+      - Administration > General > Access
+      - Email > Content > Microsite Layout > View
+      x-sfmc-installed-package-scopes:
+      - email_write
+      - saved_content_read
+      x-original-marketing-cloud-paths:
+      - /messaging/v1/domainverification/update
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+  /messaging/v1/domainverification/delete:
+    post:
+      tags:
+      - Domain Verification
+      summary: POST /messaging/v1/domainverification/delete
+      operationId: post_messaging_v1_domainverification_delete
+      description: Performs an administrative domain-verification action. Depending
+        on the route, this can bulk insert domains, update metadata, delete entries,
+        or push pending configuration changes downstream.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/DomainVerificationBulkResultResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '48'
+      - '600'
+      x-sfmc-user-permission-paths:
+      - Administration > General > Access
+      - Email > Content > Microsite Layout > View
+      x-sfmc-installed-package-scopes:
+      - email_write
+      - saved_content_read
+      x-original-marketing-cloud-paths:
+      - /messaging/v1/domainverification/delete
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+  /messaging/v1/domainverification/push:
+    post:
+      tags:
+      - Domain Verification
+      summary: POST /messaging/v1/domainverification/push
+      operationId: post_messaging_v1_domainverification_push
+      description: Performs an administrative domain-verification action. Depending
+        on the route, this can bulk insert domains, update metadata, delete entries,
+        or push pending configuration changes downstream.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/DomainVerificationBulkResultResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '48'
+      - '600'
+      x-sfmc-user-permission-paths:
+      - Administration > General > Access
+      - Email > Content > Microsite Layout > View
+      x-sfmc-installed-package-scopes:
+      - email_write
+      - saved_content_read
+      x-original-marketing-cloud-paths:
+      - /messaging/v1/domainverification/push
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody

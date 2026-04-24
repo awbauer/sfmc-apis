@@ -1,0 +1,359 @@
+paths:
+  /hub/v1/campaigns:
+    get:
+      tags:
+      - Campaigns
+      summary: GET /hub/v1/campaigns
+      operationId: get_hub_v1_campaigns
+      description: Creates, lists, retrieves, or deletes campaigns in the Interactive
+        Marketing Hub campaign model.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '444'
+      x-sfmc-user-permission-paths:
+      - Campaigns > Access
+      x-sfmc-installed-package-scopes:
+      - campaign_read
+      x-original-marketing-cloud-paths:
+      - /hub/v1/campaigns
+    post:
+      tags:
+      - Campaigns
+      summary: POST /hub/v1/campaigns
+      operationId: post_hub_v1_campaigns
+      description: Creates, lists, retrieves, or deletes campaigns in the Interactive
+        Marketing Hub campaign model.
+      parameters: []
+      responses:
+        '201':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1021'
+      x-sfmc-user-permission-paths:
+      - Campaigns > Create And Edit
+      x-sfmc-installed-package-scopes:
+      - campaign_write
+      x-original-marketing-cloud-paths:
+      - /hub/v1/campaigns
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+  /hub/v1/campaigns/{id}:
+    get:
+      tags:
+      - Campaigns
+      summary: GET /hub/v1/campaigns/{id}
+      operationId: get_hub_v1_campaigns_id
+      description: Creates, lists, retrieves, or deletes campaigns in the Interactive
+        Marketing Hub campaign model.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `id`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '444'
+      x-sfmc-user-permission-paths:
+      - Campaigns > Access
+      x-sfmc-installed-package-scopes:
+      - campaign_read
+      x-original-marketing-cloud-paths:
+      - /hub/v1/campaigns/{id}
+    delete:
+      tags:
+      - Campaigns
+      summary: DELETE /hub/v1/campaigns/{id}
+      operationId: delete_hub_v1_campaigns_id
+      description: Creates, lists, retrieves, or deletes campaigns in the Interactive
+        Marketing Hub campaign model.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `id`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '479'
+      x-sfmc-user-permission-paths:
+      - Campaigns > Delete
+      x-sfmc-installed-package-scopes:
+      - campaign_write
+      x-original-marketing-cloud-paths:
+      - /hub/v1/campaigns/{id}
+  /hub/v1/campaigns/{id}/assets:
+    get:
+      tags:
+      - Campaigns
+      summary: GET /hub/v1/campaigns/{id}/assets
+      operationId: get_hub_v1_campaigns_id_assets
+      description: Lists or creates associations between a campaign and assets. This
+        is the bridge between campaign planning objects and reusable content.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `id`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '444'
+      x-sfmc-user-permission-paths:
+      - Campaigns > Access
+      x-sfmc-installed-package-scopes:
+      - campaign_read
+      x-original-marketing-cloud-paths:
+      - /hub/v1/campaigns/{id}/assets
+    post:
+      tags:
+      - Campaigns
+      summary: POST /hub/v1/campaigns/{id}/assets
+      operationId: post_hub_v1_campaigns_id_assets
+      description: Lists or creates associations between a campaign and assets. This
+        is the bridge between campaign planning objects and reusable content.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `id`.
+      responses:
+        '201':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1022'
+      x-sfmc-user-permission-paths:
+      - Campaigns > Associate
+      x-sfmc-installed-package-scopes:
+      - campaign_write
+      x-original-marketing-cloud-paths:
+      - /hub/v1/campaigns/{id}/assets
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+  /hub/v1/campaigns/{id}/assets/{assetId}:
+    get:
+      tags:
+      - Campaigns
+      summary: GET /hub/v1/campaigns/{id}/assets/{assetId}
+      operationId: get_hub_v1_campaigns_id_assets_assetId
+      description: Retrieves or removes a specific asset association for a campaign.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `id`.
+      - name: assetId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `assetId`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '444'
+      x-sfmc-user-permission-paths:
+      - Campaigns > Access
+      x-sfmc-installed-package-scopes:
+      - campaign_read
+      x-original-marketing-cloud-paths:
+      - /hub/v1/campaigns/{id}/assets/{assetId}
+    delete:
+      tags:
+      - Campaigns
+      summary: DELETE /hub/v1/campaigns/{id}/assets/{assetId}
+      operationId: delete_hub_v1_campaigns_id_assets_assetId
+      description: Retrieves or removes a specific asset association for a campaign.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `id`.
+      - name: assetId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `assetId`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1022'
+      x-sfmc-user-permission-paths:
+      - Campaigns > Associate
+      x-sfmc-installed-package-scopes:
+      - campaign_write
+      x-original-marketing-cloud-paths:
+      - /hub/v1/campaigns/{id}/assets/{assetId}

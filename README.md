@@ -12,9 +12,10 @@ It is not an official Salesforce export. It is a developer artifact built from:
 
 The goal is simple: give developers one place to understand SFMC REST routes, auth expectations, scopes, and payload shapes without bouncing across dozens of documentation pages.
 
-## Primary artifact
+## Primary artifacts
 
-- `sfmc_marketing_cloud_openapi.yaml`
+- `specs/sfmc_marketing_cloud_openapi.yaml` (entrypoint OpenAPI document)
+- `specs/paths/*.yaml` (tag-family path fragments referenced by the entrypoint)
 
 ## What is in the YAML
 

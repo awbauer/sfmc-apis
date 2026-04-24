@@ -1,0 +1,214 @@
+paths:
+  /v2/discovery:
+    get:
+      tags:
+      - Auth
+      summary: GET /v2/discovery
+      operationId: get_v2_discovery
+      description: Returns discovery metadata for the tenant authorization environment.
+        This is commonly used to find the correct auth host and related endpoints
+        before starting an OAuth flow.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security: []
+      x-sfmc-permission-ids:
+      - No permission required
+      x-sfmc-user-permission-paths:
+      - None
+      x-sfmc-installed-package-scopes:
+      - None
+      x-original-marketing-cloud-paths:
+      - /v2/discovery
+  /v2/userinfo:
+    get:
+      tags:
+      - Auth
+      summary: GET /v2/userinfo
+      operationId: get_v2_userinfo
+      description: Returns details about the authenticated user and the scopes granted
+        to the current token. Salesforce recommends calling this after the authorization-code
+        flow when you need to compare package scopes with the end user's own permissions.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security: []
+      x-sfmc-permission-ids:
+      - No permission required
+      x-sfmc-user-permission-paths:
+      - None
+      x-sfmc-installed-package-scopes:
+      - None
+      x-original-marketing-cloud-paths:
+      - /v2/userinfo
+  /v2/authorize:
+    post:
+      tags:
+      - Auth
+      summary: POST /v2/authorize
+      operationId: post_v2_authorize
+      description: Starts the OAuth 2.0 authorization-code flow for web and public
+        app integrations. The user authenticates on the Marketing Cloud authorization
+        host and is redirected to the configured redirect_uri with a code parameter.
+        Use state to protect against CSRF and request only scopes your installed package
+        actually has.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security: []
+      x-sfmc-permission-ids:
+      - No permission required
+      x-sfmc-user-permission-paths:
+      - None
+      x-sfmc-installed-package-scopes:
+      - None
+      x-original-marketing-cloud-paths:
+      - /v2/authorize
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+  /v2/token:
+    post:
+      tags:
+      - Auth
+      summary: POST /v2/token
+      operationId: post_v2_token
+      description: Issues OAuth 2.0 access tokens for server-to-server integrations
+        with the client-credentials grant, or access and refresh tokens for web/public
+        apps with authorization_code and refresh_token grants. The docs note a 20
+        minute token lifetime, an expires_in value that is intentionally shorter than
+        the actual lifetime, optional scope downscoping, and optional account_id to
+        switch business-unit context.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security: []
+      x-sfmc-permission-ids:
+      - No permission required
+      x-sfmc-user-permission-paths:
+      - None
+      x-sfmc-installed-package-scopes:
+      - None
+      x-original-marketing-cloud-paths:
+      - /v2/token
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+  /v1/requestToken:
+    post:
+      tags:
+      - Auth
+      summary: POST /v1/requestToken
+      operationId: post_v1_requestToken
+      description: Legacy authentication route for legacy packages. Use only when
+        you are integrating with older package models that do not support OAuth 2.0
+        installed-package integrations.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security: []
+      x-sfmc-permission-ids:
+      - No permission required
+      x-sfmc-user-permission-paths:
+      - None
+      x-sfmc-installed-package-scopes:
+      - None
+      x-original-marketing-cloud-paths:
+      - /v1/requestToken
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody

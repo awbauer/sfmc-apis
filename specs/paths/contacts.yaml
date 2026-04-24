@@ -1,0 +1,1588 @@
+paths:
+  /contacts/v1/attributeSetDefinitions/{id}:
+    get:
+      tags:
+      - Contacts
+      summary: GET /contacts/v1/attributeSetDefinitions/{id}
+      operationId: get_contacts_v1_attributeSetDefinitions_id
+      description: Reads or mutates Contact Builder schema metadata, attribute-set
+        configuration, or relationship metadata. Use these routes to understand the
+        contact model before you start large-scale contact operations.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `id`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1018'
+      x-sfmc-user-permission-paths:
+      - IMH Contacts > Access
+      x-sfmc-installed-package-scopes:
+      - list_and_subscribers_read
+      x-original-marketing-cloud-paths:
+      - /contacts/v1/attributeSetDefinitions/{id}
+  /contacts/v1/attributeSets/name:{name}:
+    get:
+      tags:
+      - Contacts
+      summary: GET /contacts/v1/attributeSets/name:{name}
+      operationId: get_contacts_v1_attributeSets_name_name
+      description: Reads or mutates Contact Builder schema metadata, attribute-set
+        configuration, or relationship metadata. Use these routes to understand the
+        contact model before you start large-scale contact operations.
+      parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `name`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1018'
+      x-sfmc-user-permission-paths:
+      - IMH Contacts > Access
+      x-sfmc-installed-package-scopes:
+      - list_and_subscribers_read
+      x-original-marketing-cloud-paths:
+      - /contacts/v1/attributeSets/name:{name}
+  /contacts/v1/contacts/actions/delete/status:
+    get:
+      tags:
+      - Contacts
+      summary: GET /contacts/v1/contacts/actions/delete/status
+      operationId: get_contacts_v1_contacts_actions_delete_status
+      description: Starts or checks an asynchronous contact delete or restrict operation.
+        Salesforce exposes these as long-running jobs because contact-level erasure
+        and suppression can cascade through multiple channel and model layers.
+      parameters:
+      - name: operationID
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Query parameter `operationID`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1018'
+      x-sfmc-user-permission-paths:
+      - IMH Contacts > Access
+      x-sfmc-installed-package-scopes:
+      - list_and_subscribers_read
+      x-original-marketing-cloud-paths:
+      - /contacts/v1/contacts/actions/delete/status?operationID=
+  /contacts/v1/contacts/actions/restrict/status:
+    get:
+      tags:
+      - Contacts
+      summary: GET /contacts/v1/contacts/actions/restrict/status
+      operationId: get_contacts_v1_contacts_actions_restrict_status
+      description: Starts or checks an asynchronous contact delete or restrict operation.
+        Salesforce exposes these as long-running jobs because contact-level erasure
+        and suppression can cascade through multiple channel and model layers.
+      parameters:
+      - name: operationID
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Query parameter `operationID`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1018'
+      x-sfmc-user-permission-paths:
+      - IMH Contacts > Access
+      x-sfmc-installed-package-scopes:
+      - list_and_subscribers_read
+      x-original-marketing-cloud-paths:
+      - /contacts/v1/contacts/actions/restrict/status?operationID=
+  /contacts/v1/contacts/analytics/deleterequests/summary:
+    get:
+      tags:
+      - Contacts
+      summary: GET /contacts/v1/contacts/analytics/deleterequests/summary
+      operationId: get_contacts_v1_contacts_analytics_deleterequests_summary
+      description: Get operation for the Contacts API family. This operation is included
+        in the permissions matrix you supplied; the route is included in the permissions
+        matrix and modeled from the closest corresponding Salesforce reference available.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/ContactDeleteSummaryResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1018'
+      x-sfmc-user-permission-paths:
+      - IMH Contacts > Access
+      x-sfmc-installed-package-scopes:
+      - list_and_subscribers_read
+      x-original-marketing-cloud-paths:
+      - /contacts/v1/contacts/analytics/deleterequests/summary
+  /contacts/v1/contacts/analytics/deleterequests:
+    get:
+      tags:
+      - Contacts
+      summary: GET /contacts/v1/contacts/analytics/deleterequests
+      operationId: get_contacts_v1_contacts_analytics_deleterequests
+      description: Get operation for the Contacts API family. This operation is included
+        in the permissions matrix you supplied; the route is included in the permissions
+        matrix and modeled from the closest corresponding Salesforce reference available.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/ContactDeleteOperationsResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1018'
+      x-sfmc-user-permission-paths:
+      - IMH Contacts > Access
+      x-sfmc-installed-package-scopes:
+      - list_and_subscribers_read
+      x-original-marketing-cloud-paths:
+      - /contacts/v1/contacts/analytics/deleterequests
+  /contacts/v1/contacts/deleteOperations:
+    get:
+      tags:
+      - Contacts
+      summary: GET /contacts/v1/contacts/deleteOperations
+      operationId: get_contacts_v1_contacts_deleteOperations
+      description: Get operation for the Contacts API family. This operation is included
+        in the permissions matrix you supplied; the route is included in the permissions
+        matrix and modeled from the closest corresponding Salesforce reference available.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/ContactDeleteOperationsResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1018'
+      x-sfmc-user-permission-paths:
+      - IMH Contacts > Access
+      x-sfmc-installed-package-scopes:
+      - list_and_subscribers_read
+      x-original-marketing-cloud-paths:
+      - /contacts/v1/contacts/deleteOperations
+  /contacts/v1/customObject/{id}/isUsedInContacts:
+    get:
+      tags:
+      - Contacts
+      summary: GET /contacts/v1/customObject/{id}/isUsedInContacts
+      operationId: get_contacts_v1_customObject_id_isUsedInContacts
+      description: Reads or mutates Contact Builder schema metadata, attribute-set
+        configuration, or relationship metadata. Use these routes to understand the
+        contact model before you start large-scale contact operations.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `id`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/ContactCustomObjectUsageResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1018'
+      x-sfmc-user-permission-paths:
+      - IMH Contacts > Access
+      x-sfmc-installed-package-scopes:
+      - list_and_subscribers_read
+      x-original-marketing-cloud-paths:
+      - /contacts/v1/customObject/{id}/isUsedInContacts
+  /contacts/v1/customobjectfield/{id}/relationships:
+    get:
+      tags:
+      - Contacts
+      summary: GET /contacts/v1/customobjectfield/{id}/relationships
+      operationId: get_contacts_v1_customobjectfield_id_relationships
+      description: Reads or mutates Contact Builder schema metadata, attribute-set
+        configuration, or relationship metadata. Use these routes to understand the
+        contact model before you start large-scale contact operations.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `id`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/ContactCustomObjectFieldRelationshipsResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1018'
+      x-sfmc-user-permission-paths:
+      - IMH Contacts > Access
+      x-sfmc-installed-package-scopes:
+      - list_and_subscribers_read
+      x-original-marketing-cloud-paths:
+      - /contacts/v1/customobjectfield/{id}/relationships
+  /contacts/v1/schema:
+    get:
+      tags:
+      - Contacts
+      summary: GET /contacts/v1/schema
+      operationId: get_contacts_v1_schema
+      description: Reads or mutates Contact Builder schema metadata, attribute-set
+        configuration, or relationship metadata. Use these routes to understand the
+        contact model before you start large-scale contact operations.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/ContactSchemaResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1018'
+      x-sfmc-user-permission-paths:
+      - IMH Contacts > Access
+      x-sfmc-installed-package-scopes:
+      - list_and_subscribers_read
+      x-original-marketing-cloud-paths:
+      - /contacts/v1/schema
+  /contacts/v1/schemas/{schemaId}/attributeGroups:
+    get:
+      tags:
+      - Contacts
+      summary: GET /contacts/v1/schemas/{schemaId}/attributeGroups
+      operationId: get_contacts_v1_schemas_schemaId_attributeGroups
+      description: Reads or mutates Contact Builder schema metadata, attribute-set
+        configuration, or relationship metadata. Use these routes to understand the
+        contact model before you start large-scale contact operations.
+      parameters:
+      - name: schemaId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `schemaId`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/AttributeGroupsResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1018'
+      x-sfmc-user-permission-paths:
+      - IMH Contacts > Access
+      x-sfmc-installed-package-scopes:
+      - list_and_subscribers_read
+      x-original-marketing-cloud-paths:
+      - /contacts/v1/schemas/{schemaId}/attributeGroups
+  /contacts/v1/schemas/{schemaId}/attributeGroups/{id}:
+    get:
+      tags:
+      - Contacts
+      summary: GET /contacts/v1/schemas/{schemaId}/attributeGroups/{id}
+      operationId: get_contacts_v1_schemas_schemaId_attributeGroups_id
+      description: Reads or mutates Contact Builder schema metadata, attribute-set
+        configuration, or relationship metadata. Use these routes to understand the
+        contact model before you start large-scale contact operations.
+      parameters:
+      - name: schemaId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `schemaId`.
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `id`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/SchemaAttributeGroupResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1018'
+      x-sfmc-user-permission-paths:
+      - IMH Contacts > Access
+      x-sfmc-installed-package-scopes:
+      - list_and_subscribers_read
+      x-original-marketing-cloud-paths:
+      - /contacts/v1/schemas/{schemaId}/attributeGroups/{id}
+  /contacts/v1/attributeSets/{id}:
+    patch:
+      tags:
+      - Contacts
+      summary: PATCH /contacts/v1/attributeSets/{id}
+      operationId: patch_contacts_v1_attributeSets_id
+      description: Reads or mutates Contact Builder schema metadata, attribute-set
+        configuration, or relationship metadata. Use these routes to understand the
+        contact model before you start large-scale contact operations.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `id`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/ContactAttributeSetResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1018'
+      - '1020'
+      x-sfmc-user-permission-paths:
+      - IMH Contacts > Access
+      - IMH Contacts > Add
+      x-sfmc-installed-package-scopes:
+      - list_and_subscribers_read
+      - list_and_subscribers_write
+      x-original-marketing-cloud-paths:
+      - /contacts/v1/attributeSets/{id}
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/ContactAttributeSetRequest
+    post:
+      tags:
+      - Contacts
+      summary: POST /contacts/v1/attributeSets/{id}
+      operationId: post_contacts_v1_attributeSets_id
+      description: Reads or mutates Contact Builder schema metadata, attribute-set
+        configuration, or relationship metadata. Use these routes to understand the
+        contact model before you start large-scale contact operations.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `id`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/ContactAttributeSetResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1020'
+      x-sfmc-user-permission-paths:
+      - IMH Contacts > Add
+      x-sfmc-installed-package-scopes:
+      - list_and_subscribers_write
+      x-original-marketing-cloud-paths:
+      - /contacts/v1/attributeSets/{id}
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/ContactAttributeSetRequest
+  /contacts/v1/contacts:
+    patch:
+      tags:
+      - Contacts
+      summary: PATCH /contacts/v1/contacts
+      operationId: patch_contacts_v1_contacts
+      description: Creates or patches contacts in the contact model. PATCH is typically
+        used for partial profile updates; POST is used to establish or create contact
+        records.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/ContactsUpsertResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1018'
+      - '1020'
+      x-sfmc-user-permission-paths:
+      - IMH Contacts > Access
+      - IMH Contacts > Add
+      x-sfmc-installed-package-scopes:
+      - list_and_subscribers_read
+      - list_and_subscribers_write
+      x-original-marketing-cloud-paths:
+      - /contacts/v1/contacts
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/ContactsUpsertRequest
+    post:
+      tags:
+      - Contacts
+      summary: POST /contacts/v1/contacts
+      operationId: post_contacts_v1_contacts
+      description: Creates or patches contacts in the contact model. PATCH is typically
+        used for partial profile updates; POST is used to establish or create contact
+        records.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/ContactsUpsertResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1020'
+      x-sfmc-user-permission-paths:
+      - IMH Contacts > Add
+      x-sfmc-installed-package-scopes:
+      - list_and_subscribers_write
+      x-original-marketing-cloud-paths:
+      - /contacts/v1/contacts
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/ContactsUpsertRequest
+  /contacts/v1/addresses/email/search:
+    post:
+      tags:
+      - Contacts
+      summary: POST /contacts/v1/addresses/email/search
+      operationId: post_contacts_v1_addresses_email_search
+      description: Searches contacts by email address. This is useful when upstream
+        systems know only channel addresses and need to resolve them to contact records.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1018'
+      - '1020'
+      x-sfmc-user-permission-paths:
+      - IMH Contacts > Access
+      - IMH Contacts > Add
+      x-sfmc-installed-package-scopes:
+      - list_and_subscribers_read
+      - list_and_subscribers_write
+      x-original-marketing-cloud-paths:
+      - /contacts/v1/addresses/email/search
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+  /contacts/v1/attributes/search:
+    post:
+      tags:
+      - Contacts
+      summary: POST /contacts/v1/attributes/search
+      operationId: post_contacts_v1_attributes_search
+      description: Searches contact attributes and metadata definitions. Use this
+        when dynamically discovering contact model fields or reconciling schema across
+        environments.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1018'
+      - '1020'
+      x-sfmc-user-permission-paths:
+      - IMH Contacts > Access
+      - IMH Contacts > Add
+      x-sfmc-installed-package-scopes:
+      - list_and_subscribers_read
+      - list_and_subscribers_write
+      x-original-marketing-cloud-paths:
+      - /contacts/v1/attributes/search
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+  /contacts/v1/contacts/preferences:
+    post:
+      tags:
+      - Contacts
+      summary: POST /contacts/v1/contacts/preferences
+      operationId: post_contacts_v1_contacts_preferences
+      description: Reads or writes contact preference data. These routes support preference-center
+        style use cases where channel permissions or consent choices live with the
+        contact profile.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1018'
+      x-sfmc-user-permission-paths:
+      - IMH Contacts > Access
+      x-sfmc-installed-package-scopes:
+      - Contacts_access
+      x-original-marketing-cloud-paths:
+      - /contacts/v1/contacts/preferences
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+  /contacts/v1/contacts/id:{contactId}/Preferences:
+    post:
+      tags:
+      - Contacts
+      summary: POST /contacts/v1/contacts/id:{contactId}/Preferences
+      operationId: post_contacts_v1_contacts_id_contactId_Preferences
+      description: Reads or writes contact preference data. These routes support preference-center
+        style use cases where channel permissions or consent choices live with the
+        contact profile.
+      parameters:
+      - name: contactId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `contactId`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1018'
+      x-sfmc-user-permission-paths:
+      - IMH Contacts > Access
+      x-sfmc-installed-package-scopes:
+      - Contacts_access
+      x-original-marketing-cloud-paths:
+      - /contacts/v1/contacts/id:{contactId}/Preferences
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+    get:
+      tags:
+      - Contacts
+      summary: GET /contacts/v1/contacts/id:{contactId}/Preferences
+      operationId: get_contacts_v1_contacts_id_contactId_Preferences
+      description: Reads or writes contact preference data. These routes support preference-center
+        style use cases where channel permissions or consent choices live with the
+        contact profile.
+      parameters:
+      - name: contactId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `contactId`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1018'
+      x-sfmc-user-permission-paths:
+      - IMH Contacts > Access
+      x-sfmc-installed-package-scopes:
+      - Contacts_access
+      x-original-marketing-cloud-paths:
+      - /contacts/v1/contacts/id:{contactId}/Preferences
+  /contacts/v1/contacts/preferences/search:
+    post:
+      tags:
+      - Contacts
+      summary: POST /contacts/v1/contacts/preferences/search
+      operationId: post_contacts_v1_contacts_preferences_search
+      description: Reads or writes contact preference data. These routes support preference-center
+        style use cases where channel permissions or consent choices live with the
+        contact profile.
+      parameters:
+      - name: ReferenceType
+        in: query
+        required: true
+        schema:
+          type: string
+        description: Query parameter `ReferenceType`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1018'
+      x-sfmc-user-permission-paths:
+      - IMH Contacts > Access
+      x-sfmc-installed-package-scopes:
+      - Contacts_access
+      x-original-marketing-cloud-paths:
+      - /contacts/v1/contacts/preferences/search?ReferenceType={ReferenceType}
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+  /contacts/v1/contacts/key:{contactKey}/Preferences:
+    get:
+      tags:
+      - Contacts
+      summary: GET /contacts/v1/contacts/key:{contactKey}/Preferences
+      operationId: get_contacts_v1_contacts_key_contactKey_Preferences
+      description: Reads or writes contact preference data. These routes support preference-center
+        style use cases where channel permissions or consent choices live with the
+        contact profile.
+      parameters:
+      - name: contactKey
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `contactKey`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1018'
+      x-sfmc-user-permission-paths:
+      - IMH Contacts > Access
+      x-sfmc-installed-package-scopes:
+      - Contacts_access
+      x-original-marketing-cloud-paths:
+      - /contacts/v1/contacts/key:{contactKey}/Preferences
+  /contacts/v1/attributeGroups/population:
+    post:
+      tags:
+      - Contacts
+      summary: POST /contacts/v1/attributeGroups/population
+      operationId: post_contacts_v1_attributeGroups_population
+      description: Post operation for the Contacts API family. This operation is included
+        in the permissions matrix you supplied; the route is included in the permissions
+        matrix and modeled from the closest corresponding Salesforce reference available.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1020'
+      x-sfmc-user-permission-paths:
+      - IMH Contacts > Add
+      x-sfmc-installed-package-scopes:
+      - list_and_subscribers_write
+      x-original-marketing-cloud-paths:
+      - /contacts/v1/attributeGroups/population
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+  /contacts/v1/contactEvents:
+    post:
+      tags:
+      - Contacts
+      summary: POST /contacts/v1/contactEvents
+      operationId: post_contacts_v1_contactEvents
+      description: Posts contact events into the contact model for downstream processing.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1020'
+      x-sfmc-user-permission-paths:
+      - IMH Contacts > Add
+      x-sfmc-installed-package-scopes:
+      - list_and_subscribers_write
+      x-original-marketing-cloud-paths:
+      - /contacts/v1/contactEvents
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+  /contacts/v1/contacts/actions/delete:
+    post:
+      tags:
+      - Contacts
+      summary: POST /contacts/v1/contacts/actions/delete
+      operationId: post_contacts_v1_contacts_actions_delete
+      description: Starts or checks an asynchronous contact delete or restrict operation.
+        Salesforce exposes these as long-running jobs because contact-level erasure
+        and suppression can cascade through multiple channel and model layers.
+      parameters:
+      - name: type
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - listReference
+        description: Query parameter `type`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1020'
+      - '1612'
+      x-sfmc-user-permission-paths:
+      - Contact Builder > Delete Contacts
+      - IMH Contacts > Add
+      x-sfmc-installed-package-scopes:
+      - list_and_subscribers_write
+      x-original-marketing-cloud-paths:
+      - /contacts/v1/contacts/actions/delete?type=ids
+      - /contacts/v1/contacts/actions/delete?type=keys
+      - /contacts/v1/contacts/actions/delete?type=listReference
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+  /contacts/v1/contacts/actions/delete/configSettings:
+    post:
+      tags:
+      - Contacts
+      summary: POST /contacts/v1/contacts/actions/delete/configSettings
+      operationId: post_contacts_v1_contacts_actions_delete_configSettings
+      description: Starts or checks an asynchronous contact delete or restrict operation.
+        Salesforce exposes these as long-running jobs because contact-level erasure
+        and suppression can cascade through multiple channel and model layers.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1020'
+      - '1612'
+      x-sfmc-user-permission-paths:
+      - Contact Builder > Delete Contacts
+      - IMH Contacts > Add
+      x-sfmc-installed-package-scopes:
+      - list_and_subscribers_write
+      x-original-marketing-cloud-paths:
+      - /contacts/v1/contacts/actions/delete/configSettings
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+  /contacts/v1/contacts/actions/delete/options:
+    post:
+      tags:
+      - Contacts
+      summary: POST /contacts/v1/contacts/actions/delete/options
+      operationId: post_contacts_v1_contacts_actions_delete_options
+      description: Starts or checks an asynchronous contact delete or restrict operation.
+        Salesforce exposes these as long-running jobs because contact-level erasure
+        and suppression can cascade through multiple channel and model layers.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1020'
+      - '1612'
+      x-sfmc-user-permission-paths:
+      - Contact Builder > Delete Contacts
+      - IMH Contacts > Add
+      x-sfmc-installed-package-scopes:
+      - list_and_subscribers_write
+      x-original-marketing-cloud-paths:
+      - /contacts/v1/contacts/actions/delete/options
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+  /contacts/v1/contacts/actions/restrict:
+    post:
+      tags:
+      - Contacts
+      summary: POST /contacts/v1/contacts/actions/restrict
+      operationId: post_contacts_v1_contacts_actions_restrict
+      description: Starts or checks an asynchronous contact delete or restrict operation.
+        Salesforce exposes these as long-running jobs because contact-level erasure
+        and suppression can cascade through multiple channel and model layers.
+      parameters:
+      - name: type
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - listReference
+        description: Query parameter `type`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1020'
+      - '1612'
+      x-sfmc-user-permission-paths:
+      - Contact Builder > Delete Contacts
+      - IMH Contacts > Add
+      x-sfmc-installed-package-scopes:
+      - list_and_subscribers_write
+      x-original-marketing-cloud-paths:
+      - /contacts/v1/contacts/actions/restrict?type=ids
+      - /contacts/v1/contacts/actions/restrict?type=keys
+      - /contacts/v1/contacts/actions/restrict?type=listReference
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+  /contacts/v1/establish:
+    post:
+      tags:
+      - Contacts
+      summary: POST /contacts/v1/establish
+      operationId: post_contacts_v1_establish
+      description: Establishes contact relationships or supporting contact model state
+        required before additional operations.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1020'
+      x-sfmc-user-permission-paths:
+      - IMH Contacts > Add
+      x-sfmc-installed-package-scopes:
+      - list_and_subscribers_write
+      x-original-marketing-cloud-paths:
+      - /contacts/v1/establish
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+  /contacts/v1/operations/delete/{operationID}/retry:
+    post:
+      tags:
+      - Contacts
+      summary: POST /contacts/v1/operations/delete/{operationID}/retry
+      operationId: post_contacts_v1_operations_delete_operationID_retry
+      description: Retries a failed or stalled contact delete or restrict operation
+        using the original operation identifier.
+      parameters:
+      - name: operationID
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `operationID`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1020'
+      - '1612'
+      x-sfmc-user-permission-paths:
+      - Contact Builder > Delete Contacts
+      - IMH Contacts > Add
+      x-sfmc-installed-package-scopes:
+      - list_and_subscribers_write
+      x-original-marketing-cloud-paths:
+      - /contacts/v1/operations/delete/{operationID}/retry
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+  /contacts/v1/operations/restrict/{operationID}/retry:
+    post:
+      tags:
+      - Contacts
+      summary: POST /contacts/v1/operations/restrict/{operationID}/retry
+      operationId: post_contacts_v1_operations_restrict_operationID_retry
+      description: Retries a failed or stalled contact delete or restrict operation
+        using the original operation identifier.
+      parameters:
+      - name: operationID
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `operationID`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1020'
+      - '1612'
+      x-sfmc-user-permission-paths:
+      - Contact Builder > Delete Contacts
+      - IMH Contacts > Add
+      x-sfmc-installed-package-scopes:
+      - list_and_subscribers_write
+      x-original-marketing-cloud-paths:
+      - /contacts/v1/operations/restrict/{operationID}/retry
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+  /contacts/v1/addresses/count/:
+    post:
+      tags:
+      - Contacts
+      summary: POST /contacts/v1/addresses/count/
+      operationId: post_contacts_v1_addresses_count
+      description: Runs audience-style searches against contacts by address or attribute
+        and returns counts or matching records.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1611'
+      x-sfmc-user-permission-paths:
+      - Contacts > Audiences > Read > View All Contacts
+      x-sfmc-installed-package-scopes:
+      - audiences_read
+      x-original-marketing-cloud-paths:
+      - /contacts/v1/addresses/count/
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+  /contacts/v1/addresses/search/{attributeName}/:
+    post:
+      tags:
+      - Contacts
+      summary: POST /contacts/v1/addresses/search/{attributeName}/
+      operationId: post_contacts_v1_addresses_search_attributeName
+      description: Runs audience-style searches against contacts by address or attribute
+        and returns counts or matching records.
+      parameters:
+      - name: attributeName
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `attributeName`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1611'
+      x-sfmc-user-permission-paths:
+      - Contacts > Audiences > Read > View All Contacts
+      x-sfmc-installed-package-scopes:
+      - audiences_read
+      x-original-marketing-cloud-paths:
+      - /contacts/v1/addresses/search/{attributeName}/
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody

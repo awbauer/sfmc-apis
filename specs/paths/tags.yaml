@@ -1,0 +1,379 @@
+paths:
+  /hub/v1/objects/{objectTypeName}/tags/:
+    post:
+      tags:
+      - Tags
+      summary: POST /hub/v1/objects/{objectTypeName}/tags/
+      operationId: post_hub_v1_objects_objectTypeName_tags
+      description: Associates or disassociates tags with the specified object type
+        in Interactive Marketing Hub.
+      parameters:
+      - name: objectTypeName
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `objectTypeName`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1348'
+      x-sfmc-user-permission-paths:
+      - Interactive Marketing Hub > Tags > Associate/Disassociate
+      x-sfmc-installed-package-scopes:
+      - tags_write
+      x-original-marketing-cloud-paths:
+      - /hub/v1/objects/{objectTypeName}/tags/
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+  /hub/v1/objects/{objectTypeName}/tags/delete:
+    post:
+      tags:
+      - Tags
+      summary: POST /hub/v1/objects/{objectTypeName}/tags/delete
+      operationId: post_hub_v1_objects_objectTypeName_tags_delete
+      description: Associates or disassociates tags with the specified object type
+        in Interactive Marketing Hub.
+      parameters:
+      - name: objectTypeName
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `objectTypeName`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1644'
+      x-sfmc-user-permission-paths:
+      - Tags > View
+      x-sfmc-installed-package-scopes:
+      - tags_read
+      x-original-marketing-cloud-paths:
+      - /hub/v1/objects/{objectTypeName}/tags/delete
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+  /hub/v1/nestedtags:
+    post:
+      tags:
+      - Tags
+      summary: POST /hub/v1/nestedtags
+      operationId: post_hub_v1_nestedtags
+      description: Creates, retrieves, updates, or deletes nested tag definitions.
+        Nested tags provide a managed taxonomy for classifying assets and hub objects.
+      parameters: []
+      responses:
+        '201':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1343'
+      - '1644'
+      x-sfmc-user-permission-paths:
+      - Tags > Create
+      - Tags > View
+      x-sfmc-installed-package-scopes:
+      - tags_create
+      - tags_read
+      x-original-marketing-cloud-paths:
+      - /hub/v1/nestedtags
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+    get:
+      tags:
+      - Tags
+      summary: GET /hub/v1/nestedtags
+      operationId: get_hub_v1_nestedtags
+      description: Creates, retrieves, updates, or deletes nested tag definitions.
+        Nested tags provide a managed taxonomy for classifying assets and hub objects.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1644'
+      x-sfmc-user-permission-paths:
+      - Tags > View
+      x-sfmc-installed-package-scopes:
+      - tags_read
+      x-original-marketing-cloud-paths:
+      - /hub/v1/nestedtags
+  /hub/v1/nestedtags/{tagId}:
+    get:
+      tags:
+      - Tags
+      summary: GET /hub/v1/nestedtags/{tagId}
+      operationId: get_hub_v1_nestedtags_tagId
+      description: Creates, retrieves, updates, or deletes nested tag definitions.
+        Nested tags provide a managed taxonomy for classifying assets and hub objects.
+      parameters:
+      - name: tagId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `tagId`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1644'
+      x-sfmc-user-permission-paths:
+      - Tags > View
+      x-sfmc-installed-package-scopes:
+      - tags_read
+      x-original-marketing-cloud-paths:
+      - /hub/v1/nestedtags/{tagId}
+    put:
+      tags:
+      - Tags
+      summary: PUT /hub/v1/nestedtags/{tagId}
+      operationId: put_hub_v1_nestedtags_tagId
+      description: Creates, retrieves, updates, or deletes nested tag definitions.
+        Nested tags provide a managed taxonomy for classifying assets and hub objects.
+      parameters:
+      - name: tagId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `tagId`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1344'
+      - '1644'
+      x-sfmc-user-permission-paths:
+      - Tags > Edit
+      - Tags > View
+      x-sfmc-installed-package-scopes:
+      - tags_edit
+      - tags_read
+      x-original-marketing-cloud-paths:
+      - /hub/v1/nestedtags/{tagId}
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+    patch:
+      tags:
+      - Tags
+      summary: PATCH /hub/v1/nestedtags/{tagId}
+      operationId: patch_hub_v1_nestedtags_tagId
+      description: Creates, retrieves, updates, or deletes nested tag definitions.
+        Nested tags provide a managed taxonomy for classifying assets and hub objects.
+      parameters:
+      - name: tagId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `tagId`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1344'
+      - '1644'
+      x-sfmc-user-permission-paths:
+      - Tags > Edit
+      - Tags > View
+      x-sfmc-installed-package-scopes:
+      - tags_edit
+      - tags_read
+      x-original-marketing-cloud-paths:
+      - /hub/v1/nestedtags/{tagId}
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+    delete:
+      tags:
+      - Tags
+      summary: DELETE /hub/v1/nestedtags/{tagId}
+      operationId: delete_hub_v1_nestedtags_tagId
+      description: Creates, retrieves, updates, or deletes nested tag definitions.
+        Nested tags provide a managed taxonomy for classifying assets and hub objects.
+      parameters:
+      - name: tagId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `tagId`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1345'
+      - '1644'
+      x-sfmc-user-permission-paths:
+      - Tags > Delete
+      - Tags > View
+      x-sfmc-installed-package-scopes:
+      - tags_delete
+      - tags_read
+      x-original-marketing-cloud-paths:
+      - /hub/v1/nestedtags/{tagId}

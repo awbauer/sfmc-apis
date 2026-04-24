@@ -1,0 +1,365 @@
+paths:
+  /data/v1/async/{requestId}/results:
+    get:
+      tags:
+      - Data Extensions
+      summary: GET /data/v1/async/{requestId}/results
+      operationId: get_data_v1_async_requestId_results
+      description: Returns status or results for an asynchronous data-extension row
+        request. Use status polling until the request completes, then fetch results
+        for row-level outcome detail.
+      parameters:
+      - name: requestId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `requestId`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '97'
+      x-sfmc-user-permission-paths:
+      - Email > Subscribers > Data Extension > View
+      x-sfmc-installed-package-scopes:
+      - data_extensions_read
+      x-original-marketing-cloud-paths:
+      - /data/v1/async/{requestId}/results
+  /data/v1/async/{requestId}/status:
+    get:
+      tags:
+      - Data Extensions
+      summary: GET /data/v1/async/{requestId}/status
+      operationId: get_data_v1_async_requestId_status
+      description: Returns status or results for an asynchronous data-extension row
+        request. Use status polling until the request completes, then fetch results
+        for row-level outcome detail.
+      parameters:
+      - name: requestId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `requestId`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '97'
+      x-sfmc-user-permission-paths:
+      - Email > Subscribers > Data Extension > View
+      x-sfmc-installed-package-scopes:
+      - data_extensions_read
+      x-original-marketing-cloud-paths:
+      - /data/v1/async/{requestId}/status
+  /data/v1/async/dataextensions/{id}/rows:
+    post:
+      tags:
+      - Data Extensions
+      summary: POST /data/v1/async/dataextensions/{id}/rows
+      operationId: post_data_v1_async_dataextensions_id_rows
+      description: Returns status or results for an asynchronous data-extension row
+        request. Use status polling until the request completes, then fetch results
+        for row-level outcome detail.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `id`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '98'
+      x-sfmc-user-permission-paths:
+      - Email > Subscribers > Data Extension > Update
+      x-sfmc-installed-package-scopes:
+      - data_extensions_write
+      x-original-marketing-cloud-paths:
+      - /data/v1/async/dataextensions/{id}/rows
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+    put:
+      tags:
+      - Data Extensions
+      summary: PUT /data/v1/async/dataextensions/{id}/rows
+      operationId: put_data_v1_async_dataextensions_id_rows
+      description: Returns status or results for an asynchronous data-extension row
+        request. Use status polling until the request completes, then fetch results
+        for row-level outcome detail.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `id`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '98'
+      x-sfmc-user-permission-paths:
+      - Email > Subscribers > Data Extension > Update
+      x-sfmc-installed-package-scopes:
+      - data_extensions_write
+      x-original-marketing-cloud-paths:
+      - /data/v1/async/dataextensions/{id}/rows
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+  /hub/v1/dataevents/key:{key}/rowset:
+    post:
+      tags:
+      - Data Extensions
+      summary: POST /hub/v1/dataevents/key:{key}/rowset
+      operationId: post_hub_v1_dataevents_key_key_rowset
+      description: Writes to a data extension through the Data Events API using the
+        customer key instead of the internal data-extension ID. These routes are typically
+        used for event-style upserts and targeted row updates.
+      parameters:
+      - name: key
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `key`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '98'
+      x-sfmc-user-permission-paths:
+      - Email > Subscribers > Data Extension > Update
+      x-sfmc-installed-package-scopes:
+      - data_extensions_write
+      x-original-marketing-cloud-paths:
+      - /hub/v1/dataevents/key:{key}/rowset
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+  /hub/v1/dataevents/key:{key}/rows/{primaryKeys}:
+    put:
+      tags:
+      - Data Extensions
+      summary: PUT /hub/v1/dataevents/key:{key}/rows/{primaryKeys}
+      operationId: put_hub_v1_dataevents_key_key_rows_primaryKeys
+      description: Writes to a data extension through the Data Events API using the
+        customer key instead of the internal data-extension ID. These routes are typically
+        used for event-style upserts and targeted row updates.
+      parameters:
+      - name: key
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `key`.
+      - name: primaryKeys
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `primaryKeys`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '98'
+      x-sfmc-user-permission-paths:
+      - Email > Subscribers > Data Extension > Update
+      x-sfmc-installed-package-scopes:
+      - data_extensions_write
+      x-original-marketing-cloud-paths:
+      - /hub/v1/dataevents/key:{key}/rows/{primaryKeys}
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+  /hub/v1/dataevents/key:{key}/rows/{primaryKeys}/column/{columnName}:
+    put:
+      tags:
+      - Data Extensions
+      summary: PUT /hub/v1/dataevents/key:{key}/rows/{primaryKeys}/column/{columnName}
+      operationId: put_hub_v1_dataevents_key_key_rows_primaryKeys_column_columnName
+      description: 'Writes to a data extension through the Data Events API using the
+        customer key instead of the internal data-extension ID. These routes are typically
+        used for event-style upserts and targeted row updates. Note: the source permissions
+        matrix truncated this route in at least one place; the OpenAPI path here normalizes
+        the placeholder so the spec remains valid.'
+      parameters:
+      - name: key
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `key`.
+      - name: primaryKeys
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `primaryKeys`.
+      - name: columnName
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `columnName`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '98'
+      x-sfmc-user-permission-paths:
+      - Email > Subscribers > Data Extension > Update
+      x-sfmc-installed-package-scopes:
+      - data_extensions_write
+      x-original-marketing-cloud-paths:
+      - /hub/v1/dataevents/key:{key}/rows/{primaryKeys}/column/{col...
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody

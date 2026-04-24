@@ -1,0 +1,1102 @@
+paths:
+  /sms/v1/automation/importSend:
+    post:
+      tags:
+      - MobileConnect SMS
+      summary: POST /sms/v1/automation/importSend
+      operationId: post_sms_v1_automation_importSend
+      description: Starts or inspects an SMS automation import-send process. These
+        routes are batch oriented and return token-based status objects for asynchronous
+        processing.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/AsyncOperationAcceptedResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1006'
+      - '1010'
+      - '449'
+      x-sfmc-user-permission-paths:
+      - Automation Studio > General > Access
+      - Mobile Connect > General > Access
+      - Mobile Connect > SMS Message > Schedule And Send Message
+      x-sfmc-installed-package-scopes:
+      - automations_read
+      - sms_read
+      - sms_send
+      x-original-marketing-cloud-paths:
+      - /sms/v1/automation/importSend
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+  /sms/v1/contacts/queueImport/{id}:
+    post:
+      tags:
+      - MobileConnect SMS
+      summary: POST /sms/v1/contacts/queueImport/{id}
+      operationId: post_sms_v1_contacts_queueImport_id
+      description: Queues an import of contacts for SMS processing and exposes token-based
+        status retrieval for the resulting asynchronous job.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `id`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/AsyncOperationAcceptedResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1006'
+      - '449'
+      x-sfmc-user-permission-paths:
+      - Automation Studio > General > Access
+      - Mobile Connect > General > Access
+      x-sfmc-installed-package-scopes:
+      - automations_read
+      - sms_read
+      x-original-marketing-cloud-paths:
+      - /sms/v1/contacts/queueImport/{id}
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+  /sms/v1/automation/importSend/{tokenid}/status:
+    get:
+      tags:
+      - MobileConnect SMS
+      summary: GET /sms/v1/automation/importSend/{tokenid}/status
+      operationId: get_sms_v1_automation_importSend_tokenid_status
+      description: Starts or inspects an SMS automation import-send process. These
+        routes are batch oriented and return token-based status objects for asynchronous
+        processing.
+      parameters:
+      - name: tokenid
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `tokenid`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/AsyncOperationStatusResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1006'
+      x-sfmc-user-permission-paths:
+      - Mobile Connect > General > Access
+      x-sfmc-installed-package-scopes:
+      - sms_read
+      x-original-marketing-cloud-paths:
+      - /sms/v1/automation/importSend/{tokenid}/status
+  /sms/v1/contacts/queueImport/{id}/status/{tokenId}:
+    get:
+      tags:
+      - MobileConnect SMS
+      summary: GET /sms/v1/contacts/queueImport/{id}/status/{tokenId}
+      operationId: get_sms_v1_contacts_queueImport_id_status_tokenId
+      description: Queues an import of contacts for SMS processing and exposes token-based
+        status retrieval for the resulting asynchronous job.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `id`.
+      - name: tokenId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `tokenId`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/AsyncOperationStatusResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1006'
+      x-sfmc-user-permission-paths:
+      - Mobile Connect > General > Access
+      x-sfmc-installed-package-scopes:
+      - sms_read
+      x-original-marketing-cloud-paths:
+      - /sms/v1/contacts/queueImport/{id}/status/{tokenId}
+  /sms/v1/contacts/refreshList/{id}/status/{tokenId}:
+    get:
+      tags:
+      - MobileConnect SMS
+      summary: GET /sms/v1/contacts/refreshList/{id}/status/{tokenId}
+      operationId: get_sms_v1_contacts_refreshList_id_status_tokenId
+      description: Refreshes a list used by MobileConnect and exposes asynchronous
+        status polling for the refresh operation.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `id`.
+      - name: tokenId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `tokenId`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/AsyncOperationStatusResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1006'
+      x-sfmc-user-permission-paths:
+      - Mobile Connect > General > Access
+      x-sfmc-installed-package-scopes:
+      - sms_read
+      x-original-marketing-cloud-paths:
+      - /sms/v1/contacts/refreshList/{id}/status/{tokenId}
+  /sms/v1/messageContact/{messageId}/deliveries/{tokenId}:
+    get:
+      tags:
+      - MobileConnect SMS
+      summary: GET /sms/v1/messageContact/{messageId}/deliveries/{tokenId}
+      operationId: get_sms_v1_messageContact_messageId_deliveries_tokenId
+      description: Retrieves delivery or message-history data for an asynchronous
+        MobileConnect or MobilePush send request. These endpoints are operational
+        reporting surfaces, not send entry points.
+      parameters:
+      - name: messageId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `messageId`.
+      - name: tokenId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `tokenId`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/SmsDeliveryResultsResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1006'
+      - '1010'
+      x-sfmc-user-permission-paths:
+      - Mobile Connect > General > Access
+      - Mobile Connect > SMS Message > Schedule And Send Message
+      x-sfmc-installed-package-scopes:
+      - sms_read
+      - sms_send
+      x-original-marketing-cloud-paths:
+      - /sms/v1/messageContact/{messageId}/deliveries/{tokenId}
+  /sms/v1/messageContact/{messageId}/history/{tokenId}/mobileNumber/{mobileNumber}:
+    get:
+      tags:
+      - MobileConnect SMS
+      summary: GET /sms/v1/messageContact/{messageId}/history/{tokenId}/mobileNumber/{mobileNumber}
+      operationId: get_sms_v1_messageContact_messageId_history_tokenId_mobileNumber_mobileNumber
+      description: 'Retrieves delivery or message-history data for an asynchronous
+        MobileConnect or MobilePush send request. These endpoints are operational
+        reporting surfaces, not send entry points. Note: the source permissions matrix
+        truncated this route in at least one place; the OpenAPI path here normalizes
+        the placeholder so the spec remains valid.'
+      parameters:
+      - name: messageId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `messageId`.
+      - name: tokenId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `tokenId`.
+      - name: mobileNumber
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `mobileNumber`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/SmsHistoryResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1006'
+      x-sfmc-user-permission-paths:
+      - Mobile Connect > General > Access
+      x-sfmc-installed-package-scopes:
+      - sms_read
+      x-original-marketing-cloud-paths:
+      - /sms/v1/messageContact/{messageId}/history/{tokenId}/mobile...
+  /sms/v1/messageList/{id}/deliveries/{tokenId}:
+    get:
+      tags:
+      - MobileConnect SMS
+      summary: GET /sms/v1/messageList/{id}/deliveries/{tokenId}
+      operationId: get_sms_v1_messageList_id_deliveries_tokenId
+      description: Retrieves delivery or message-history data for an asynchronous
+        MobileConnect or MobilePush send request. These endpoints are operational
+        reporting surfaces, not send entry points.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `id`.
+      - name: tokenId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `tokenId`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/SmsDeliveryResultsResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1006'
+      x-sfmc-user-permission-paths:
+      - Mobile Connect > General > Access
+      x-sfmc-installed-package-scopes:
+      - sms_read
+      x-original-marketing-cloud-paths:
+      - /sms/v1/messageList/{id}/deliveries/{tokenId}
+  /sms/v1/queueMO/deliveries/{tokenId}:
+    get:
+      tags:
+      - MobileConnect SMS
+      summary: GET /sms/v1/queueMO/deliveries/{tokenId}
+      operationId: get_sms_v1_queueMO_deliveries_tokenId
+      description: Retrieves delivery or message-history data for an asynchronous
+        MobileConnect or MobilePush send request. These endpoints are operational
+        reporting surfaces, not send entry points.
+      parameters:
+      - name: tokenId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `tokenId`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/SmsDeliveryResultsResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1006'
+      x-sfmc-user-permission-paths:
+      - Mobile Connect > General > Access
+      x-sfmc-installed-package-scopes:
+      - sms_read
+      x-original-marketing-cloud-paths:
+      - /sms/v1/queueMO/deliveries/{tokenId}
+  /sms/v1/queueMO/history/{tokenId}:
+    get:
+      tags:
+      - MobileConnect SMS
+      summary: GET /sms/v1/queueMO/history/{tokenId}
+      operationId: get_sms_v1_queueMO_history_tokenId
+      description: Retrieves delivery or message-history data for an asynchronous
+        MobileConnect or MobilePush send request. These endpoints are operational
+        reporting surfaces, not send entry points.
+      parameters:
+      - name: tokenId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `tokenId`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/SmsHistoryResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1006'
+      x-sfmc-user-permission-paths:
+      - Mobile Connect > General > Access
+      x-sfmc-installed-package-scopes:
+      - sms_read
+      x-original-marketing-cloud-paths:
+      - /sms/v1/queueMO/history/{tokenId}
+  /sms/v1/automation/importSend/{id}/deliveryReport:
+    post:
+      tags:
+      - MobileConnect SMS
+      summary: POST /sms/v1/automation/importSend/{id}/deliveryReport
+      operationId: post_sms_v1_automation_importSend_id_deliveryReport
+      description: Starts or inspects an SMS automation import-send process. These
+        routes are batch oriented and return token-based status objects for asynchronous
+        processing.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `id`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/SmsDeliveryReportResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1006'
+      x-sfmc-user-permission-paths:
+      - Mobile Connect > General > Access
+      x-sfmc-installed-package-scopes:
+      - sms_read
+      x-original-marketing-cloud-paths:
+      - /sms/v1/automation/importSend/{id}/deliveryReport
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+  /sms/v1/contacts/refreshList/{id}:
+    post:
+      tags:
+      - MobileConnect SMS
+      summary: POST /sms/v1/contacts/refreshList/{id}
+      operationId: post_sms_v1_contacts_refreshList_id
+      description: Refreshes a list used by MobileConnect and exposes asynchronous
+        status polling for the refresh operation.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `id`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/AsyncOperationAcceptedResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1006'
+      x-sfmc-user-permission-paths:
+      - Mobile Connect > General > Access
+      x-sfmc-installed-package-scopes:
+      - sms_read
+      x-original-marketing-cloud-paths:
+      - /sms/v1/contacts/refreshList/{id}
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+  /sms/v1/contacts/subscriptions:
+    post:
+      tags:
+      - MobileConnect SMS
+      summary: POST /sms/v1/contacts/subscriptions
+      operationId: post_sms_v1_contacts_subscriptions
+      description: Creates or updates MobileConnect contact subscription data. Use
+        this for keyword or subscription-state oriented workflows rather than transactional
+        sends.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/SmsSubscriptionResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1006'
+      x-sfmc-user-permission-paths:
+      - Mobile Connect > General > Access
+      x-sfmc-installed-package-scopes:
+      - sms_read
+      x-original-marketing-cloud-paths:
+      - /sms/v1/contacts/subscriptions
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/SmsSubscriptionRequest
+  /sms/v1/messageList/{id}/deliveryReport/{tokenId}:
+    post:
+      tags:
+      - MobileConnect SMS
+      summary: POST /sms/v1/messageList/{id}/deliveryReport/{tokenId}
+      operationId: post_sms_v1_messageList_id_deliveryReport_tokenId
+      description: Post operation for the MobileConnect SMS API family. This operation
+        is included in the permissions matrix you supplied; the route is included
+        in the permissions matrix and modeled from the closest corresponding Salesforce
+        reference available.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `id`.
+      - name: tokenId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `tokenId`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/SmsDeliveryReportResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1006'
+      x-sfmc-user-permission-paths:
+      - Mobile Connect > General > Access
+      x-sfmc-installed-package-scopes:
+      - sms_read
+      x-original-marketing-cloud-paths:
+      - /sms/v1/messageList/{id}/deliveryReport/{tokenId}
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+  /sms/v1/keyword/{keyword}/{longCode}:
+    delete:
+      tags:
+      - MobileConnect SMS
+      summary: DELETE /sms/v1/keyword/{keyword}/{longCode}
+      operationId: delete_sms_v1_keyword_keyword_longCode
+      description: Creates or deletes MobileConnect keywords. Keyword management is
+        an administrative channel function and usually sits behind stricter governance
+        than ordinary message sends.
+      parameters:
+      - name: keyword
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `keyword`.
+      - name: longCode
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `longCode`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1007'
+      x-sfmc-user-permission-paths:
+      - Mobile Connect > General > Administer SMS Channel
+      x-sfmc-installed-package-scopes:
+      - sms_write
+      x-original-marketing-cloud-paths:
+      - /sms/v1/keyword/{keyword}/{longCode}
+  /sms/v1/keyword/{keyword}/{shortCode}/{countryCode}:
+    delete:
+      tags:
+      - MobileConnect SMS
+      summary: DELETE /sms/v1/keyword/{keyword}/{shortCode}/{countryCode}
+      operationId: delete_sms_v1_keyword_keyword_shortCode_countryCode
+      description: Creates or deletes MobileConnect keywords. Keyword management is
+        an administrative channel function and usually sits behind stricter governance
+        than ordinary message sends.
+      parameters:
+      - name: keyword
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `keyword`.
+      - name: shortCode
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `shortCode`.
+      - name: countryCode
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `countryCode`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1007'
+      x-sfmc-user-permission-paths:
+      - Mobile Connect > General > Administer SMS Channel
+      x-sfmc-installed-package-scopes:
+      - sms_write
+      x-original-marketing-cloud-paths:
+      - /sms/v1/keyword/{keyword}/{shortCode}/{countryCode}
+  /sms/v1/keyword/{keywordId}:
+    delete:
+      tags:
+      - MobileConnect SMS
+      summary: DELETE /sms/v1/keyword/{keywordId}
+      operationId: delete_sms_v1_keyword_keywordId
+      description: Creates or deletes MobileConnect keywords. Keyword management is
+        an administrative channel function and usually sits behind stricter governance
+        than ordinary message sends.
+      parameters:
+      - name: keywordId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `keywordId`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/SmsKeywordResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1007'
+      - '1012'
+      x-sfmc-user-permission-paths:
+      - Mobile Connect > General > Administer SMS Channel
+      - Mobile Connect > SMS Message > Create Keyword From Message Template
+      x-sfmc-installed-package-scopes:
+      - sms_write
+      x-original-marketing-cloud-paths:
+      - /sms/v1/keyword/{keywordId}
+  /sms/v1/keyword:
+    post:
+      tags:
+      - MobileConnect SMS
+      summary: POST /sms/v1/keyword
+      operationId: post_sms_v1_keyword
+      description: Creates or deletes MobileConnect keywords. Keyword management is
+        an administrative channel function and usually sits behind stricter governance
+        than ordinary message sends.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/SmsKeywordResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1007'
+      - '1012'
+      x-sfmc-user-permission-paths:
+      - Mobile Connect > General > Administer SMS Channel
+      - Mobile Connect > SMS Message > Create Keyword From Message Template
+      x-sfmc-installed-package-scopes:
+      - sms_write
+      x-original-marketing-cloud-paths:
+      - /sms/v1/keyword
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/SmsKeywordRequest
+  /sms/v1/message/optin:
+    post:
+      tags:
+      - MobileConnect SMS
+      summary: POST /sms/v1/message/optin
+      operationId: post_sms_v1_message_optin
+      description: Registers an SMS opt-in event through API. Use this route only
+        when your consent model and regional compliance rules explicitly allow API-driven
+        opt-in capture.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1008'
+      x-sfmc-user-permission-paths:
+      - Mobile Connect > SMS Message > Create And Edit
+      x-sfmc-installed-package-scopes:
+      - sms_write
+      x-original-marketing-cloud-paths:
+      - /sms/v1/message/optin
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+  /sms/v1/messageContact/{id}/send:
+    post:
+      tags:
+      - MobileConnect SMS
+      summary: POST /sms/v1/messageContact/{id}/send
+      operationId: post_sms_v1_messageContact_id_send
+      description: Executes a MobileConnect send or queues MO processing. These are
+        legacy MobileConnect send surfaces separate from the newer transactional messaging
+        SMS API.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `id`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1010'
+      x-sfmc-user-permission-paths:
+      - Mobile Connect > SMS Message > Schedule And Send Message
+      x-sfmc-installed-package-scopes:
+      - sms_send
+      x-original-marketing-cloud-paths:
+      - /sms/v1/messageContact/{id}/send
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+  /sms/v1/messageList/{id}/send:
+    post:
+      tags:
+      - MobileConnect SMS
+      summary: POST /sms/v1/messageList/{id}/send
+      operationId: post_sms_v1_messageList_id_send
+      description: Executes a MobileConnect send or queues MO processing. These are
+        legacy MobileConnect send surfaces separate from the newer transactional messaging
+        SMS API.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `id`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1010'
+      x-sfmc-user-permission-paths:
+      - Mobile Connect > SMS Message > Schedule And Send Message
+      x-sfmc-installed-package-scopes:
+      - sms_send
+      x-original-marketing-cloud-paths:
+      - /sms/v1/messageList/{id}/send
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+  /sms/v1/queueMO:
+    post:
+      tags:
+      - MobileConnect SMS
+      summary: POST /sms/v1/queueMO
+      operationId: post_sms_v1_queueMO
+      description: Executes a MobileConnect send or queues MO processing. These are
+        legacy MobileConnect send surfaces separate from the newer transactional messaging
+        SMS API.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1010'
+      x-sfmc-user-permission-paths:
+      - Mobile Connect > SMS Message > Schedule And Send Message
+      x-sfmc-installed-package-scopes:
+      - sms_send
+      x-original-marketing-cloud-paths:
+      - /sms/v1/queueMO
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody

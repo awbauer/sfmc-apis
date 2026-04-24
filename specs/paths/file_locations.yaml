@@ -1,0 +1,129 @@
+paths:
+  /platform/v1/key:
+    post:
+      tags:
+      - File Locations
+      summary: POST /platform/v1/key
+      operationId: post_platform_v1_key
+      description: Creates, retrieves, or deletes file-location keys used by external
+        object sources and file-based integrations. Treat these as administrative
+        platform resources, not end-user workflow endpoints.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '263'
+      x-sfmc-user-permission-paths:
+      - Email > Admin > External Object Sources > File Location > Create
+      x-sfmc-installed-package-scopes:
+      - file_location_create
+      x-original-marketing-cloud-paths:
+      - platform/v1/key
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+    get:
+      tags:
+      - File Locations
+      summary: GET /platform/v1/key
+      operationId: get_platform_v1_key
+      description: Creates, retrieves, or deletes file-location keys used by external
+        object sources and file-based integrations. Treat these as administrative
+        platform resources, not end-user workflow endpoints.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '264'
+      x-sfmc-user-permission-paths:
+      - Email > Admin > External Object Sources > File Location > View
+      x-sfmc-installed-package-scopes:
+      - file_location_view
+      x-original-marketing-cloud-paths:
+      - platform/v1/key
+  /platform/v1/key/{keyId}:
+    delete:
+      tags:
+      - File Locations
+      summary: DELETE /platform/v1/key/{keyId}
+      operationId: delete_platform_v1_key_keyId
+      description: Creates, retrieves, or deletes file-location keys used by external
+        object sources and file-based integrations. Treat these as administrative
+        platform resources, not end-user workflow endpoints.
+      parameters:
+      - name: keyId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `keyId`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '266'
+      x-sfmc-user-permission-paths:
+      - Email > Admin > External Object Sources > File Location > Delete
+      x-sfmc-installed-package-scopes:
+      - file_location_delete
+      x-original-marketing-cloud-paths:
+      - platform/v1/key/{keyId}

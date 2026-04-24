@@ -1,0 +1,1059 @@
+paths:
+  /interaction/v1/events:
+    post:
+      tags:
+      - Journey Builder
+      summary: POST /interaction/v1/events
+      operationId: post_interaction_v1_events
+      description: Fires a Journey Builder event to inject a contact into a journey.
+        Salesforce requires contactKey, eventDefinitionKey, and any event data needed
+        by the event definition; successful calls return an eventInstanceId.
+      parameters: []
+      responses:
+        '201':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1018'
+      - '1220'
+      x-sfmc-user-permission-paths:
+      - Contacts > Read Contact Data
+      - Journey Builder > General > Access, View
+      x-sfmc-installed-package-scopes:
+      - journeys_read
+      - list_and_subscribers_read
+      x-original-marketing-cloud-paths:
+      - /interaction/v1/events
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+  /interaction/v1/eventDefinitions/{id}:
+    delete:
+      tags:
+      - Journey Builder
+      summary: DELETE /interaction/v1/eventDefinitions/{id}
+      operationId: delete_interaction_v1_eventDefinitions_id
+      description: Creates, retrieves, updates, or deletes Journey Builder event definitions.
+        Event definitions describe the external event contract that can start or feed
+        a journey.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `id`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/JourneyEventDefinitionResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1220'
+      x-sfmc-user-permission-paths:
+      - Journey Builder > General > Access, View
+      x-sfmc-installed-package-scopes:
+      - journeys_read
+      x-original-marketing-cloud-paths:
+      - /interaction/v1/eventDefinitions/{id}
+    get:
+      tags:
+      - Journey Builder
+      summary: GET /interaction/v1/eventDefinitions/{id}
+      operationId: get_interaction_v1_eventDefinitions_id
+      description: Creates, retrieves, updates, or deletes Journey Builder event definitions.
+        Event definitions describe the external event contract that can start or feed
+        a journey.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `id`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/JourneyEventDefinitionResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1220'
+      x-sfmc-user-permission-paths:
+      - Journey Builder > General > Access, View
+      x-sfmc-installed-package-scopes:
+      - journeys_read
+      x-original-marketing-cloud-paths:
+      - /interaction/v1/eventDefinitions/{id}
+    put:
+      tags:
+      - Journey Builder
+      summary: PUT /interaction/v1/eventDefinitions/{id}
+      operationId: put_interaction_v1_eventDefinitions_id
+      description: Creates, retrieves, updates, or deletes Journey Builder event definitions.
+        Event definitions describe the external event contract that can start or feed
+        a journey.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `id`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/JourneyEventDefinitionResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1220'
+      x-sfmc-user-permission-paths:
+      - Journey Builder > General > Access, View
+      x-sfmc-installed-package-scopes:
+      - journeys_read
+      x-original-marketing-cloud-paths:
+      - /interaction/v1/eventDefinitions/{id}
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+  /interaction/v1/interactions/{id}:
+    delete:
+      tags:
+      - Journey Builder
+      summary: DELETE /interaction/v1/interactions/{id}
+      operationId: delete_interaction_v1_interactions_id
+      description: Creates, retrieves, updates, or deletes journeys and journey metadata.
+        Collection GET operations support filtering and the mostRecentVersionOnly
+        option.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `id`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/JourneyInteractionDetailResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1220'
+      x-sfmc-user-permission-paths:
+      - Journey Builder > General > Access, View
+      x-sfmc-installed-package-scopes:
+      - journeys_read
+      x-original-marketing-cloud-paths:
+      - /interaction/v1/interactions/{id}
+    get:
+      tags:
+      - Journey Builder
+      summary: GET /interaction/v1/interactions/{id}
+      operationId: get_interaction_v1_interactions_id
+      description: Creates, retrieves, updates, or deletes journeys and journey metadata.
+        Collection GET operations support filtering and the mostRecentVersionOnly
+        option.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `id`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/JourneyInteractionDetailResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1220'
+      x-sfmc-user-permission-paths:
+      - Journey Builder > General > Access, View
+      x-sfmc-installed-package-scopes:
+      - journeys_read
+      x-original-marketing-cloud-paths:
+      - /interaction/v1/interactions/{id}
+  /interaction/v1/eventDefinitions:
+    get:
+      tags:
+      - Journey Builder
+      summary: GET /interaction/v1/eventDefinitions
+      operationId: get_interaction_v1_eventDefinitions
+      description: Creates, retrieves, updates, or deletes Journey Builder event definitions.
+        Event definitions describe the external event contract that can start or feed
+        a journey.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/JourneyEventDefinitionListResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1220'
+      x-sfmc-user-permission-paths:
+      - Journey Builder > General > Access, View
+      x-sfmc-installed-package-scopes:
+      - journeys_read
+      x-original-marketing-cloud-paths:
+      - /interaction/v1/eventDefinitions
+    post:
+      tags:
+      - Journey Builder
+      summary: POST /interaction/v1/eventDefinitions
+      operationId: post_interaction_v1_eventDefinitions
+      description: Creates, retrieves, updates, or deletes Journey Builder event definitions.
+        Event definitions describe the external event contract that can start or feed
+        a journey.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/JourneyEventDefinitionListResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1220'
+      x-sfmc-user-permission-paths:
+      - Journey Builder > General > Access, View
+      x-sfmc-installed-package-scopes:
+      - journeys_read
+      x-original-marketing-cloud-paths:
+      - /interaction/v1/eventDefinitions
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+  /interaction/v1/interactions:
+    get:
+      tags:
+      - Journey Builder
+      summary: GET /interaction/v1/interactions
+      operationId: get_interaction_v1_interactions
+      description: Creates, retrieves, updates, or deletes journeys and journey metadata.
+        Collection GET operations support filtering and the mostRecentVersionOnly
+        option.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/JourneyInteractionListResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1220'
+      x-sfmc-user-permission-paths:
+      - Journey Builder > General > Access, View
+      x-sfmc-installed-package-scopes:
+      - journeys_read
+      x-original-marketing-cloud-paths:
+      - /interaction/v1/interactions
+    post:
+      tags:
+      - Journey Builder
+      summary: POST /interaction/v1/interactions
+      operationId: post_interaction_v1_interactions
+      description: Creates, retrieves, updates, or deletes journeys and journey metadata.
+        Collection GET operations support filtering and the mostRecentVersionOnly
+        option.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/JourneyInteractionListResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1220'
+      x-sfmc-user-permission-paths:
+      - Journey Builder > General > Access, View
+      x-sfmc-installed-package-scopes:
+      - journeys_read
+      x-original-marketing-cloud-paths:
+      - /interaction/v1/interactions
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+    put:
+      tags:
+      - Journey Builder
+      summary: PUT /interaction/v1/interactions
+      operationId: put_interaction_v1_interactions
+      description: Creates, retrieves, updates, or deletes journeys and journey metadata.
+        Collection GET operations support filtering and the mostRecentVersionOnly
+        option.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/JourneyInteractionListResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1220'
+      x-sfmc-user-permission-paths:
+      - Journey Builder > General > Access, View
+      x-sfmc-installed-package-scopes:
+      - journeys_read
+      x-original-marketing-cloud-paths:
+      - /interaction/v1/interactions
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+  /interaction/v1/interactions/{id}/audit/{action}:
+    get:
+      tags:
+      - Journey Builder
+      summary: GET /interaction/v1/interactions/{id}/audit/{action}
+      operationId: get_interaction_v1_interactions_id_audit_action
+      description: Retrieves an audit log for one or all versions of a journey. Use
+        the action path segment to scope history to creation, modification, activation,
+        deactivation, stopping, deletion, or all actions.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `id`.
+      - name: action
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `action`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/JourneyAuditResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1220'
+      x-sfmc-user-permission-paths:
+      - Journey Builder > General > Access, View
+      x-sfmc-installed-package-scopes:
+      - journeys_read
+      x-original-marketing-cloud-paths:
+      - /interaction/v1/interactions/{id}/audit/{action}
+  /interaction/v1/interactions/publishStatus/{statusId}:
+    get:
+      tags:
+      - Journey Builder
+      summary: GET /interaction/v1/interactions/publishStatus/{statusId}
+      operationId: get_interaction_v1_interactions_publishStatus_statusId
+      description: Retrieves the status of an asynchronous journey publication. Salesforce
+        documents values such as PublishInProcess, PublishCompleted, and Error.
+      parameters:
+      - name: statusId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `statusId`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/JourneyPublishStatusResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1220'
+      x-sfmc-user-permission-paths:
+      - Journey Builder > General > Access, View
+      x-sfmc-installed-package-scopes:
+      - journeys_read
+      x-original-marketing-cloud-paths:
+      - /interaction/v1/interactions/publishStatus/{statusId}
+  /interaction/v1/interactions/contactexit:
+    post:
+      tags:
+      - Journey Builder
+      summary: POST /interaction/v1/interactions/contactexit
+      operationId: post_interaction_v1_interactions_contactexit
+      description: Requests removal of one or more contacts from a journey.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/JourneyContactExitResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1220'
+      x-sfmc-user-permission-paths:
+      - Journey Builder > General > Access, View
+      x-sfmc-installed-package-scopes:
+      - journeys_read
+      x-original-marketing-cloud-paths:
+      - /interaction/v1/interactions/contactexit
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/JourneyContactExitRequest
+  /interaction/v1/interactions/contactexit/status:
+    post:
+      tags:
+      - Journey Builder
+      summary: POST /interaction/v1/interactions/contactexit/status
+      operationId: post_interaction_v1_interactions_contactexit_status
+      description: Returns the status of a request to remove one or more contacts
+        from a journey or specific journey versions.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/JourneyContactExitStatusResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1220'
+      x-sfmc-user-permission-paths:
+      - Journey Builder > General > Access, View
+      x-sfmc-installed-package-scopes:
+      - journeys_read
+      x-original-marketing-cloud-paths:
+      - /interaction/v1/interactions/contactexit/status
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/JourneyContactExitRequest
+  /interaction/v1/interactions/contactMembership:
+    post:
+      tags:
+      - Journey Builder
+      summary: POST /interaction/v1/interactions/contactMembership
+      operationId: post_interaction_v1_interactions_contactMembership
+      description: Returns journey-contact membership information so callers can determine
+        whether a contact is in a journey or version.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/ContactMembershipResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1220'
+      x-sfmc-user-permission-paths:
+      - Journey Builder > General > Access, View
+      x-sfmc-installed-package-scopes:
+      - journeys_read
+      x-original-marketing-cloud-paths:
+      - /interaction/v1/interactions/contactMembership
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/ContactMembershipRequest
+  /interaction/v1/interactions/publishAsync/{id}:
+    post:
+      tags:
+      - Journey Builder
+      summary: POST /interaction/v1/interactions/publishAsync/{id}
+      operationId: post_interaction_v1_interactions_publishAsync_id
+      description: 'Performs an operational lifecycle action on a journey version.
+        These routes are used by release and operations teams to publish, pause, resume,
+        or stop journeys without opening the UI. Note: the source permissions matrix
+        truncated this route in at least one place; the OpenAPI path here normalizes
+        the placeholder so the spec remains valid.'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `id`.
+      - name: versionNumber
+        in: query
+        required: true
+        schema:
+          type: string
+        description: Query parameter `versionNumber`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/JourneyLifecycleResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1220'
+      x-sfmc-user-permission-paths:
+      - Journey Builder > General > Access, View
+      x-sfmc-installed-package-scopes:
+      - journeys_read
+      x-original-marketing-cloud-paths:
+      - /interaction/v1/interactions/publishAsync/{id}?versionNumbe...
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/JourneyLifecycleRequest
+  /interaction/v1/interactions/stop/{id}:
+    post:
+      tags:
+      - Journey Builder
+      summary: POST /interaction/v1/interactions/stop/{id}
+      operationId: post_interaction_v1_interactions_stop_id
+      description: 'Performs an operational lifecycle action on a journey version.
+        These routes are used by release and operations teams to publish, pause, resume,
+        or stop journeys without opening the UI. Note: the source permissions matrix
+        truncated this route in at least one place; the OpenAPI path here normalizes
+        the placeholder so the spec remains valid.'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `id`.
+      - name: versionNumber
+        in: query
+        required: true
+        schema:
+          type: string
+        description: Query parameter `versionNumber`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/JourneyLifecycleResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1220'
+      x-sfmc-user-permission-paths:
+      - Journey Builder > General > Access, View
+      x-sfmc-installed-package-scopes:
+      - journeys_read
+      x-original-marketing-cloud-paths:
+      - /interaction/v1/interactions/stop/{id}?versionNumber={versi...
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/JourneyLifecycleRequest
+  /interaction/v1/interactions/pause/{definitionID}:
+    post:
+      tags:
+      - Journey Builder
+      summary: POST /interaction/v1/interactions/pause/{definitionID}
+      operationId: post_interaction_v1_interactions_pause_definitionID
+      description: Performs an operational lifecycle action on a journey version.
+        These routes are used by release and operations teams to publish, pause, resume,
+        or stop journeys without opening the UI.
+      parameters:
+      - name: definitionID
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `definitionID`.
+      - name: versionNumber
+        in: query
+        required: true
+        schema:
+          type: string
+        description: Query parameter `versionNumber`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/JourneyLifecycleResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1220'
+      x-sfmc-user-permission-paths:
+      - Journey Builder > General > Access, View
+      x-sfmc-installed-package-scopes:
+      - journeys_read
+      x-original-marketing-cloud-paths:
+      - /interaction/v1/interactions/pause/{definitionID}?versionNumber={versionNumber}
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/JourneyLifecycleRequest
+  /interaction/v1/interactions/pause/key:{definitionKey}:
+    post:
+      tags:
+      - Journey Builder
+      summary: POST /interaction/v1/interactions/pause/key:{definitionKey}
+      operationId: post_interaction_v1_interactions_pause_key_definitionKey
+      description: Performs an operational lifecycle action on a journey version.
+        These routes are used by release and operations teams to publish, pause, resume,
+        or stop journeys without opening the UI.
+      parameters:
+      - name: definitionKey
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `definitionKey`.
+      - name: versionNumber
+        in: query
+        required: true
+        schema:
+          type: string
+        description: Query parameter `versionNumber`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/JourneyLifecycleResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1220'
+      x-sfmc-user-permission-paths:
+      - Journey Builder > General > Access, View
+      x-sfmc-installed-package-scopes:
+      - journeys_read
+      x-original-marketing-cloud-paths:
+      - /interaction/v1/interactions/pause/key:{definitionKey}?versionNumber={versionNumber}
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/JourneyLifecycleRequest
+  /interaction/v1/interactions/resume/{definitionID}:
+    post:
+      tags:
+      - Journey Builder
+      summary: POST /interaction/v1/interactions/resume/{definitionID}
+      operationId: post_interaction_v1_interactions_resume_definitionID
+      description: Performs an operational lifecycle action on a journey version.
+        These routes are used by release and operations teams to publish, pause, resume,
+        or stop journeys without opening the UI.
+      parameters:
+      - name: definitionID
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `definitionID`.
+      - name: versionNumber
+        in: query
+        required: true
+        schema:
+          type: string
+        description: Query parameter `versionNumber`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/JourneyLifecycleResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1220'
+      x-sfmc-user-permission-paths:
+      - Journey Builder > General > Access, View
+      x-sfmc-installed-package-scopes:
+      - journeys_read
+      x-original-marketing-cloud-paths:
+      - /interaction/v1/interactions/resume/{definitionID}?versionNumber={versionNumber}
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/JourneyLifecycleRequest
+  /interaction/v1/interactions/resume/key:{definitionKey}:
+    post:
+      tags:
+      - Journey Builder
+      summary: POST /interaction/v1/interactions/resume/key:{definitionKey}
+      operationId: post_interaction_v1_interactions_resume_key_definitionKey
+      description: Performs an operational lifecycle action on a journey version.
+        These routes are used by release and operations teams to publish, pause, resume,
+        or stop journeys without opening the UI.
+      parameters:
+      - name: definitionKey
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `definitionKey`.
+      - name: versionNumber
+        in: query
+        required: true
+        schema:
+          type: string
+        description: Query parameter `versionNumber`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/JourneyLifecycleResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1220'
+      x-sfmc-user-permission-paths:
+      - Journey Builder > General > Access, View
+      x-sfmc-installed-package-scopes:
+      - journeys_read
+      x-original-marketing-cloud-paths:
+      - /interaction/v1/interactions/resume/key:{definitionKey}?versionNumber={versionNumber}
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/JourneyLifecycleRequest

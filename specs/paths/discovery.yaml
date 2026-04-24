@@ -1,0 +1,159 @@
+paths:
+  /interaction/v1/rest:
+    get:
+      tags:
+      - Discovery
+      summary: GET /interaction/v1/rest
+      operationId: get_interaction_v1_rest
+      description: Returns Journey Builder REST interaction metadata for the current
+        tenant. Salesforce exposes this as a no-permission-needed utility route for
+        runtime discovery.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security: []
+      x-sfmc-permission-ids:
+      - No permission required
+      x-sfmc-user-permission-paths:
+      - None
+      x-sfmc-installed-package-scopes:
+      - None
+      x-original-marketing-cloud-paths:
+      - /interaction/v1/rest
+  /platform/v1/endpoints:
+    get:
+      tags:
+      - Discovery
+      summary: GET /platform/v1/endpoints
+      operationId: get_platform_v1_endpoints
+      description: Returns the tenant's endpoint topology for Marketing Cloud Engagement
+        APIs. Use this route early in bootstrap flows when your integration needs
+        to discover the correct REST or SOAP base URLs dynamically.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/EndpointDiscoveryResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security: []
+      x-sfmc-permission-ids:
+      - No permission required
+      x-sfmc-user-permission-paths:
+      - None
+      x-sfmc-installed-package-scopes:
+      - None
+      x-original-marketing-cloud-paths:
+      - /platform/v1/endpoints
+  /platform/v1/endpoints/{endpointType}:
+    get:
+      tags:
+      - Discovery
+      summary: GET /platform/v1/endpoints/{endpointType}
+      operationId: get_platform_v1_endpoints_endpointType
+      description: Returns a specific endpoint value for the requested endpointType.
+        Useful when your integration wants one resolved URL instead of the full endpoint
+        catalog.
+      parameters:
+      - name: endpointType
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `endpointType`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/SingleEndpointDiscoveryResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security: []
+      x-sfmc-permission-ids:
+      - No permission required
+      x-sfmc-user-permission-paths:
+      - None
+      x-sfmc-installed-package-scopes:
+      - None
+      x-original-marketing-cloud-paths:
+      - /platform/v1/endpoints/{endpointType}
+  /platform/v1/tokenContext:
+    get:
+      tags:
+      - Discovery
+      summary: GET /platform/v1/tokenContext
+      operationId: get_platform_v1_tokenContext
+      description: Returns the business-unit and token context attached to the current
+        bearer token. This is the quickest way to confirm which MID and tenant context
+        a token is operating in.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/TokenContextResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security: []
+      x-sfmc-permission-ids:
+      - No permission required
+      x-sfmc-user-permission-paths:
+      - None
+      x-sfmc-installed-package-scopes:
+      - None
+      x-original-marketing-cloud-paths:
+      - /platform/v1/tokenContext
