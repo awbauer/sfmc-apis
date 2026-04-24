@@ -37,7 +37,7 @@ paths:
       x-sfmc-installed-package-scopes:
       - file_location_create
       x-original-marketing-cloud-paths:
-      - platform/v1/key
+      - /platform/v1/key
       requestBody:
         required: false
         content:
@@ -81,7 +81,7 @@ paths:
       x-sfmc-installed-package-scopes:
       - file_location_view
       x-original-marketing-cloud-paths:
-      - platform/v1/key
+      - /platform/v1/key
   /platform/v1/key/{keyId}:
     delete:
       tags:
@@ -126,4 +126,4 @@ paths:
       x-sfmc-installed-package-scopes:
       - file_location_delete
       x-original-marketing-cloud-paths:
-      - platform/v1/key/{keyId}
+      - /platform/v1/key/{keyId}

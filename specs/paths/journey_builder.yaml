@@ -682,7 +682,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/ContactMembershipResponse
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/JourneyContactMembershipResponse
         '400':
           description: Bad request.
         '401':
@@ -710,7 +710,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/ContactMembershipRequest
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/JourneyContactMembershipRequest
   /interaction/v1/interactions/publishAsync/{id}:
     post:
       tags:
@@ -741,7 +741,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/JourneyLifecycleResponse
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/JourneyPublishAsyncResponse
         '400':
           description: Bad request.
         '401':
@@ -769,7 +769,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/JourneyLifecycleRequest
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/JourneyResumeRequest
   /interaction/v1/interactions/stop/{id}:
     post:
       tags:
@@ -828,7 +828,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/JourneyLifecycleRequest
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/JourneyStopRequest
   /interaction/v1/interactions/pause/{definitionID}:
     post:
       tags:
@@ -885,7 +885,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/JourneyLifecycleRequest
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/JourneyPauseRequest
   /interaction/v1/interactions/pause/key:{definitionKey}:
     post:
       tags:
@@ -942,7 +942,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/JourneyLifecycleRequest
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/JourneyPauseRequest
   /interaction/v1/interactions/resume/{definitionID}:
     post:
       tags:
@@ -999,7 +999,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/JourneyLifecycleRequest
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/JourneyResumeRequest
   /interaction/v1/interactions/resume/key:{definitionKey}:
     post:
       tags:
@@ -1056,4 +1056,4 @@ paths:
         content:
           application/json:
             schema:
-              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/JourneyLifecycleRequest
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/JourneyResumeRequest
