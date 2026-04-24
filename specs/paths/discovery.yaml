@@ -5,6 +5,7 @@ paths:
       - Discovery
       summary: GET /interaction/v1/rest
       operationId: get_interaction_v1_rest
+      x-migration-direction: control-plane
       description: Returns Journey Builder REST interaction metadata for the current
         tenant. Salesforce exposes this as a no-permission-needed utility route for
         runtime discovery.
@@ -43,6 +44,7 @@ paths:
       - Discovery
       summary: GET /platform/v1/endpoints
       operationId: get_platform_v1_endpoints
+      x-migration-direction: control-plane
       description: Returns the tenant's endpoint topology for Marketing Cloud Engagement
         APIs. Use this route early in bootstrap flows when your integration needs
         to discover the correct REST or SOAP base URLs dynamically.
@@ -81,6 +83,7 @@ paths:
       - Discovery
       summary: GET /platform/v1/endpoints/{endpointType}
       operationId: get_platform_v1_endpoints_endpointType
+      x-migration-direction: control-plane
       description: Returns a specific endpoint value for the requested endpointType.
         Useful when your integration wants one resolved URL instead of the full endpoint
         catalog.
@@ -125,6 +128,7 @@ paths:
       - Discovery
       summary: GET /platform/v1/tokenContext
       operationId: get_platform_v1_tokenContext
+      x-migration-direction: control-plane
       description: Returns the business-unit and token context attached to the current
         bearer token. This is the quickest way to confirm which MID and tenant context
         a token is operating in.

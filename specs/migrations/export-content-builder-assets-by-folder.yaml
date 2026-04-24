@@ -1,0 +1,74 @@
+id: export-content-builder-assets-by-folder
+name: Export Content Builder assets from a specific folder
+description: Walks a Content Builder folder (category) and paginates through every
+  asset inside it, emitting the full asset payloads for downstream import or archival.
+direction: export
+source_system: salesforce-marketing-cloud
+target_system: generic-json
+family: content_builder
+prerequisites:
+  scopes:
+    - documents_and_images_read
+    - email_read
+  inputs_required:
+    - category_id
+steps:
+  - id: resolve_category
+    operation_id: get_asset_v1_content_categories_id
+    why: Confirm the target folder exists and capture its name and parent for logging.
+    inputs:
+      id:
+        source: input
+        value: category_id
+        required: true
+    outputs:
+      category_name: "$.name"
+      parent_id: "$.parentId"
+  - id: list_assets
+    operation_id: post_asset_v1_content_assets_query
+    why: Query Content Builder for every asset under the target folder; paginate
+      via `page` / `pageSize` in the body.
+    inputs:
+      query:
+        source: literal
+        value:
+          page:
+            page: 1
+            pageSize: 50
+          query:
+            property: category.id
+            simpleOperator: equal
+            value: "{{ input.category_id }}"
+        required: true
+    outputs:
+      items: "$.items"
+      total: "$.count"
+    retry:
+      on_status: [429, 502, 503, 504]
+      max_attempts: 5
+      backoff: exponential
+    idempotency:
+      key_source: "inputs.query.query.value"
+      notes: Query is read-only; safe to retry.
+  - id: fetch_asset_detail
+    operation_id: get_asset_v1_content_assets_id
+    why: Fetch the full payload per asset id returned from the query — the query
+      results omit some channel-specific fields.
+    inputs:
+      id:
+        source: "step.list_assets.output.items[*].id"
+        required: true
+    outputs:
+      asset: "$"
+    retry:
+      on_status: [429, 502, 503, 504]
+      max_attempts: 5
+      backoff: exponential
+    idempotency:
+      key_source: "inputs.id"
+      notes: Read-only.
+idempotency_notes: Entire recipe is read-only. Safe to re-run end-to-end; duplicates
+  are harmless.
+references:
+  - url: https://developer.salesforce.com/docs/marketing/marketing-cloud/guide/content-api.html
+    title: Content Builder API reference

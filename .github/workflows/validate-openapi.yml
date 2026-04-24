@@ -14,5 +14,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
-      - name: Validate OpenAPI + Spectral + scope sync
+      - name: Install dependencies
+        run: npm ci
+      - name: Validate OpenAPI + Spectral + scope sync + migrations
         run: npm run validate
+      - name: MCP server self-check
+        run: npm run mcp -- --self-check

@@ -5,6 +5,8 @@ paths:
       - Data Extensions
       summary: GET /data/v1/async/{requestId}/results
       operationId: get_data_v1_async_requestId_results
+      x-migration-direction: export
+      x-polling-endpoint-of: post_data_v1_async_dataextensions_id_rows
       description: Returns status or results for an asynchronous data-extension row
         request. Use status polling until the request completes, then fetch results
         for row-level outcome detail.
@@ -50,6 +52,8 @@ paths:
       - Data Extensions
       summary: GET /data/v1/async/{requestId}/status
       operationId: get_data_v1_async_requestId_status
+      x-migration-direction: export
+      x-polling-endpoint-of: post_data_v1_async_dataextensions_id_rows
       description: Returns status or results for an asynchronous data-extension row
         request. Use status polling until the request completes, then fetch results
         for row-level outcome detail.
@@ -95,6 +99,8 @@ paths:
       - Data Extensions
       summary: POST /data/v1/async/dataextensions/{id}/rows
       operationId: post_data_v1_async_dataextensions_id_rows
+      x-migration-direction: import
+      x-bulk-capable: true
       description: Returns status or results for an asynchronous data-extension row
         request. Use status polling until the request completes, then fetch results
         for row-level outcome detail.
@@ -145,6 +151,8 @@ paths:
       - Data Extensions
       summary: PUT /data/v1/async/dataextensions/{id}/rows
       operationId: put_data_v1_async_dataextensions_id_rows
+      x-migration-direction: import
+      x-bulk-capable: true
       description: Returns status or results for an asynchronous data-extension row
         request. Use status polling until the request completes, then fetch results
         for row-level outcome detail.
@@ -196,6 +204,8 @@ paths:
       - Data Extensions
       summary: POST /hub/v1/dataevents/key:{key}/rowset
       operationId: post_hub_v1_dataevents_key_key_rowset
+      x-migration-direction: import
+      x-bulk-capable: true
       description: Writes to a data extension through the Data Events API using the
         customer key instead of the internal data-extension ID. These routes are typically
         used for event-style upserts and targeted row updates.

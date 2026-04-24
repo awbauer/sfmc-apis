@@ -5,6 +5,7 @@ paths:
       - Auth
       summary: GET /v2/discovery
       operationId: get_v2_discovery
+      x-migration-direction: control-plane
       description: Returns discovery metadata for the tenant authorization environment.
         This is commonly used to find the correct auth host and related endpoints
         before starting an OAuth flow.
@@ -43,6 +44,7 @@ paths:
       - Auth
       summary: GET /v2/userinfo
       operationId: get_v2_userinfo
+      x-migration-direction: control-plane
       description: Returns details about the authenticated user and the scopes granted
         to the current token. Salesforce recommends calling this after the authorization-code
         flow when you need to compare package scopes with the end user's own permissions.
@@ -81,6 +83,7 @@ paths:
       - Auth
       summary: GET /v2/authorize
       operationId: get_v2_authorize
+      x-migration-direction: control-plane
       description: Starts the OAuth 2.0 authorization-code flow for web and public
         app integrations. The user authenticates on the Marketing Cloud authorization
         host and is redirected to the configured redirect_uri with a code parameter.
@@ -157,6 +160,7 @@ paths:
       - Auth
       summary: POST /v2/token
       operationId: post_v2_token
+      x-migration-direction: control-plane
       description: Issues OAuth 2.0 access tokens for server-to-server integrations
         with the client-credentials grant, or access and refresh tokens for web/public
         apps with authorization_code and refresh_token grants. The docs note a 20
@@ -222,6 +226,7 @@ paths:
       - Auth
       summary: POST /v1/requestToken
       operationId: post_v1_requestToken
+      x-migration-direction: control-plane
       description: Legacy authentication route for legacy packages. Use only when
         you are integrating with older package models that do not support OAuth 2.0
         installed-package integrations.

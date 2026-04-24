@@ -5,6 +5,7 @@ paths:
       - Content Builder
       summary: POST /asset/v1/content/assets
       operationId: post_asset_v1_content_assets
+      x-migration-direction: import
       description: Creates, retrieves, updates, or deletes Content Builder assets.
         Salesforce's content model treats assets as hierarchical objects, including
         templates, slots, and file-based content.
@@ -89,6 +90,7 @@ paths:
       - Content Builder
       summary: GET /asset/v1/content/assets/{id}
       operationId: get_asset_v1_content_assets_id
+      x-migration-direction: export
       description: Creates, retrieves, updates, or deletes Content Builder assets.
         Salesforce's content model treats assets as hierarchical objects, including
         templates, slots, and file-based content.
@@ -457,6 +459,7 @@ paths:
       - Content Builder
       summary: POST /asset/v1/content/assets/query
       operationId: post_asset_v1_content_assets_query
+      x-migration-direction: export
       description: Queries Content Builder assets using a POST body rather than URL
         filters. This is the standard search surface when callers need richer filter
         expressions.
@@ -502,6 +505,7 @@ paths:
       - Content Builder
       summary: POST /asset/v1/content/categories
       operationId: post_asset_v1_content_categories
+      x-migration-direction: import
       description: Creates, retrieves, updates, or deletes Content Builder folders
         and categories used to organize assets.
       parameters: []
@@ -545,6 +549,7 @@ paths:
       - Content Builder
       summary: GET /asset/v1/content/categories
       operationId: get_asset_v1_content_categories
+      x-migration-direction: export
       description: Creates, retrieves, updates, or deletes Content Builder folders
         and categories used to organize assets.
       parameters: []
@@ -632,6 +637,7 @@ paths:
       - Content Builder
       summary: GET /asset/v1/content/categories/{id}
       operationId: get_asset_v1_content_categories_id
+      x-migration-direction: export
       description: Creates, retrieves, updates, or deletes Content Builder folders
         and categories used to organize assets.
       parameters:

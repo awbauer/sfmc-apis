@@ -1,0 +1,80 @@
+id: import-content-builder-assets
+name: Import Content Builder assets into a target folder
+description: Creates (or updates) a Content Builder folder, then creates the listed
+  assets inside it. Uses `customerKey` as the idempotency anchor so re-runs do not
+  duplicate.
+direction: import
+source_system: generic-json
+target_system: salesforce-marketing-cloud
+family: content_builder
+prerequisites:
+  scopes:
+    - documents_and_images_write
+    - email_write
+  inputs_required:
+    - parent_category_id
+    - target_category_name
+    - assets
+steps:
+  - id: create_category
+    operation_id: post_asset_v1_content_categories
+    why: Ensure the target folder exists; Content Builder tolerates re-create with
+      the same `name`+`parentId` for idempotent callers that check first.
+    inputs:
+      body:
+        source: literal
+        value:
+          name: "{{ input.target_category_name }}"
+          parentId: "{{ input.parent_category_id }}"
+        required: true
+    outputs:
+      category_id: "$.id"
+    retry:
+      on_status: [429, 502, 503, 504]
+      max_attempts: 5
+      backoff: exponential
+    idempotency:
+      key_source: "inputs.body.name+inputs.body.parentId"
+      notes: Check for an existing category with the same name under the parent
+        before calling; SFMC will otherwise create a second folder with the same
+        name.
+  - id: create_asset
+    operation_id: post_asset_v1_content_assets
+    why: Create each asset inside the target folder. Called once per asset in the
+      input array.
+    inputs:
+      body:
+        source: "input.assets[*]"
+        required: true
+      override_category_id:
+        source: "step.create_category.output.category_id"
+        required: true
+    outputs:
+      asset_id: "$.id"
+      customer_key: "$.customerKey"
+    retry:
+      on_status: [429, 502, 503, 504]
+      max_attempts: 5
+      backoff: exponential
+    idempotency:
+      key_source: "inputs.body.customerKey"
+      notes: Caller must pre-populate `customerKey` on each asset. If an asset
+        with that key already exists, switch to `put_asset_v1_content_assets_id`
+        using the returned id from a lookup.
+field_mapping_hints:
+  - source_field: "category.parentId"
+    target_field: "body.category.parentId"
+    notes: Must point at a real folder in the target tenant; resolve before calling.
+  - source_field: "customerKey"
+    target_field: "body.customerKey"
+    notes: The idempotency anchor. Agents should generate stable keys upstream.
+idempotency_notes: Callers must supply stable `customerKey` per asset. Retries are
+  only safe when keys are stable and the agent has checked for a pre-existing asset.
+rollback:
+  strategy: delete-created
+  notes: Track every `asset_id` and `category_id` returned; on failure, call
+    delete_asset_v1_content_categories_id and delete_asset_v1_content_assets_id
+    in reverse order.
+references:
+  - url: https://developer.salesforce.com/docs/marketing/marketing-cloud/guide/content-api.html
+    title: Content Builder API reference

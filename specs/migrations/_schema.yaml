@@ -1,0 +1,131 @@
+$schema: "http://json-schema.org/draft-07/schema#"
+$id: "https://github.com/awbauer/sfmc-apis/specs/migrations/_schema.yaml"
+title: SFMC Migration Recipe
+type: object
+required:
+  - id
+  - name
+  - direction
+  - family
+  - prerequisites
+  - steps
+additionalProperties: false
+properties:
+  id:
+    type: string
+    pattern: "^[a-z0-9][a-z0-9-]*$"
+    description: Kebab-case identifier that matches the filename stem.
+  name:
+    type: string
+  description:
+    type: string
+  direction:
+    type: string
+    enum: [import, export]
+  source_system:
+    type: string
+  target_system:
+    type: string
+  family:
+    type: string
+    description: Tag-family slug matching an OpenAPI tag family (e.g. content_builder, data_extensions).
+  prerequisites:
+    type: object
+    additionalProperties: false
+    properties:
+      scopes:
+        type: array
+        items: { type: string }
+      permissions:
+        type: array
+        items: { type: string }
+      inputs_required:
+        type: array
+        items: { type: string }
+  steps:
+    type: array
+    minItems: 1
+    items:
+      type: object
+      required: [id, operation_id, why]
+      additionalProperties: false
+      properties:
+        id: { type: string }
+        operation_id: { type: string }
+        why: { type: string }
+        inputs:
+          type: object
+          additionalProperties:
+            type: object
+            required: [source]
+            additionalProperties: false
+            properties:
+              source:
+                type: string
+                description: One of "literal", "input", or "step.<id>.output.<jsonpath>".
+              value: {}
+              required: { type: boolean }
+        outputs:
+          type: object
+          additionalProperties:
+            type: string
+            description: JSONPath expression into the operation response.
+        polling:
+          type: object
+          required: [poll_operation_id, terminal_statuses]
+          additionalProperties: false
+          properties:
+            poll_operation_id: { type: string }
+            terminal_statuses:
+              type: array
+              items: { type: string }
+            interval_seconds: { type: integer, minimum: 1 }
+            timeout_seconds: { type: integer, minimum: 1 }
+        retry:
+          type: object
+          additionalProperties: false
+          properties:
+            on_status:
+              type: array
+              items: { type: integer }
+            max_attempts: { type: integer, minimum: 1 }
+            backoff:
+              type: string
+              enum: [fixed, exponential]
+        idempotency:
+          type: object
+          additionalProperties: false
+          properties:
+            key_source: { type: string }
+            notes: { type: string }
+  field_mapping_hints:
+    type: array
+    items:
+      type: object
+      required: [source_field, target_field]
+      additionalProperties: false
+      properties:
+        source_field: { type: string }
+        target_field: { type: string }
+        transform: { type: string }
+        notes: { type: string }
+  idempotency_notes:
+    type: string
+  rollback:
+    type: object
+    required: [strategy]
+    additionalProperties: false
+    properties:
+      strategy:
+        type: string
+        enum: [none, delete-created, mark-inactive, manual]
+      notes: { type: string }
+  references:
+    type: array
+    items:
+      type: object
+      required: [url]
+      additionalProperties: false
+      properties:
+        url: { type: string }
+        title: { type: string }

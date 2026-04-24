@@ -1,0 +1,75 @@
+id: import-journey-definitions
+name: Import Journey Builder definitions and event definitions
+description: Creates event definitions first, then creates the journey
+  (interaction) definitions that depend on them. Does not publish — publishing is
+  a control-plane action and should be invoked separately after human review.
+direction: import
+source_system: generic-json
+target_system: salesforce-marketing-cloud
+family: journey_builder
+prerequisites:
+  scopes:
+    - journeys_write
+  inputs_required:
+    - event_definitions
+    - journeys
+steps:
+  - id: create_event_definition
+    operation_id: post_interaction_v1_eventDefinitions
+    why: Event definitions must exist before a journey that references them can
+      be created. Called once per event definition in the input array.
+    inputs:
+      body:
+        source: "input.event_definitions[*]"
+        required: true
+    outputs:
+      event_definition_id: "$.id"
+      event_definition_key: "$.eventDefinitionKey"
+    retry:
+      on_status: [429, 502, 503, 504]
+      max_attempts: 3
+      backoff: exponential
+    idempotency:
+      key_source: "inputs.body.eventDefinitionKey"
+      notes: Caller must supply stable `eventDefinitionKey` per event. If the
+        key already exists, switch to put_interaction_v1_eventDefinitions_id.
+  - id: create_journey
+    operation_id: post_interaction_v1_interactions
+    why: Create the journey in draft state. Any `triggers[].metaData.eventDefinitionKey`
+      must reference a key created by the previous step.
+    inputs:
+      body:
+        source: "input.journeys[*]"
+        required: true
+    outputs:
+      journey_id: "$.id"
+      journey_key: "$.key"
+      journey_version: "$.version"
+    retry:
+      on_status: [429, 502, 503, 504]
+      max_attempts: 3
+      backoff: exponential
+    idempotency:
+      key_source: "inputs.body.key"
+      notes: Caller must supply stable `key` per journey. If the key already
+        exists, switch to put_interaction_v1_interactions.
+field_mapping_hints:
+  - source_field: "triggers[].metaData.eventDefinitionKey"
+    target_field: "body.triggers[].metaData.eventDefinitionKey"
+    notes: Must reference an event definition key that exists in the target
+      tenant — either created in step `create_event_definition` or already
+      present.
+  - source_field: "definitionId"
+    target_field: "body.definitionId"
+    notes: If the source journey declares a specific `definitionId` in its
+      payload, drop it on import — SFMC generates its own id.
+idempotency_notes: Callers must supply stable `key` on both event definitions and
+  journeys. Retries are only safe when keys are stable.
+rollback:
+  strategy: delete-created
+  notes: Journeys created but not published can be removed with
+    delete_interaction_v1_interactions_id. Event definitions can be removed with
+    delete_interaction_v1_eventDefinitions_id. Walk in reverse order.
+references:
+  - url: https://developer.salesforce.com/docs/marketing/marketing-cloud/references/mc_rest_interaction
+    title: Journey Builder REST reference

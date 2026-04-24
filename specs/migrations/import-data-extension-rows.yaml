@@ -1,0 +1,97 @@
+id: import-data-extension-rows
+name: Import rows into a Data Extension (async bulk)
+description: Bulk-inserts rows into a target Data Extension via the async REST
+  endpoint, polls for completion, and fetches per-row results. Intended for large
+  row counts where the synchronous rowset endpoint is inappropriate.
+direction: import
+source_system: generic-json
+target_system: salesforce-marketing-cloud
+family: data_extensions
+prerequisites:
+  scopes:
+    - data_extensions_write
+  inputs_required:
+    - data_extension_id
+    - rows
+steps:
+  - id: kickoff
+    operation_id: post_data_v1_async_dataextensions_id_rows
+    why: Submit the row batch asynchronously. This operation is `x-bulk-capable`
+      and accepts the full row set in one call.
+    inputs:
+      id:
+        source: input
+        value: data_extension_id
+        required: true
+      body:
+        source: literal
+        value:
+          items: "{{ input.rows }}"
+        required: true
+    outputs:
+      requestId: "$.requestId"
+    retry:
+      on_status: [429, 502, 503, 504]
+      max_attempts: 3
+      backoff: exponential
+    idempotency:
+      key_source: "inputs.body.items[*].<primary_key>"
+      notes: Primary keys must be stable across retries. The async insert does
+        not natively deduplicate on retry, so agents should either check for
+        existing rows first or use put_data_v1_async_dataextensions_id_rows for
+        upsert semantics.
+  - id: await
+    operation_id: get_data_v1_async_requestId_status
+    why: Poll the status endpoint until the job reaches a terminal state.
+    inputs:
+      requestId:
+        source: "step.kickoff.output.requestId"
+        required: true
+    outputs:
+      status: "$.status"
+    polling:
+      poll_operation_id: get_data_v1_async_requestId_status
+      terminal_statuses:
+        - Complete
+        - Failed
+        - Cancelled
+      interval_seconds: 5
+      timeout_seconds: 900
+    retry:
+      on_status: [429, 502, 503, 504]
+      max_attempts: 5
+      backoff: exponential
+  - id: fetch_results
+    operation_id: get_data_v1_async_requestId_results
+    why: Pull the per-row outcome so the agent can report on partial failures.
+    inputs:
+      requestId:
+        source: "step.kickoff.output.requestId"
+        required: true
+    outputs:
+      results: "$"
+    retry:
+      on_status: [429, 502, 503, 504]
+      max_attempts: 5
+      backoff: exponential
+    idempotency:
+      key_source: "inputs.requestId"
+      notes: Read-only.
+field_mapping_hints:
+  - source_field: "<source primary key>"
+    target_field: "items[*].<DE primary key>"
+    notes: Every DE has its own primary key schema; map upstream.
+  - source_field: "<source timestamp>"
+    target_field: "items[*].<DE date field>"
+    transform: "Normalize to ISO 8601 UTC."
+    notes: SFMC accepts ISO 8601 but the DE field type must be Date.
+idempotency_notes: Use `put_data_v1_async_dataextensions_id_rows` instead if the
+  target DE declares a send-relationship or primary key you can upsert on — that
+  path is idempotent by design.
+rollback:
+  strategy: manual
+  notes: There is no bulk undo for an async insert. Agents must issue compensating
+    deletes per primary key.
+references:
+  - url: https://developer.salesforce.com/docs/marketing/marketing-cloud/guide/postAsyncDataExtensionRowset.html
+    title: Async Data Extension row insert reference
