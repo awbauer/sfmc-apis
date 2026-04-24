@@ -1,0 +1,711 @@
+paths:
+  /asset/v1/content/assets:
+    post:
+      tags:
+      - Content Builder
+      summary: POST /asset/v1/content/assets
+      operationId: post_asset_v1_content_assets
+      description: Creates, retrieves, updates, or deletes Content Builder assets.
+        Salesforce's content model treats assets as hierarchical objects, including
+        templates, slots, and file-based content.
+      parameters: []
+      responses:
+        '201':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1418'
+      x-sfmc-user-permission-paths:
+      - Content Builder > Assets > Create and Email > Content > Email > Create
+      x-sfmc-installed-package-scopes:
+      - saved_content_write and email_write
+      x-original-marketing-cloud-paths:
+      - /asset/v1/content/assets
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+    get:
+      tags:
+      - Content Builder
+      summary: GET /asset/v1/content/assets
+      operationId: get_asset_v1_content_assets
+      description: Creates, retrieves, updates, or deletes Content Builder assets.
+        Salesforce's content model treats assets as hierarchical objects, including
+        templates, slots, and file-based content.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1420'
+      x-sfmc-user-permission-paths:
+      - Content Builder > Assets > View
+      x-sfmc-installed-package-scopes:
+      - documents_and_images_read
+      x-original-marketing-cloud-paths:
+      - /asset/v1/content/assets
+  /asset/v1/content/assets/{id}:
+    get:
+      tags:
+      - Content Builder
+      summary: GET /asset/v1/content/assets/{id}
+      operationId: get_asset_v1_content_assets_id
+      description: Creates, retrieves, updates, or deletes Content Builder assets.
+        Salesforce's content model treats assets as hierarchical objects, including
+        templates, slots, and file-based content.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `id`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1420'
+      x-sfmc-user-permission-paths:
+      - Content Builder > Assets > View
+      x-sfmc-installed-package-scopes:
+      - documents_and_images_read
+      x-original-marketing-cloud-paths:
+      - /asset/v1/content/assets/{id}
+    patch:
+      tags:
+      - Content Builder
+      summary: PATCH /asset/v1/content/assets/{id}
+      operationId: patch_asset_v1_content_assets_id
+      description: Creates, retrieves, updates, or deletes Content Builder assets.
+        Salesforce's content model treats assets as hierarchical objects, including
+        templates, slots, and file-based content.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `id`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1421'
+      x-sfmc-user-permission-paths:
+      - Content Builder > Assets > Update and Email > Content > Email > Update
+      x-sfmc-installed-package-scopes:
+      - documents_and_images_write and email_write
+      x-original-marketing-cloud-paths:
+      - /asset/v1/content/assets/{id}
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+    put:
+      tags:
+      - Content Builder
+      summary: PUT /asset/v1/content/assets/{id}
+      operationId: put_asset_v1_content_assets_id
+      description: Creates, retrieves, updates, or deletes Content Builder assets.
+        Salesforce's content model treats assets as hierarchical objects, including
+        templates, slots, and file-based content.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `id`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1421'
+      x-sfmc-user-permission-paths:
+      - Content Builder > Assets > Update and Email > Content > Email > Update
+      x-sfmc-installed-package-scopes:
+      - documents_and_images_write and email_write
+      x-original-marketing-cloud-paths:
+      - /asset/v1/content/assets/{id}
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+    delete:
+      tags:
+      - Content Builder
+      summary: DELETE /asset/v1/content/assets/{id}
+      operationId: delete_asset_v1_content_assets_id
+      description: Creates, retrieves, updates, or deletes Content Builder assets.
+        Salesforce's content model treats assets as hierarchical objects, including
+        templates, slots, and file-based content.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `id`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1422'
+      x-sfmc-user-permission-paths:
+      - Content Builder > Assets > Delete and Email > Content > Email > Delete
+      x-sfmc-installed-package-scopes:
+      - documents_and_images_write and email_write
+      x-original-marketing-cloud-paths:
+      - /asset/v1/content/assets/{id}
+  /asset/v1/content/assets/{id}/channelviews/{viewname}:
+    get:
+      tags:
+      - Content Builder
+      summary: GET /asset/v1/content/assets/{id}/channelviews/{viewname}
+      operationId: get_asset_v1_content_assets_id_channelviews_viewname
+      description: Returns a channel-specific rendered or transformed view of an asset.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `id`.
+      - name: viewname
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `viewname`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1420'
+      x-sfmc-user-permission-paths:
+      - Content Builder > Assets > View
+      x-sfmc-installed-package-scopes:
+      - documents_and_images_read
+      x-original-marketing-cloud-paths:
+      - /asset/v1/content/assets/{id}/channelviews/{viewname}
+  /asset/v1/content/assets/{id}/file:
+    get:
+      tags:
+      - Content Builder
+      summary: GET /asset/v1/content/assets/{id}/file
+      operationId: get_asset_v1_content_assets_id_file
+      description: Downloads or streams the binary file associated with an asset.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `id`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1420'
+      x-sfmc-user-permission-paths:
+      - Content Builder > Assets > View
+      x-sfmc-installed-package-scopes:
+      - documents_and_images_read
+      x-original-marketing-cloud-paths:
+      - /asset/v1/content/assets/{id}/file
+  /asset/v1/content/assets/{id}/salutations:
+    get:
+      tags:
+      - Content Builder
+      summary: GET /asset/v1/content/assets/{id}/salutations
+      operationId: get_asset_v1_content_assets_id_salutations
+      description: Retrieves salutations associated with Content Builder assets or
+        the asset catalog. This is commonly used when assembling personalized email
+        content.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `id`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1420'
+      x-sfmc-user-permission-paths:
+      - Content Builder > Assets > View
+      x-sfmc-installed-package-scopes:
+      - documents_and_images_read
+      x-original-marketing-cloud-paths:
+      - /asset/v1/content/assets/{id}/salutations
+  /asset/v1/content/assets/salutations:
+    get:
+      tags:
+      - Content Builder
+      summary: GET /asset/v1/content/assets/salutations
+      operationId: get_asset_v1_content_assets_salutations
+      description: Retrieves salutations associated with Content Builder assets or
+        the asset catalog. This is commonly used when assembling personalized email
+        content.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1420'
+      x-sfmc-user-permission-paths:
+      - Content Builder > Assets > View
+      x-sfmc-installed-package-scopes:
+      - documents_and_images_read
+      x-original-marketing-cloud-paths:
+      - /asset/v1/content/assets/salutations
+  /asset/v1/content/assets/query:
+    post:
+      tags:
+      - Content Builder
+      summary: POST /asset/v1/content/assets/query
+      operationId: post_asset_v1_content_assets_query
+      description: Queries Content Builder assets using a POST body rather than URL
+        filters. This is the standard search surface when callers need richer filter
+        expressions.
+      parameters: []
+      responses:
+        '201':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1420'
+      x-sfmc-user-permission-paths:
+      - Content Builder > Assets > View
+      x-sfmc-installed-package-scopes:
+      - documents_and_images_read
+      x-original-marketing-cloud-paths:
+      - /asset/v1/content/assets/query
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+  /asset/v1/content/categories:
+    post:
+      tags:
+      - Content Builder
+      summary: POST /asset/v1/content/categories
+      operationId: post_asset_v1_content_categories
+      description: Creates, retrieves, updates, or deletes Content Builder folders
+        and categories used to organize assets.
+      parameters: []
+      responses:
+        '201':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1430'
+      x-sfmc-user-permission-paths:
+      - Content Builder > Folders > Create
+      x-sfmc-installed-package-scopes:
+      - documents_and_images_write
+      x-original-marketing-cloud-paths:
+      - /asset/v1/content/categories
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+    get:
+      tags:
+      - Content Builder
+      summary: GET /asset/v1/content/categories
+      operationId: get_asset_v1_content_categories
+      description: Creates, retrieves, updates, or deletes Content Builder folders
+        and categories used to organize assets.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1431'
+      x-sfmc-user-permission-paths:
+      - Content Builder > Folders > View
+      x-sfmc-installed-package-scopes:
+      - documents_and_images_read
+      x-original-marketing-cloud-paths:
+      - /asset/v1/content/categories
+  /asset/v1/content/categories/{id}:
+    put:
+      tags:
+      - Content Builder
+      summary: PUT /asset/v1/content/categories/{id}
+      operationId: put_asset_v1_content_categories_id
+      description: Creates, retrieves, updates, or deletes Content Builder folders
+        and categories used to organize assets.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `id`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1430'
+      x-sfmc-user-permission-paths:
+      - Content Builder > Folders > Create
+      x-sfmc-installed-package-scopes:
+      - documents_and_images_write
+      x-original-marketing-cloud-paths:
+      - /asset/v1/content/categories/{id}
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+    get:
+      tags:
+      - Content Builder
+      summary: GET /asset/v1/content/categories/{id}
+      operationId: get_asset_v1_content_categories_id
+      description: Creates, retrieves, updates, or deletes Content Builder folders
+        and categories used to organize assets.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `id`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1431'
+      x-sfmc-user-permission-paths:
+      - Content Builder > Folders > View
+      x-sfmc-installed-package-scopes:
+      - documents_and_images_read
+      x-original-marketing-cloud-paths:
+      - /asset/v1/content/categories/{id}
+    delete:
+      tags:
+      - Content Builder
+      summary: DELETE /asset/v1/content/categories/{id}
+      operationId: delete_asset_v1_content_categories_id
+      description: Creates, retrieves, updates, or deletes Content Builder folders
+        and categories used to organize assets.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `id`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1434'
+      x-sfmc-user-permission-paths:
+      - Content Builder > Folders > Delete
+      x-sfmc-installed-package-scopes:
+      - documents_and_images_write
+      x-original-marketing-cloud-paths:
+      - /asset/v1/content/categories/{id}

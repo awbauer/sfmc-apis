@@ -1,0 +1,515 @@
+paths:
+  /platform/v1/ens-callbacks:
+    post:
+      tags:
+      - Event Notification Service
+      summary: POST /platform/v1/ens-callbacks
+      operationId: post_platform_v1_ens_callbacks
+      description: Registers or updates ENS callbacks. Callbacks must be registered
+        and verified before you can attach subscriptions.
+      parameters: []
+      responses:
+        '201':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1688'
+      x-sfmc-user-permission-paths:
+      - Event Notifications > Callbacks > Create
+      x-sfmc-installed-package-scopes:
+      - event_notification_callback_create
+      x-original-marketing-cloud-paths:
+      - /platform/v1/ens-callbacks
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+    get:
+      tags:
+      - Event Notification Service
+      summary: GET /platform/v1/ens-callbacks
+      operationId: get_platform_v1_ens_callbacks
+      description: Registers or updates ENS callbacks. Callbacks must be registered
+        and verified before you can attach subscriptions.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1689'
+      x-sfmc-user-permission-paths:
+      - Event Notifications > Callbacks > View
+      x-sfmc-installed-package-scopes:
+      - event_notification_callback_read
+      x-original-marketing-cloud-paths:
+      - /platform/v1/ens-callbacks
+    put:
+      tags:
+      - Event Notification Service
+      summary: PUT /platform/v1/ens-callbacks
+      operationId: put_platform_v1_ens_callbacks
+      description: Registers or updates ENS callbacks. Callbacks must be registered
+        and verified before you can attach subscriptions.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1690'
+      x-sfmc-user-permission-paths:
+      - Event Notifications > Callbacks > Update
+      x-sfmc-installed-package-scopes:
+      - event_notification_callback_update
+      x-original-marketing-cloud-paths:
+      - /platform/v1/ens-callbacks
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+  /platform/v1/ens-callbacks/{callbackId}:
+    get:
+      tags:
+      - Event Notification Service
+      summary: GET /platform/v1/ens-callbacks/{callbackId}
+      operationId: get_platform_v1_ens_callbacks_callbackId
+      description: Retrieves or deletes a specific ENS callback registration.
+      parameters:
+      - name: callbackId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `callbackId`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1689'
+      x-sfmc-user-permission-paths:
+      - Event Notifications > Callbacks > View
+      x-sfmc-installed-package-scopes:
+      - event_notification_callback_read
+      x-original-marketing-cloud-paths:
+      - /platform/v1/ens-callbacks/{callbackId}
+    delete:
+      tags:
+      - Event Notification Service
+      summary: DELETE /platform/v1/ens-callbacks/{callbackId}
+      operationId: delete_platform_v1_ens_callbacks_callbackId
+      description: Retrieves or deletes a specific ENS callback registration.
+      parameters:
+      - name: callbackId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `callbackId`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1691'
+      x-sfmc-user-permission-paths:
+      - Event Notifications > Callbacks > Delete
+      x-sfmc-installed-package-scopes:
+      - event_notification_callback_delete
+      x-original-marketing-cloud-paths:
+      - /platform/v1/ens-callbacks/{callbackId}
+  /platform/v1/ens-verify:
+    post:
+      tags:
+      - Event Notification Service
+      summary: POST /platform/v1/ens-verify
+      operationId: post_platform_v1_ens_verify
+      description: Verifies a callback as part of the ENS handshake. Verification
+        must succeed before subscriptions can become active.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1690'
+      x-sfmc-user-permission-paths:
+      - Event Notifications > Callbacks > Update
+      x-sfmc-installed-package-scopes:
+      - event_notification_callback_update
+      x-original-marketing-cloud-paths:
+      - /platform/v1/ens-verify
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+  /platform/v1/ens-regenerate:
+    put:
+      tags:
+      - Event Notification Service
+      summary: PUT /platform/v1/ens-regenerate
+      operationId: put_platform_v1_ens_regenerate
+      description: Regenerates the signing or verification material used by ENS callback
+        management.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1690'
+      x-sfmc-user-permission-paths:
+      - Event Notifications > Callbacks > Update
+      x-sfmc-installed-package-scopes:
+      - event_notification_callback_update
+      x-original-marketing-cloud-paths:
+      - /platform/v1/ens-regenerate
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+  /platform/v1/ens-subscriptions:
+    post:
+      tags:
+      - Event Notification Service
+      summary: POST /platform/v1/ens-subscriptions
+      operationId: post_platform_v1_ens_subscriptions
+      description: Creates or updates ENS subscriptions that bind event types and
+        optional filters to a verified callback. Salesforce notes that new subscriptions
+        can take up to two minutes to become active.
+      parameters: []
+      responses:
+        '201':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1692'
+      x-sfmc-user-permission-paths:
+      - Event Notifications > Subscriptions > Create
+      x-sfmc-installed-package-scopes:
+      - event_notification_subscription_create
+      x-original-marketing-cloud-paths:
+      - /platform/v1/ens-subscriptions
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+    put:
+      tags:
+      - Event Notification Service
+      summary: PUT /platform/v1/ens-subscriptions
+      operationId: put_platform_v1_ens_subscriptions
+      description: Creates or updates ENS subscriptions that bind event types and
+        optional filters to a verified callback. Salesforce notes that new subscriptions
+        can take up to two minutes to become active.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1694'
+      x-sfmc-user-permission-paths:
+      - Event Notifications > Subscriptions > Update
+      x-sfmc-installed-package-scopes:
+      - event_notification_subscription_update
+      x-original-marketing-cloud-paths:
+      - /platform/v1/ens-subscriptions
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+  /platform/v1/ens-subscriptions/{subscriptionId}:
+    get:
+      tags:
+      - Event Notification Service
+      summary: GET /platform/v1/ens-subscriptions/{subscriptionId}
+      operationId: get_platform_v1_ens_subscriptions_subscriptionId
+      description: Retrieves or deletes a specific ENS subscription.
+      parameters:
+      - name: subscriptionId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `subscriptionId`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1693'
+      x-sfmc-user-permission-paths:
+      - Event Notifications > Subscriptions > View
+      x-sfmc-installed-package-scopes:
+      - event_notification_subscription_read
+      x-original-marketing-cloud-paths:
+      - /platform/v1/ens-subscriptions/{subscriptionId}
+    delete:
+      tags:
+      - Event Notification Service
+      summary: DELETE /platform/v1/ens-subscriptions/{subscriptionId}
+      operationId: delete_platform_v1_ens_subscriptions_subscriptionId
+      description: Retrieves or deletes a specific ENS subscription.
+      parameters:
+      - name: subscriptionId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `subscriptionId`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1695'
+      x-sfmc-user-permission-paths:
+      - Event Notifications > Subscriptions > Delete
+      x-sfmc-installed-package-scopes:
+      - event_notification_subscription_delete
+      x-original-marketing-cloud-paths:
+      - /platform/v1/ens-subscriptions/{subscriptionId}
+  /platform/v1/ens-subscriptions-by-cb/{callbackId}:
+    get:
+      tags:
+      - Event Notification Service
+      summary: GET /platform/v1/ens-subscriptions-by-cb/{callbackId}
+      operationId: get_platform_v1_ens_subscriptions_by_cb_callbackId
+      description: Lists all ENS subscriptions for a given callback.
+      parameters:
+      - name: callbackId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `callbackId`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1693'
+      x-sfmc-user-permission-paths:
+      - Event Notifications > Subscriptions > View
+      x-sfmc-installed-package-scopes:
+      - event_notification_subscription_read
+      x-original-marketing-cloud-paths:
+      - /platform/v1/ens-subscriptions-by-cb/{callbackId}

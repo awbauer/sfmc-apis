@@ -1,0 +1,1280 @@
+paths:
+  /push/v1/application/{appId}:
+    get:
+      tags:
+      - Mobile Push
+      summary: GET /push/v1/application/{appId}
+      operationId: get_push_v1_application_appId
+      description: Reads or manages MobilePush application keys that identify an app's
+        push channel configuration.
+      parameters:
+      - name: appId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `appId`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/PushApplicationResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1279'
+      x-sfmc-user-permission-paths:
+      - Mobile Push > General > Access
+      x-sfmc-installed-package-scopes:
+      - push_read
+      x-original-marketing-cloud-paths:
+      - /push/v1/application/{appId}
+  /push/v1/application/{appId}/key:
+    get:
+      tags:
+      - Mobile Push
+      summary: GET /push/v1/application/{appId}/key
+      operationId: get_push_v1_application_appId_key
+      description: Reads or manages MobilePush application keys that identify an app's
+        push channel configuration.
+      parameters:
+      - name: appId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `appId`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/PushApplicationKeyResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1279'
+      x-sfmc-user-permission-paths:
+      - Mobile Push > General > Access
+      x-sfmc-installed-package-scopes:
+      - push_read
+      x-original-marketing-cloud-paths:
+      - /push/v1/application/{appId}/key
+    delete:
+      tags:
+      - Mobile Push
+      summary: DELETE /push/v1/application/{appId}/key
+      operationId: delete_push_v1_application_appId_key
+      description: Reads or manages MobilePush application keys that identify an app's
+        push channel configuration.
+      parameters:
+      - name: appId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `appId`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/PushApplicationKeyResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1280'
+      x-sfmc-user-permission-paths:
+      - Mobile Push > General > Administer Mobile Push
+      x-sfmc-installed-package-scopes:
+      - push_write
+      x-original-marketing-cloud-paths:
+      - /push/v1/application/{appId}/key
+    put:
+      tags:
+      - Mobile Push
+      summary: PUT /push/v1/application/{appId}/key
+      operationId: put_push_v1_application_appId_key
+      description: Reads or manages MobilePush application keys that identify an app's
+        push channel configuration.
+      parameters:
+      - name: appId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `appId`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/PushApplicationKeyResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1283'
+      x-sfmc-user-permission-paths:
+      - Mobile Push > Message > Schedule And Send Message
+      x-sfmc-installed-package-scopes:
+      - push_send
+      x-original-marketing-cloud-paths:
+      - /push/v1/application/{appId}/key
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+  /push/v1/contacts/refreshList/{id}/status/{tokenId}:
+    get:
+      tags:
+      - Mobile Push
+      summary: GET /push/v1/contacts/refreshList/{id}/status/{tokenId}
+      operationId: get_push_v1_contacts_refreshList_id_status_tokenId
+      description: Refreshes a MobilePush list and exposes asynchronous status retrieval
+        for the request.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `id`.
+      - name: tokenId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `tokenId`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1279'
+      x-sfmc-user-permission-paths:
+      - Mobile Push > General > Access
+      x-sfmc-installed-package-scopes:
+      - push_read
+      x-original-marketing-cloud-paths:
+      - /push/v1/contacts/refreshList/{id}/status/{tokenId}
+  /push/v1/location:
+    get:
+      tags:
+      - Mobile Push
+      summary: GET /push/v1/location
+      operationId: get_push_v1_location
+      description: Creates, retrieves, updates, or deletes MobilePush locations for
+        geofence and location-aware use cases.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/PushLocationResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1279'
+      x-sfmc-user-permission-paths:
+      - Mobile Push > General > Access
+      x-sfmc-installed-package-scopes:
+      - push_read
+      x-original-marketing-cloud-paths:
+      - /push/v1/location
+    post:
+      tags:
+      - Mobile Push
+      summary: POST /push/v1/location
+      operationId: post_push_v1_location
+      description: Creates, retrieves, updates, or deletes MobilePush locations for
+        geofence and location-aware use cases.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/PushLocationResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1283'
+      x-sfmc-user-permission-paths:
+      - Mobile Push > Message > Schedule And Send Message
+      x-sfmc-installed-package-scopes:
+      - push_send
+      x-original-marketing-cloud-paths:
+      - /push/v1/location
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/PushLocationRequest
+  /push/v1/location/{locationId}:
+    get:
+      tags:
+      - Mobile Push
+      summary: GET /push/v1/location/{locationId}
+      operationId: get_push_v1_location_locationId
+      description: Creates, retrieves, updates, or deletes MobilePush locations for
+        geofence and location-aware use cases.
+      parameters:
+      - name: locationId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `locationId`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/PushLocationResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1279'
+      x-sfmc-user-permission-paths:
+      - Mobile Push > General > Access
+      x-sfmc-installed-package-scopes:
+      - push_read
+      x-original-marketing-cloud-paths:
+      - /push/v1/location/{locationId}
+    delete:
+      tags:
+      - Mobile Push
+      summary: DELETE /push/v1/location/{locationId}
+      operationId: delete_push_v1_location_locationId
+      description: Creates, retrieves, updates, or deletes MobilePush locations for
+        geofence and location-aware use cases.
+      parameters:
+      - name: locationId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `locationId`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/PushLocationResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1282'
+      x-sfmc-user-permission-paths:
+      - Mobile Push > Message > Delete
+      x-sfmc-installed-package-scopes:
+      - push_write
+      x-original-marketing-cloud-paths:
+      - /push/v1/location/{locationId}
+    put:
+      tags:
+      - Mobile Push
+      summary: PUT /push/v1/location/{locationId}
+      operationId: put_push_v1_location_locationId
+      description: Creates, retrieves, updates, or deletes MobilePush locations for
+        geofence and location-aware use cases.
+      parameters:
+      - name: locationId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `locationId`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/PushLocationResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1283'
+      x-sfmc-user-permission-paths:
+      - Mobile Push > Message > Schedule And Send Message
+      x-sfmc-installed-package-scopes:
+      - push_send
+      x-original-marketing-cloud-paths:
+      - /push/v1/location/{locationId}
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+  /push/v1/message:
+    get:
+      tags:
+      - Mobile Push
+      summary: GET /push/v1/message
+      operationId: get_push_v1_message
+      description: Creates, retrieves, updates, deletes, or sends MobilePush messages.
+        Delivery-report subresources expose tokenized asynchronous results.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/PushMessageListResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1279'
+      x-sfmc-user-permission-paths:
+      - Mobile Push > General > Access
+      x-sfmc-installed-package-scopes:
+      - push_read
+      x-original-marketing-cloud-paths:
+      - /push/v1/message
+    post:
+      tags:
+      - Mobile Push
+      summary: POST /push/v1/message
+      operationId: post_push_v1_message
+      description: Creates, retrieves, updates, deletes, or sends MobilePush messages.
+        Delivery-report subresources expose tokenized asynchronous results.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/PushMessageListResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1283'
+      x-sfmc-user-permission-paths:
+      - Mobile Push > Message > Schedule And Send Message
+      x-sfmc-installed-package-scopes:
+      - push_send
+      x-original-marketing-cloud-paths:
+      - /push/v1/message
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/PushMessageRequest
+  /push/v1/message/{messageID}:
+    get:
+      tags:
+      - Mobile Push
+      summary: GET /push/v1/message/{messageID}
+      operationId: get_push_v1_message_messageID
+      description: Creates, retrieves, updates, deletes, or sends MobilePush messages.
+        Delivery-report subresources expose tokenized asynchronous results.
+      parameters:
+      - name: messageID
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `messageID`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1279'
+      x-sfmc-user-permission-paths:
+      - Mobile Push > General > Access
+      x-sfmc-installed-package-scopes:
+      - push_read
+      x-original-marketing-cloud-paths:
+      - /push/v1/message/{messageID}
+  /push/v1/messageApp/{messageId}/deliveries/{tokenId}:
+    get:
+      tags:
+      - Mobile Push
+      summary: GET /push/v1/messageApp/{messageId}/deliveries/{tokenId}
+      operationId: get_push_v1_messageApp_messageId_deliveries_tokenId
+      description: Retrieves delivery or message-history data for an asynchronous
+        MobileConnect or MobilePush send request. These endpoints are operational
+        reporting surfaces, not send entry points.
+      parameters:
+      - name: messageId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `messageId`.
+      - name: tokenId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `tokenId`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/PushDeliveryResultsResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1279'
+      x-sfmc-user-permission-paths:
+      - Mobile Push > General > Access
+      x-sfmc-installed-package-scopes:
+      - push_read
+      x-original-marketing-cloud-paths:
+      - /push/v1/messageApp/{messageId}/deliveries/{tokenId}
+  /push/v1/messageContact/{messageId}/deliveries/{tokenId}:
+    get:
+      tags:
+      - Mobile Push
+      summary: GET /push/v1/messageContact/{messageId}/deliveries/{tokenId}
+      operationId: get_push_v1_messageContact_messageId_deliveries_tokenId
+      description: Retrieves delivery or message-history data for an asynchronous
+        MobileConnect or MobilePush send request. These endpoints are operational
+        reporting surfaces, not send entry points.
+      parameters:
+      - name: messageId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `messageId`.
+      - name: tokenId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `tokenId`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/PushDeliveryResultsResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1279'
+      x-sfmc-user-permission-paths:
+      - Mobile Push > General > Access
+      x-sfmc-installed-package-scopes:
+      - push_read
+      x-original-marketing-cloud-paths:
+      - /push/v1/messageContact/{messageId}/deliveries/{tokenId}
+  /push/v1/messageList/{messageId}/deliveries/{tokenId}:
+    get:
+      tags:
+      - Mobile Push
+      summary: GET /push/v1/messageList/{messageId}/deliveries/{tokenId}
+      operationId: get_push_v1_messageList_messageId_deliveries_tokenId
+      description: Retrieves delivery or message-history data for an asynchronous
+        MobileConnect or MobilePush send request. These endpoints are operational
+        reporting surfaces, not send entry points.
+      parameters:
+      - name: messageId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `messageId`.
+      - name: tokenId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `tokenId`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/PushDeliveryResultsResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1279'
+      x-sfmc-user-permission-paths:
+      - Mobile Push > General > Access
+      x-sfmc-installed-package-scopes:
+      - push_read
+      x-original-marketing-cloud-paths:
+      - /push/v1/messageList/{messageId}/deliveries/{tokenId}
+  /push/v1/messageTag/{messageId}/deliveries/{tokenId}:
+    get:
+      tags:
+      - Mobile Push
+      summary: GET /push/v1/messageTag/{messageId}/deliveries/{tokenId}
+      operationId: get_push_v1_messageTag_messageId_deliveries_tokenId
+      description: Retrieves delivery or message-history data for an asynchronous
+        MobileConnect or MobilePush send request. These endpoints are operational
+        reporting surfaces, not send entry points.
+      parameters:
+      - name: messageId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `messageId`.
+      - name: tokenId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `tokenId`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/PushDeliveryResultsResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1279'
+      x-sfmc-user-permission-paths:
+      - Mobile Push > General > Access
+      x-sfmc-installed-package-scopes:
+      - push_read
+      x-original-marketing-cloud-paths:
+      - /push/v1/messageTag/{messageId}/deliveries/{tokenId}
+  /push/v1/application/{appId}/key/{key}:
+    delete:
+      tags:
+      - Mobile Push
+      summary: DELETE /push/v1/application/{appId}/key/{key}
+      operationId: delete_push_v1_application_appId_key_key
+      description: Reads or manages MobilePush application keys that identify an app's
+        push channel configuration.
+      parameters:
+      - name: appId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `appId`.
+      - name: key
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `key`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1282'
+      x-sfmc-user-permission-paths:
+      - Mobile Push > Message > Delete
+      x-sfmc-installed-package-scopes:
+      - push_write
+      x-original-marketing-cloud-paths:
+      - /push/v1/application/{appId}/key/{key}
+    put:
+      tags:
+      - Mobile Push
+      summary: PUT /push/v1/application/{appId}/key/{key}
+      operationId: put_push_v1_application_appId_key_key
+      description: Reads or manages MobilePush application keys that identify an app's
+        push channel configuration.
+      parameters:
+      - name: appId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `appId`.
+      - name: key
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `key`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1283'
+      x-sfmc-user-permission-paths:
+      - Mobile Push > Message > Schedule And Send Message
+      x-sfmc-installed-package-scopes:
+      - push_send
+      x-original-marketing-cloud-paths:
+      - /push/v1/application/{appId}/key/{key}
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+  /push/v1/message/{messageId}:
+    delete:
+      tags:
+      - Mobile Push
+      summary: DELETE /push/v1/message/{messageId}
+      operationId: delete_push_v1_message_messageId
+      description: Creates, retrieves, updates, deletes, or sends MobilePush messages.
+        Delivery-report subresources expose tokenized asynchronous results.
+      parameters:
+      - name: messageId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `messageId`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/PushMessageResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1282'
+      x-sfmc-user-permission-paths:
+      - Mobile Push > Message > Delete
+      x-sfmc-installed-package-scopes:
+      - push_write
+      x-original-marketing-cloud-paths:
+      - /push/v1/message/{messageId}
+    put:
+      tags:
+      - Mobile Push
+      summary: PUT /push/v1/message/{messageId}
+      operationId: put_push_v1_message_messageId
+      description: Creates, retrieves, updates, deletes, or sends MobilePush messages.
+        Delivery-report subresources expose tokenized asynchronous results.
+      parameters:
+      - name: messageId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `messageId`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/PushMessageResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1283'
+      x-sfmc-user-permission-paths:
+      - Mobile Push > Message > Schedule And Send Message
+      x-sfmc-installed-package-scopes:
+      - push_send
+      x-original-marketing-cloud-paths:
+      - /push/v1/message/{messageId}
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/PushMessageRequest
+  /push/v1/contacts/refreshList/{id}:
+    post:
+      tags:
+      - Mobile Push
+      summary: POST /push/v1/contacts/refreshList/{id}
+      operationId: post_push_v1_contacts_refreshList_id
+      description: Refreshes a MobilePush list and exposes asynchronous status retrieval
+        for the request.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `id`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1283'
+      x-sfmc-user-permission-paths:
+      - Mobile Push > Message > Schedule And Send Message
+      x-sfmc-installed-package-scopes:
+      - push_send
+      x-original-marketing-cloud-paths:
+      - /push/v1/contacts/refreshList/{id}
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+  /push/v1/messageApp/{messageId}/send:
+    post:
+      tags:
+      - Mobile Push
+      summary: POST /push/v1/messageApp/{messageId}/send
+      operationId: post_push_v1_messageApp_messageId_send
+      description: Executes a MobileConnect send or queues MO processing. These are
+        legacy MobileConnect send surfaces separate from the newer transactional messaging
+        SMS API.
+      parameters:
+      - name: messageId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `messageId`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1283'
+      x-sfmc-user-permission-paths:
+      - Mobile Push > Message > Schedule And Send Message
+      x-sfmc-installed-package-scopes:
+      - push_send
+      x-original-marketing-cloud-paths:
+      - /push/v1/messageApp/{messageId}/send
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+  /push/v1/messageBatch/{messageid}/send:
+    post:
+      tags:
+      - Mobile Push
+      summary: POST /push/v1/messageBatch/{messageid}/send
+      operationId: post_push_v1_messageBatch_messageid_send
+      description: Executes a MobileConnect send or queues MO processing. These are
+        legacy MobileConnect send surfaces separate from the newer transactional messaging
+        SMS API.
+      parameters:
+      - name: messageid
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `messageid`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1283'
+      x-sfmc-user-permission-paths:
+      - Mobile Push > Message > Schedule And Send Message
+      x-sfmc-installed-package-scopes:
+      - push_send
+      x-original-marketing-cloud-paths:
+      - /push/v1/messageBatch/{messageid}/send
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+  /push/v1/messageContact/{messageId}/send:
+    post:
+      tags:
+      - Mobile Push
+      summary: POST /push/v1/messageContact/{messageId}/send
+      operationId: post_push_v1_messageContact_messageId_send
+      description: Executes a MobileConnect send or queues MO processing. These are
+        legacy MobileConnect send surfaces separate from the newer transactional messaging
+        SMS API.
+      parameters:
+      - name: messageId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `messageId`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1283'
+      x-sfmc-user-permission-paths:
+      - Mobile Push > Message > Schedule And Send Message
+      x-sfmc-installed-package-scopes:
+      - push_send
+      x-original-marketing-cloud-paths:
+      - /push/v1/messageContact/{messageId}/send
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+  /push/v1/messageList/{messageId}/send:
+    post:
+      tags:
+      - Mobile Push
+      summary: POST /push/v1/messageList/{messageId}/send
+      operationId: post_push_v1_messageList_messageId_send
+      description: Executes a MobileConnect send or queues MO processing. These are
+        legacy MobileConnect send surfaces separate from the newer transactional messaging
+        SMS API.
+      parameters:
+      - name: messageId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `messageId`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1283'
+      x-sfmc-user-permission-paths:
+      - Mobile Push > Message > Schedule And Send Message
+      x-sfmc-installed-package-scopes:
+      - push_send
+      x-original-marketing-cloud-paths:
+      - /push/v1/messageList/{messageId}/send
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+  /push/v1/messageTag/{messageId}/send:
+    post:
+      tags:
+      - Mobile Push
+      summary: POST /push/v1/messageTag/{messageId}/send
+      operationId: post_push_v1_messageTag_messageId_send
+      description: Executes a MobileConnect send or queues MO processing. These are
+        legacy MobileConnect send surfaces separate from the newer transactional messaging
+        SMS API.
+      parameters:
+      - name: messageId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `messageId`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1283'
+      x-sfmc-user-permission-paths:
+      - Mobile Push > Message > Schedule And Send Message
+      x-sfmc-installed-package-scopes:
+      - push_send
+      x-original-marketing-cloud-paths:
+      - /push/v1/messageTag/{messageId}/send
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody

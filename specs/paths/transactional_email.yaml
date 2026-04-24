@@ -1,0 +1,507 @@
+paths:
+  /messaging/v1/email/messages/{messageKey}:
+    post:
+      tags:
+      - Transactional Email
+      summary: POST /messaging/v1/email/messages/{messageKey}
+      operationId: post_messaging_v1_email_messages_messageKey
+      description: Sends or retrieves a specific transactional email message keyed
+        by messageKey. Use the POST variant when you want the caller to supply the
+        message key up front, and the GET variant to inspect status and delivery detail
+        for that message.
+      parameters:
+      - name: messageKey
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `messageKey`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '152'
+      x-sfmc-user-permission-paths:
+      - Email > Interactions > Messages > Triggered > Create
+      x-sfmc-installed-package-scopes:
+      - email_send
+      x-original-marketing-cloud-paths:
+      - /messaging/v1/email/messages/{messageKey}
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+    get:
+      tags:
+      - Transactional Email
+      summary: GET /messaging/v1/email/messages/{messageKey}
+      operationId: get_messaging_v1_email_messages_messageKey
+      description: Sends or retrieves a specific transactional email message keyed
+        by messageKey. Use the POST variant when you want the caller to supply the
+        message key up front, and the GET variant to inspect status and delivery detail
+        for that message.
+      parameters:
+      - name: messageKey
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `messageKey`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '153'
+      x-sfmc-user-permission-paths:
+      - Email > Interactions > Messages > Triggered > View
+      x-sfmc-installed-package-scopes:
+      - email_read
+      x-original-marketing-cloud-paths:
+      - /messaging/v1/email/messages/{messageKey}
+  /messaging/v1/email/messages:
+    post:
+      tags:
+      - Transactional Email
+      summary: POST /messaging/v1/email/messages
+      operationId: post_messaging_v1_email_messages
+      description: Sends one or more transactional email messages using an existing
+        send definition. Salesforce requires a unique messageKey for idempotency and
+        message tracking; definitions should map to stable business use cases such
+        as order confirmations or password resets.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '152'
+      x-sfmc-user-permission-paths:
+      - Email > Interactions > Messages > Triggered > Create
+      x-sfmc-installed-package-scopes:
+      - email_send
+      x-original-marketing-cloud-paths:
+      - /messaging/v1/email/messages
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+  /messaging/v1/email/definitions:
+    post:
+      tags:
+      - Transactional Email
+      summary: POST /messaging/v1/email/definitions
+      operationId: post_messaging_v1_email_definitions
+      description: Creates a transactional email send definition. In the transactional
+        messaging model, a definition packages template references, delivery configuration,
+        metadata, and message behavior so individual send calls stay lightweight and
+        consistent.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '152'
+      x-sfmc-user-permission-paths:
+      - Email > Interactions > Messages > Triggered > Create
+      x-sfmc-installed-package-scopes:
+      - email_write
+      x-original-marketing-cloud-paths:
+      - /messaging/v1/email/definitions
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+    get:
+      tags:
+      - Transactional Email
+      summary: GET /messaging/v1/email/definitions
+      operationId: get_messaging_v1_email_definitions
+      description: Creates a transactional email send definition. In the transactional
+        messaging model, a definition packages template references, delivery configuration,
+        metadata, and message behavior so individual send calls stay lightweight and
+        consistent.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '153'
+      x-sfmc-user-permission-paths:
+      - Email > Interactions > Messages > Triggered > View
+      x-sfmc-installed-package-scopes:
+      - email_read
+      x-original-marketing-cloud-paths:
+      - /messaging/v1/email/definitions
+  /messaging/v1/email/messages/:
+    get:
+      tags:
+      - Transactional Email
+      summary: GET /messaging/v1/email/messages/
+      operationId: get_messaging_v1_email_messages
+      description: Get operation for the Transactional Email API family. This operation
+        is included in the permissions matrix you supplied; the route is included
+        in the permissions matrix and modeled from the closest corresponding Salesforce
+        reference available.
+      parameters:
+      - name: type
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - notSent
+        description: Query parameter `type`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '153'
+      x-sfmc-user-permission-paths:
+      - Email > Interactions > Messages > Triggered > View
+      x-sfmc-installed-package-scopes:
+      - email_read
+      x-original-marketing-cloud-paths:
+      - /messaging/v1/email/messages/?type=notSent
+  /messaging/v1/email/definitions/{definitionKey}/queue:
+    get:
+      tags:
+      - Transactional Email
+      summary: GET /messaging/v1/email/definitions/{definitionKey}/queue
+      operationId: get_messaging_v1_email_definitions_definitionKey_queue
+      description: Retrieves or clears queue metrics for a transactional email definition.
+        Queue inspection is useful when a definition has been paused or is backing
+        up, and queue deletion is the administrative escape hatch to clear queued
+        work.
+      parameters:
+      - name: definitionKey
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `definitionKey`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '153'
+      x-sfmc-user-permission-paths:
+      - Email > Interactions > Messages > Triggered > View
+      x-sfmc-installed-package-scopes:
+      - email_read
+      x-original-marketing-cloud-paths:
+      - /messaging/v1/email/definitions/{definitionKey}/queue
+    delete:
+      tags:
+      - Transactional Email
+      summary: DELETE /messaging/v1/email/definitions/{definitionKey}/queue
+      operationId: delete_messaging_v1_email_definitions_definitionKey_queue
+      description: Retrieves or clears queue metrics for a transactional email definition.
+        Queue inspection is useful when a definition has been paused or is backing
+        up, and queue deletion is the administrative escape hatch to clear queued
+        work.
+      parameters:
+      - name: definitionKey
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `definitionKey`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '154'
+      x-sfmc-user-permission-paths:
+      - Email > Interactions > Messages > Triggered > Update
+      x-sfmc-installed-package-scopes:
+      - email_write
+      x-original-marketing-cloud-paths:
+      - /messaging/v1/email/definitions/{definitionKey}/queue
+  /messaging/v1/email/definitions/{definitionKey}:
+    get:
+      tags:
+      - Transactional Email
+      summary: GET /messaging/v1/email/definitions/{definitionKey}
+      operationId: get_messaging_v1_email_definitions_definitionKey
+      description: Retrieves, updates, or deletes a transactional email definition.
+        Update when you need to change configuration without rotating the key; delete
+        when retiring the use case entirely.
+      parameters:
+      - name: definitionKey
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `definitionKey`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '153'
+      x-sfmc-user-permission-paths:
+      - Email > Interactions > Messages > Triggered > View
+      x-sfmc-installed-package-scopes:
+      - email_read
+      x-original-marketing-cloud-paths:
+      - /messaging/v1/email/definitions/{definitionKey}
+    patch:
+      tags:
+      - Transactional Email
+      summary: PATCH /messaging/v1/email/definitions/{definitionKey}
+      operationId: patch_messaging_v1_email_definitions_definitionKey
+      description: Retrieves, updates, or deletes a transactional email definition.
+        Update when you need to change configuration without rotating the key; delete
+        when retiring the use case entirely.
+      parameters:
+      - name: definitionKey
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `definitionKey`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '154'
+      x-sfmc-user-permission-paths:
+      - Email > Interactions > Messages > Triggered > Update
+      x-sfmc-installed-package-scopes:
+      - email_write
+      x-original-marketing-cloud-paths:
+      - /messaging/v1/email/definitions/{definitionKey}
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+    delete:
+      tags:
+      - Transactional Email
+      summary: DELETE /messaging/v1/email/definitions/{definitionKey}
+      operationId: delete_messaging_v1_email_definitions_definitionKey
+      description: Retrieves, updates, or deletes a transactional email definition.
+        Update when you need to change configuration without rotating the key; delete
+        when retiring the use case entirely.
+      parameters:
+      - name: definitionKey
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `definitionKey`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '155'
+      x-sfmc-user-permission-paths:
+      - Email > Interactions > Messages > Triggered > Delete
+      x-sfmc-installed-package-scopes:
+      - email_write
+      x-original-marketing-cloud-paths:
+      - /messaging/v1/email/definitions/{definitionKey}

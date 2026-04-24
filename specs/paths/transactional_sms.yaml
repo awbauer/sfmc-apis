@@ -1,0 +1,486 @@
+paths:
+  /messaging/v1/sms/definitions:
+    post:
+      tags:
+      - Transactional SMS
+      summary: POST /messaging/v1/sms/definitions
+      operationId: post_messaging_v1_sms_definitions
+      description: Creates a transactional SMS definition. Salesforce positions one
+        definition per business use case so template, sender configuration, and delivery
+        behavior stay stable across sends.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '161'
+      x-sfmc-user-permission-paths:
+      - Mobile Connect > SMS Message > Schedule And Send Message
+      x-sfmc-installed-package-scopes:
+      - sms_write
+      x-original-marketing-cloud-paths:
+      - /messaging/v1/sms/definitions
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+  /sms/definitions/{definitionKey}:
+    get:
+      tags:
+      - Transactional SMS
+      summary: GET /sms/definitions/{definitionKey}
+      operationId: get_sms_definitions_definitionKey
+      description: Retrieves, updates, or deletes a transactional SMS definition.
+        Definitions can be active, inactive, or deleted; sends to an inactive definition
+        are queued for later processing for up to three days.
+      parameters:
+      - name: definitionKey
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `definitionKey`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '162'
+      x-sfmc-user-permission-paths:
+      - Mobile Connect > SMS Message > Schedule And Send Message
+      x-sfmc-installed-package-scopes:
+      - sms_read
+      x-original-marketing-cloud-paths:
+      - /sms/definitions/{definitionKey}
+    patch:
+      tags:
+      - Transactional SMS
+      summary: PATCH /sms/definitions/{definitionKey}
+      operationId: patch_sms_definitions_definitionKey
+      description: Retrieves, updates, or deletes a transactional SMS definition.
+        Definitions can be active, inactive, or deleted; sends to an inactive definition
+        are queued for later processing for up to three days.
+      parameters:
+      - name: definitionKey
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `definitionKey`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '163'
+      x-sfmc-user-permission-paths:
+      - Mobile Connect > SMS Message > Schedule And Send Message
+      x-sfmc-installed-package-scopes:
+      - sms_write
+      x-original-marketing-cloud-paths:
+      - /sms/definitions/{definitionKey}
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+    delete:
+      tags:
+      - Transactional SMS
+      summary: DELETE /sms/definitions/{definitionKey}
+      operationId: delete_sms_definitions_definitionKey
+      description: Retrieves, updates, or deletes a transactional SMS definition.
+        Definitions can be active, inactive, or deleted; sends to an inactive definition
+        are queued for later processing for up to three days.
+      parameters:
+      - name: definitionKey
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `definitionKey`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '164'
+      x-sfmc-user-permission-paths:
+      - Mobile Connect > SMS Message > Schedule And Send Message
+      x-sfmc-installed-package-scopes:
+      - sms_write
+      x-original-marketing-cloud-paths:
+      - /sms/definitions/{definitionKey}
+  /sms/definitions:
+    get:
+      tags:
+      - Transactional SMS
+      summary: GET /sms/definitions
+      operationId: get_sms_definitions
+      description: Lists transactional SMS definitions. Use this route to inventory
+        available definitions and fetch their keys before building send workflows.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '162'
+      x-sfmc-user-permission-paths:
+      - Mobile Connect > SMS Message > Schedule And Send Message
+      x-sfmc-installed-package-scopes:
+      - sms_read
+      x-original-marketing-cloud-paths:
+      - /sms/definitions
+  /sms/definitions/{definitionKey}/queue:
+    get:
+      tags:
+      - Transactional SMS
+      summary: GET /sms/definitions/{definitionKey}/queue
+      operationId: get_sms_definitions_definitionKey_queue
+      description: Retrieves or clears queue metrics for a transactional SMS definition.
+        Salesforce calls out queue depth and age of the oldest unprocessed record
+        as key operational signals.
+      parameters:
+      - name: definitionKey
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `definitionKey`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '162'
+      x-sfmc-user-permission-paths:
+      - Mobile Connect > SMS Message > Schedule And Send Message
+      x-sfmc-installed-package-scopes:
+      - sms_read
+      x-original-marketing-cloud-paths:
+      - /sms/definitions/{definitionKey}/queue
+    delete:
+      tags:
+      - Transactional SMS
+      summary: DELETE /sms/definitions/{definitionKey}/queue
+      operationId: delete_sms_definitions_definitionKey_queue
+      description: Retrieves or clears queue metrics for a transactional SMS definition.
+        Salesforce calls out queue depth and age of the oldest unprocessed record
+        as key operational signals.
+      parameters:
+      - name: definitionKey
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `definitionKey`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '163'
+      x-sfmc-user-permission-paths:
+      - Mobile Connect > SMS Message > Schedule And Send Message
+      x-sfmc-installed-package-scopes:
+      - sms_write
+      x-original-marketing-cloud-paths:
+      - /sms/definitions/{definitionKey}/queue
+  /sms/messages/{messageKey}:
+    get:
+      tags:
+      - Transactional SMS
+      summary: GET /sms/messages/{messageKey}
+      operationId: get_sms_messages_messageKey
+      description: Sends or retrieves a specific transactional SMS message keyed by
+        messageKey. This is the direct operational handle for a single SMS send request.
+      parameters:
+      - name: messageKey
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `messageKey`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '165'
+      x-sfmc-user-permission-paths:
+      - Mobile Connect > SMS Message > Schedule And Send Message
+      x-sfmc-installed-package-scopes:
+      - tracking_events_read, sms_read
+      x-original-marketing-cloud-paths:
+      - /sms/messages/{messageKey}
+    post:
+      tags:
+      - Transactional SMS
+      summary: POST /sms/messages/{messageKey}
+      operationId: post_sms_messages_messageKey
+      description: Sends or retrieves a specific transactional SMS message keyed by
+        messageKey. This is the direct operational handle for a single SMS send request.
+      parameters:
+      - name: messageKey
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `messageKey`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '166'
+      x-sfmc-user-permission-paths:
+      - Mobile Connect > SMS Message > Schedule And Send Message
+      x-sfmc-installed-package-scopes:
+      - sms_send
+      x-original-marketing-cloud-paths:
+      - /sms/messages/{messageKey}
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+  /sms/messages:
+    get:
+      tags:
+      - Transactional SMS
+      summary: GET /sms/messages
+      operationId: get_sms_messages
+      description: Sends or lists transactional SMS messages using an existing transactional
+        SMS definition.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '165'
+      x-sfmc-user-permission-paths:
+      - Mobile Connect > SMS Message > Schedule And Send Message
+      x-sfmc-installed-package-scopes:
+      - tracking_events_read, sms_read
+      x-original-marketing-cloud-paths:
+      - /sms/messages
+    post:
+      tags:
+      - Transactional SMS
+      summary: POST /sms/messages
+      operationId: post_sms_messages
+      description: Sends or lists transactional SMS messages using an existing transactional
+        SMS definition.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '166'
+      x-sfmc-user-permission-paths:
+      - Mobile Connect > SMS Message > Schedule And Send Message
+      x-sfmc-installed-package-scopes:
+      - sms_send
+      x-original-marketing-cloud-paths:
+      - /sms/messages
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody

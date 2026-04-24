@@ -1,0 +1,300 @@
+paths:
+  /hub/v1/approvals/{id}:
+    patch:
+      tags:
+      - Approvals
+      summary: PATCH /hub/v1/approvals/{id}
+      operationId: patch_hub_v1_approvals_id
+      description: Creates, retrieves, or updates approval items and approval roles
+        for Interactive Marketing Hub workflows.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `id`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1503'
+      x-sfmc-user-permission-paths:
+      - Workflows and Approvals > Approval > Approval Items > Create and Edit
+      x-sfmc-installed-package-scopes:
+      - approvals_write
+      x-original-marketing-cloud-paths:
+      - /hub/v1/approvals/{id}
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+    get:
+      tags:
+      - Approvals
+      summary: GET /hub/v1/approvals/{id}
+      operationId: get_hub_v1_approvals_id
+      description: Creates, retrieves, or updates approval items and approval roles
+        for Interactive Marketing Hub workflows.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `id`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1631'
+      x-sfmc-user-permission-paths:
+      - Workflows and Approvals > Approval > Approval Items > View
+      x-sfmc-installed-package-scopes:
+      - approvals_read
+      x-original-marketing-cloud-paths:
+      - /hub/v1/approvals/{id}
+  /hub/v1/approvals:
+    post:
+      tags:
+      - Approvals
+      summary: POST /hub/v1/approvals
+      operationId: post_hub_v1_approvals
+      description: Creates, retrieves, or updates approval items and approval roles
+        for Interactive Marketing Hub workflows.
+      parameters: []
+      responses:
+        '201':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1503'
+      x-sfmc-user-permission-paths:
+      - Workflows and Approvals > Approval > Approval Items > Create and Edit
+      x-sfmc-installed-package-scopes:
+      - approvals_write
+      x-original-marketing-cloud-paths:
+      - /hub/v1/approvals
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+    get:
+      tags:
+      - Approvals
+      summary: GET /hub/v1/approvals
+      operationId: get_hub_v1_approvals
+      description: Creates, retrieves, or updates approval items and approval roles
+        for Interactive Marketing Hub workflows.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1631'
+      x-sfmc-user-permission-paths:
+      - Workflows and Approvals > Approval > Approval Items > View
+      x-sfmc-installed-package-scopes:
+      - approvals_read
+      x-original-marketing-cloud-paths:
+      - /hub/v1/approvals
+  /hub/v1/approvals/settings:
+    patch:
+      tags:
+      - Approvals
+      summary: PATCH /hub/v1/approvals/settings
+      operationId: patch_hub_v1_approvals_settings
+      description: Reads or updates approval settings that govern approval workflows
+        across supported channels.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1509'
+      x-sfmc-user-permission-paths:
+      - Interactive Marketing Hub > Approvals > Enable for Any Channel
+      x-sfmc-installed-package-scopes:
+      - approvals_write
+      x-original-marketing-cloud-paths:
+      - /hub/v1/approvals/settings
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+    get:
+      tags:
+      - Approvals
+      summary: GET /hub/v1/approvals/settings
+      operationId: get_hub_v1_approvals_settings
+      description: Reads or updates approval settings that govern approval workflows
+        across supported channels.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1631'
+      x-sfmc-user-permission-paths:
+      - Workflows and Approvals > Approval > Approval Items > View
+      x-sfmc-installed-package-scopes:
+      - approvals_read
+      x-original-marketing-cloud-paths:
+      - /hub/v1/approvals/settings
+  /hub/v1/approvals/{id}/roles:
+    get:
+      tags:
+      - Approvals
+      summary: GET /hub/v1/approvals/{id}/roles
+      operationId: get_hub_v1_approvals_id_roles
+      description: Creates, retrieves, or updates approval items and approval roles
+        for Interactive Marketing Hub workflows.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Path parameter `id`.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1631'
+      x-sfmc-user-permission-paths:
+      - Workflows and Approvals > Approval > Approval Items > View
+      x-sfmc-installed-package-scopes:
+      - approvals_read
+      x-original-marketing-cloud-paths:
+      - /hub/v1/approvals/{id}/roles
