@@ -3,14 +3,22 @@
 ## Current snapshot
 
 - Spec version: `0.17.0`
-- Remaining `GenericRequestBody` references: `85`
-- Remaining `GenericResponse` references: `132`
+- Remaining `GenericRequestBody` references: `82`
+- Remaining `GenericResponse` references: `127`
 
 Important note:
 
 The YAML still contains a meaningful amount of broad fallback modeling. This is still useful, but it is not a fully strict, codegen-clean SFMC contract yet.
 
 ## Highest-priority next steps
+
+### Recently completed
+
+- Tightened the core Auth family (`/v2/discovery`, `/v2/userinfo`, `/v2/authorize`,
+  `/v2/token`, `/v1/requestToken`) by replacing fallback generic request/response
+  schemas with purpose-built auth schemas.
+- Added practical auth examples for authorize, token issuance, and legacy requestToken
+  payloads to improve implementation handoff and testing.
 
 ### 1. Reduce fallback schemas in the biggest remaining route clusters
 
