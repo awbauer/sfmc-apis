@@ -5,89 +5,290 @@
 - Spec version: `0.17.0`
 - Remaining `GenericRequestBody` references: `82`
 - Remaining `GenericResponse` references: `127`
+- Fallback density by file (highest first): contacts `38`, content_builder `22`, mobile_push `19`, event_notification_service `18`, transactional_sms `15`, transactional_email `15`, mobileconnect_sms `15`, tags `13`, data_extensions `12`, campaigns `10`, approvals `10`, journey_builder `6`, domain_verification `5`, file_locations `4`, triggered_email `2`, audit_logging `2`, address_validation `2`, discovery `1`, auth `0`.
 
 Important note:
 
-The YAML still contains a meaningful amount of broad fallback modeling. This is still useful, but it is not a fully strict, codegen-clean SFMC contract yet.
+The YAML still contains a meaningful amount of broad fallback modeling. It is useful as a route map but is not yet a strict, codegen-clean SFMC contract. The items in §P0 are hard defects that block spec validation today.
 
-## Highest-priority next steps
-
-### Recently completed
+## Recently completed
 
 - Tightened the core Auth family (`/v2/discovery`, `/v2/userinfo`, `/v2/authorize`,
   `/v2/token`, `/v1/requestToken`) by replacing fallback generic request/response
   schemas with purpose-built auth schemas.
-- Added practical auth examples for authorize, token issuance, and legacy requestToken
-  payloads to improve implementation handoff and testing.
+- Added practical auth examples for authorize, token issuance, and legacy
+  `requestToken` payloads.
 
-### 1. Reduce fallback schemas in the biggest remaining route clusters
+---
 
-Focus on the families still carrying the most broad request/response envelopes:
+## P0 — Spec integrity (blocks validation / codegen)
 
-- Contacts preference and audience variants
-- Journey Builder route variants not covered by the main lifecycle/detail pass
-- legacy MobileConnect variants not yet tightened
-- remaining Mobile Push list/status variants
-- utility and auth edge routes
+### 1. Define missing Journey lifecycle schemas
 
-### 2. Tighten remaining Contacts long tail
+`specs/paths/journey_builder.yaml` references `JourneyLifecycleRequest` and
+`JourneyLifecycleResponse` in 12 places (lines 744, 772, 803, 831, 860, 888,
+917, 945, 974, 1002, 1031, 1059) but neither schema is defined anywhere. Add
+purpose-built schemas or split into per-operation ones:
 
-Focus areas:
+- `JourneyPauseRequest`: `{PauseDuration?, ExtendWaitEndDates?, AllVersions?}`
+- `JourneyResumeRequest`: `{AllVersions?}`
+- `JourneyStopRequest`: `{}` (no body required in most SFMC variants)
+- `JourneyPublishAsyncResponse`: `{statusId}`
+- `JourneyContactMembershipRequest/Response`: typed inputs/outputs
 
-- preference search variants
-- audience search and count variants
-- richer schema and attribute-group nesting
-- stricter nested arrays and enums where the docs are stable enough
+### 2. Fix `/v2/authorize` method and shape
 
-### 3. Tighten remaining Journey Builder detail variants
+Currently modeled as `POST` with `application/json` body
+(`specs/paths/auth.yaml:78-129`). Per OAuth 2.0 and SFMC docs this is a browser
+redirect: change to `GET`, remove `requestBody`, move `response_type`,
+`client_id`, `redirect_uri`, `state`, `scope` to `parameters: in: query`, and
+document the success as `302` with a `Location` header (not `200` JSON).
+Repurpose or retire `AuthAuthorizeRequest` / `AuthAuthorizeResponse`.
 
-Focus areas:
+### 3. Align declared oauth2 scopes with operation usage
 
-- route variants by key vs id
-- publish / pause / resume / stop response differences
-- interaction detail nesting
-- event-definition nested fields
-- audit result structure
+`components.securitySchemes.oauth2.clientCredentials.scopes`
+(`specs/sfmc_marketing_cloud_openapi.yaml:394-433`) is missing scopes actually
+referenced by operations, including at least `data_extensions_read`,
+`data_extensions_write`, and `automations_read`. Add them, and rename
+`Contacts_access` to the canonical lowercase Salesforce scope identifiers
+(`contacts_read` / `contacts_write` or the current published equivalent). Add
+a scope-diff check to CI.
 
-### 4. Validate normalized paths against current docs
+### 4. Resolve duplicate `/messaging/v1/email/messages` paths
 
-Prioritize route families where the permission matrix was clearly truncated or inconsistent.
+`specs/paths/transactional_email.yaml:99` and `:230` both export variants of
+this path (the second with a trailing slash). The entrypoint re-exports both
+(`specs/sfmc_marketing_cloud_openapi.yaml:102-107`). Consolidate under the
+canonical no-slash path with distinct HTTP methods.
 
-Focus areas:
+### 5. Fix malformed `x-original-marketing-cloud-paths`
 
-- legacy MobileConnect routes
-- Journey lifecycle routes with query-string variants
-- utility and discovery routes
-- any key-vs-id path pair where the doc shape is unclear
+`specs/paths/file_locations.yaml` entries are missing the leading `/` (e.g.
+`platform/v1/key`). Sweep all path files for the same pattern and normalize.
 
-### 5. Improve examples
+### 6. Make the spec validate cleanly
 
-Add realistic examples for:
+Run `swagger-cli validate` and Spectral against the entrypoint and fix every
+error. Add both to CI.
 
-- token acquisition and BU targeting
-- transactional email definition + send
-- transactional SMS definition + send
-- contact upsert / delete / restrict
+---
+
+## P1 — Cross-cutting architecture
+
+### 7. Scope the auth host per operation
+
+The root `servers:` list declares both REST and AUTH hosts; codegen will
+attach `/v2/token` etc. to the REST host. Add operation-level `servers:`
+overrides on `/v2/discovery`, `/v2/userinfo`, `/v2/authorize`, `/v2/token`,
+`/v1/requestToken` pointing at
+`https://{subdomain}.auth.marketingcloudapis.com`, or split auth into a
+separate spec file.
+
+### 8. Add a root-level default `security:`
+
+The entrypoint declares no global `security:` default. Add one requiring
+`bearerAuth` / `oauth2`, and explicitly set `security: []` on the
+auth/discovery routes that legitimately do not require a token.
+
+### 9. Introduce shared error schemas and responses
+
+Today every `'400'/'401'/'403'/'404'/'429'/'500'` entry is description-only.
+Add `components.schemas.ErrorResponse`
+(`{message, errorcode, documentation, requestId}`) and `ErrorCollection`
+(`{errors: [ErrorResponse]}`). Add `components.responses` entries
+`BadRequest`, `Unauthorized`, `Forbidden`, `NotFound`, `TooManyRequests`,
+`ServerError` and `$ref` them from every operation.
+
+### 10. Codify `additionalProperties` policy
+
+- Request bodies → `additionalProperties: false` (catches client bugs).
+- Response bodies → `additionalProperties: true` (SFMC evolves).
+
+Sweep the existing schemas to conform.
+
+### 11. Mark legacy routes `deprecated: true`
+
+- `/v1/requestToken`
+- MobileConnect SMS routes already flagged as "legacy" in description
+- Any triggered-email route superseded by Transactional Messaging
+
+### 12. Add reusable paging parameters
+
+Define `components.parameters` for `$page`, `$pageSize`, `$filter`,
+`$orderBy`, `$fields`, and apply to every collection GET — notably in
+contacts, campaigns, content_builder, approvals, audit_logging,
+journey_builder (`interactions`, `eventDefinitions`), tags/nestedtags, and
+ENS subscriptions/callbacks.
+
+---
+
+## P2 — Replace fallbacks with typed schemas (biggest clusters first)
+
+### 13. Transactional Email (15 generics)
+
+- Definition create/update: `{definitionKey, name, classification[Transactional|Default Transactional], subject, content{customerKey|html|text}, subscriptions{list, autoAddSubscriber?, autoUpdateSubscriber?}, options{createJourney?, trackLinks?}, status?}`
+- Send: `{definitionKey, recipient{contactKey,to,attributes}, options{requestType:SYNC|ASYNC}, subscriptions, attachments[{name,content,type}]}`
+- Message status: `{messageKey, definitionKey, status, requestId}`
+- Queue metrics response typed
+- Confirm send success is `202 Accepted`, not `200`
+
+### 14. Transactional SMS (15 generics)
+
+- Definition create: `{definitionKey, name, content{message}, subscriptions{shortCode, countryCode, keyword?}, options?}`
+- Typed queue metrics and send body
+- Resolve path split: `/messaging/v1/sms/definitions` vs `/sms/definitions`
+  vs `/sms/v1/definitions` — verify canonical against current docs and
+  collapse to one base
+
+### 15. Contacts (38 generics — largest cluster)
+
+- Upsert `POST /contacts/v1/contacts`
+- Delete action: `{values[], deleteOperationType, targetList:[ListReferences|ContactAndAttributes|EntireContact]}`
+- Restrict action
+- Schema / attributeGroup / attributeSet GETs and PUTs
+- Email/attribute/preference search: `{search, startRowIndex, rowLimit, sortBy}`
+- Populated attribute groups, `contactEvents`, `establish`, delete/restrict
+  retry and options
+
+### 16. Content Builder (22 generics)
+
+- Asset CRUD with a discriminator keyed on `assetType.id` / `assetType.name`
+- `POST /asset/v1/content/assets/query` body: `{page, pageSize, filter, fields, sort}`
+- Categories CRUD, salutations
+- Verify `/asset/v1/content/assets/{id}/file` is GET-for-download; model
+  uploads via `POST /asset/v1/content/assets` with a base64 `file` property
+
+### 17. Mobile Push (19 generics)
+
+Type `messageBatch`, `messageApp`, `messageList`, `messageContact`,
+`messageTag` send bodies and delivery-result responses; message collection
+envelope; application/location CRUD.
+
+### 18. Event Notification Service (18 generics)
+
+- Callback: `{callbackName, url, public, maxBatchSize?, signatureKey?}`
+- Subscription: `{callbackId, eventCategoryTypes[], filters[{key,operator,value}], filterValueDataExtensions[]}`
+- `verify` (`{token}`), `regenerate`
+- Typed `ens-subscriptions-by-cb/{callbackId}` response
+
+### 19. Tags (13 generics)
+
+Typed tag / nestedtag CRUD, associations, delete (`{ids[]}`). Normalise the
+trailing slash on `/hub/v1/objects/{objectTypeName}/tags/`.
+
+### 20. Data Extensions (12 generics)
+
+- Async row body: `{items: [{<field>: <value>}]}`
+- Confirm `POST /data/v1/async/dataextensions/{id}/rows` returns `202 Accepted`
+  with `Location` header and `{requestId}` body
+- Add `key:{key}` variant path
+- Type `/data/v1/async/{requestId}/results` and `/status` with paged items
+  and a `status` enum
+
+### 21. Campaigns (10 generics)
+
+Typed campaign, campaign-asset list/create, delete; confirm `campaign_read` /
+`campaign_write` scopes and apply paging params.
+
+### 22. Approvals (10 generics)
+
+Typed approval item, `PATCH` state-transition body, settings, roles.
+
+### 23. MobileConnect SMS (15 generics)
+
+Typed keyword create/update, opt-in body, queueMO, messageContact/messageList
+send bodies. Flag deprecated variants explicitly.
+
+### 24. Journey Builder (6 generics)
+
+- `POST /interaction/v1/events`: `{ContactKey, EventDefinitionKey, Data:{...}}`
+- `/interactions` query params: `extras`, `versionNumber`,
+  `mostRecentVersionOnly`, `$page`, `$pageSize`, `$orderBy`
+- `interactions/{id}/audit/{action}` — `action` path param as enum
+
+### 25. Domain Verification (5 generics)
+
+Typed update/delete/push bodies (`{domain}` vs `{domains[]}`); align `status`
+and `validationType` enums.
+
+### 26. Address Validation (2 generics)
+
+Request `{email, validators:[SyntaxValidator|MXValidator|ListDetectiveValidator]}`,
+response `{valid, email, failedValidation[], level}`.
+
+### 27. Audit Logging (2 generics)
+
+Paged items envelope for `auditEvents` and `securityEvents` with a stable
+field set.
+
+---
+
+## P3 — Examples, tooling, hygiene
+
+### 28. Back-fill examples for every write / polling flow
+
+Priority order:
+- Transactional email definition + send
+- Transactional SMS definition + send
+- Contact upsert / delete / restrict
 - Journey event injection and contact exit
+- Data Extension async write + polling
+- ENS callback and subscription setup
 - MobileConnect import and status polling
 - Mobile Push create and send
-- ENS callback and subscription setup
-- Data Extension async write and polling
+- Token acquisition and BU targeting (extend existing)
 
-### 6. OpenAPI validation and tooling
+### 29. Add validation tooling and a CI gate
 
-- validate in Swagger Editor or another OpenAPI validator
-- import into Swagger UI and Redoc
-- import into Postman
-- attempt at least one generated SDK
-- document any manual fixes needed for codegen consumers
+- `npx @apidevtools/swagger-cli validate specs/sfmc_marketing_cloud_openapi.yaml`
+- `npx @stoplight/spectral-cli lint specs/sfmc_marketing_cloud_openapi.yaml`
+- Ship a `.spectral.yaml` with SFMC-specific rules (every operation must
+  carry `x-sfmc-installed-package-scopes`; scope strings must appear in
+  `securitySchemes`; operationId uniqueness)
+- Wire a `Makefile` / `npm run validate` target and a GitHub Action
+
+### 30. Add a bundling step
+
+`swagger-cli bundle -o dist/sfmc.yaml` for consumers that can't resolve
+external `$ref` (Postman, some codegens).
+
+### 31. Pilot a codegen run
+
+Generate one client (e.g. `typescript-axios` or `openapi-typescript`), record
+every manual fix required, and feed it back into the spec.
+
+### 32. Fix README file references
+
+`README.md:246-248` lists `sfmc_marketing_cloud_openapi.yaml`,
+`README_sfmc_openapi.md`, `TODO_sfmc_openapi.md` as project files. Actual
+files are `specs/sfmc_marketing_cloud_openapi.yaml`, `README.md`, `TODO.md`.
+
+### 33. Add `CHANGELOG.md`
+
+Track spec-version changes; keep it in sync with `info.version`.
+
+### 34. Sweep unused declared scopes
+
+Confirm every scope declared in `securitySchemes` is referenced by at least
+one operation; delete dead declarations.
+
+### 35. Check operationId uniqueness in CI
+
+Current naming (`post_v2_token`, `get_messaging_v1_email_messages`) is
+regular but fragile against future additions. Add an explicit check.
+
+---
 
 ## Quality bar for a broader v1.0
 
 Call the spec ready for broader use when:
 
-- high-value write routes no longer rely heavily on fallback request bodies
-- the main success responses in core families are typed
-- examples exist for the most-used write and polling flows
-- normalized paths have been checked against current Salesforce docs
-- the YAML validates cleanly in common tooling
+- Every P0 item is resolved and the spec validates cleanly in Spectral and
+  `swagger-cli`.
+- High-value write routes no longer rely on fallback request bodies.
+- Main success responses in core families are typed.
+- Examples exist for the most-used write and polling flows.
+- Shared error schema is referenced from every operation.
+- Scope declaration and operation references are in sync (verified in CI).
+- A typescript client generates and compiles from the bundled spec.
