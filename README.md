@@ -246,3 +246,17 @@ Official Salesforce references worth keeping open while developing:
 - `sfmc_marketing_cloud_openapi.yaml`
 - `README_sfmc_openapi.md`
 - `TODO_sfmc_openapi.md`
+
+## Build Swagger site
+
+This repository includes an npm build step that generates a static Swagger-style docs site from the OpenAPI spec.
+
+```bash
+npm install
+npm run build
+```
+
+Build output:
+
+- `dist/index.html` (generated docs site)
+- `dist/openapi.yaml` (copied spec used to generate docs)

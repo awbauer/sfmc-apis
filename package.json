@@ -1,0 +1,9 @@
+{
+  "name": "sfmc-apis",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Salesforce Marketing Cloud Engagement REST OpenAPI spec and docs build",
+  "scripts": {
+    "build": "node scripts/build-swagger-site.mjs"
+  }
+}
