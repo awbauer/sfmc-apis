@@ -5,6 +5,7 @@ info:
   description: >
     Machine-readable OpenAPI contract for migration agents to move data, assets,
     and configuration into and out of Salesforce Marketing Cloud Engagement.
+
   
     Each operation includes vendor extensions that guide execution:
       - x-migration-direction defines import vs export
