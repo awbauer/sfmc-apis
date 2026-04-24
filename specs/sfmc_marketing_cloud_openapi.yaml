@@ -1095,6 +1095,12 @@ components:
                 type: boolean
             additionalProperties: true
       additionalProperties: true
+    ContactMembershipRequest:
+      allOf:
+      - $ref: '#/components/schemas/JourneyContactMembershipRequest'
+    ContactMembershipResponse:
+      allOf:
+      - $ref: '#/components/schemas/JourneyContactMembershipResponse'
     ContactDeleteSummaryResponse:
       type: object
       properties:
