@@ -2,7 +2,7 @@
 
 ## What this project is
 
-This project is a hand-built OpenAPI 3.0.3 contract for a broad slice of the Salesforce Marketing Cloud Engagement REST API surface.
+This project is a hand-built OpenAPI 3.0.3 contract maintained as a comprehensive inventory of the Salesforce Marketing Cloud Engagement REST API surface.
 
 It is not an official Salesforce export. It is a developer artifact built from:
 
@@ -28,13 +28,17 @@ The spec currently includes route coverage for:
 - classic triggered email
 - transactional email
 - transactional SMS
+- transactional OTT (WhatsApp)
 - file-location keys
 - campaigns
 - MobileConnect SMS
+- GroupConnect chat messaging (Facebook Messenger, LINE)
 - Contacts / Contact Builder
 - Journey Builder
+- Automation Studio (automations and legacy beta definitions)
 - Mobile Push
 - Content Builder assets and folders
+- Content Builder asset type taxonomy
 - approvals
 - tags
 - Event Notification Service
@@ -51,9 +55,9 @@ Those are useful when you need to line up runtime behavior with installed packag
 
 ## Current state
 
-Spec version: `0.17.0`
+Spec version: `0.18.0`
 
-This is a usable integration artifact now, but it is still mixed in strictness.
+Family breadth now mirrors the published Salesforce Marketing Cloud Engagement REST surface; depth per family is still mixed in strictness.
 
 What is solid enough to use today:
 
@@ -71,28 +75,25 @@ What is still uneven:
 
 ## What changed in the latest pass
 
-This pass focused on the remaining operational long tail and utility surfaces.
+This pass expanded the spec from a permission-matrix slice into a comprehensive inventory of SFMC REST API families.
 
-### Executed in this pass
+### Inventory expansion to comprehensive coverage
 
-1. **MobileConnect operational response cleanup**
-   - added typed async accepted and async status envelopes
-   - tightened SMS delivery, history, and delivery-report responses
-   - added concrete subscription and keyword request/response schemas
+1. **Added Automation Studio** (`/automation/v1/automations`, `/automation/v1/automations/{id}`, `/automation/v1/automations/{id}/actions/{action}`, and the widely-used legacy beta routes under `/legacy/v1/beta/automations/*`).
 
-2. **Mobile Push detail and reporting cleanup**
-   - added application, application-key, location, message, and delivery-result schemas
-   - rewired key Mobile Push detail routes away from the broad generic success envelope
+2. **Added Transactional OTT / WhatsApp** (`/messaging/v1/ott/definitions`, `/messaging/v1/ott/definitions/{definitionKey}`, queue metrics, `/messaging/v1/ott/messages` and `/messaging/v1/ott/messages/{messageKey}`), mirroring the transactional email shape.
 
-3. **Journey Builder collection/detail cleanup**
-   - added typed collection and detail response models for interactions and event definitions
+3. **Added GroupConnect chat messaging** (`/ott/v1/registration`, `/ott/v1/sendMessage`) for Facebook Messenger and LINE channels.
 
-4. **Utility and discovery cleanup**
-   - added typed responses for endpoint discovery and token context
-   - added typed domain verification collection and bulk-result envelopes
+4. **Added Content Builder asset type taxonomy** (`/asset/v1/content/assetTypes`, `/asset/v1/content/assetTypes/{id}`) with typed `ContentAssetTypeItem` and `ContentAssetTypeListResponse` response schemas.
 
-5. **Documentation alignment**
-   - updated this README and the backlog so they reflect the actual YAML on disk
+5. **Declared new oauth2 scopes** — `automations_read`, `automations_write`, `automations_execute`, `ott_channels_read`, `ott_channels_send`, `ott_channels_write` — and four new tags (`Automation Studio`, `Transactional OTT`, `GroupConnect Chat`, `Asset Types`).
+
+6. **Added typed helper schemas** — `AutomationSummary`, `AutomationListResponse`, `AutomationActionRequest`, `AutomationActionResponse` — wired into the list and action endpoints.
+
+7. **Reframed the README and `info.description`** away from "a broad slice" to a comprehensive-inventory framing, keeping the honest caveat that some long-tail routes still rely on broad fallback schemas.
+
+8. **Bumped the spec version** from `0.17.0` to `0.18.0`.
 
 ## Best ways to use this project
 

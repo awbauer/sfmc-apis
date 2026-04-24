@@ -1,0 +1,92 @@
+paths:
+  /ott/v1/registration:
+    post:
+      tags:
+      - GroupConnect Chat
+      summary: POST /ott/v1/registration
+      operationId: post_ott_v1_registration
+      description: Registers an OTT property with GroupConnect. Use this to connect
+        a Facebook page or LINE channel to Marketing Cloud so subsequent sends can
+        target those channels. Payload shape varies by OTT network and is documented
+        narratively by Salesforce.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids: []
+      x-sfmc-user-permission-paths:
+      - OTT > Administration > Channels > Create
+      x-sfmc-installed-package-scopes:
+      - ott_channels_write
+      x-original-marketing-cloud-paths:
+      - /ott/v1/registration
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+  /ott/v1/sendMessage:
+    post:
+      tags:
+      - GroupConnect Chat
+      summary: POST /ott/v1/sendMessage
+      operationId: post_ott_v1_sendMessage
+      description: Sends a real-time chat message to a recipient over Facebook
+        Messenger or LINE. For the `to` object either `ottId` or `userReference` is
+        required; `userReference` takes precedence when both are provided. Native
+        content types differ between Messenger (templates, file) and LINE (sticker,
+        location, imageMap, templates).
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids: []
+      x-sfmc-user-permission-paths:
+      - OTT > Interactions > Messages > Send
+      x-sfmc-installed-package-scopes:
+      - ott_channels_send
+      x-original-marketing-cloud-paths:
+      - /ott/v1/sendMessage
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
