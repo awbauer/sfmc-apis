@@ -46,10 +46,19 @@ for (const file of readdirSync(pathDir)) {
 }
 
 const missingScopes = [...usedScopes].filter((scope) => !declaredScopes.has(scope)).sort();
+const unusedScopes = [...declaredScopes].filter((scope) => !usedScopes.has(scope)).sort();
 
 if (missingScopes.length > 0) {
   console.error('Missing declared oauth2 scopes for operation usage:');
   for (const scope of missingScopes) {
+    console.error(`- ${scope}`);
+  }
+  process.exit(1);
+}
+
+if (unusedScopes.length > 0) {
+  console.error('Unused declared oauth2 scopes (not referenced by any operation):');
+  for (const scope of unusedScopes) {
     console.error(`- ${scope}`);
   }
   process.exit(1);

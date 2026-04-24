@@ -47,10 +47,12 @@ specs/
 scripts/
   build-swagger-site.mjs                # generates dist/ docs site
   build-migration-catalog.mjs           # emits dist/migration-catalog.json
+  check-operation-ids.mjs               # ensures operationId uniqueness
   check-scope-sync.mjs                  # scope declaration vs usage
   check-migration-extensions.mjs        # vendor extension + recipe integrity
   mcp-server.mjs                        # read-only MCP stub over stdio
 AGENTS.md                               # agent entrypoint and usage guide
+CHANGELOG.md                            # spec version history
 ```
 
 ## Quickstart for agents
@@ -79,6 +81,7 @@ npm run validate    # lint, validate, and run integrity checks
 Build output:
 - `dist/index.html` — interactive Swagger UI
 - `dist/sfmc_marketing_cloud_openapi.yaml` + `dist/paths/*.yaml` — copied spec
+- `dist/sfmc.yaml` — bundled single-file OpenAPI artifact
 - `dist/migrations/*.yaml` — copied recipes
 - `dist/migration-catalog.json` — generated catalog
 
