@@ -2,13 +2,9 @@
 
 ## What this project is
 
-This project is a hand-built OpenAPI 3.0.3 contract maintained as a comprehensive inventory of the Salesforce Marketing Cloud Engagement REST API surface.
+This project is an OpenAPI contract maintained as a comprehensive inventory of the Salesforce Marketing Cloud Engagement REST API surface.
 
-It is not an official Salesforce export. It is a developer artifact built from:
-
-- the SFMC REST permission and installed-package scope matrix
-- Salesforce REST reference pages
-- normalization work required to turn the published route inventory into valid OpenAPI paths and reusable schemas
+It is not an official Salesforce export.
 
 The goal is simple: give developers one place to understand SFMC REST routes, auth expectations, scopes, and payload shapes without bouncing across dozens of documentation pages.
 
