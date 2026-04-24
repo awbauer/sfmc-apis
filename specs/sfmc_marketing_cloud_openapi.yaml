@@ -497,11 +497,6 @@ components:
               resources
             ott_channels_send: Send OTT messages across registered channels
             ott_channels_write: Create, update, and delete OTT channel resources
-        authorizationCode:
-          authorizationUrl: https://YOUR_SUBDOMAIN.auth.marketingcloudapis.com/v2/authorize
-          tokenUrl: https://YOUR_SUBDOMAIN.auth.marketingcloudapis.com/v2/token
-          scopes:
-            openid: OpenID Connect style profile access where applicable
   schemas:
     JourneyPublishStatusResponse:
       type: object
