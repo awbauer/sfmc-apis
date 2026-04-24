@@ -15,7 +15,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/AuthDiscoveryResponse
         '400':
           description: Bad request.
         '401':
@@ -53,7 +53,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/AuthUserInfoResponse
         '400':
           description: Bad request.
         '401':
@@ -93,7 +93,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/AuthAuthorizeResponse
         '400':
           description: Bad request.
         '401':
@@ -120,7 +120,13 @@ paths:
         content:
           application/json:
             schema:
-              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/AuthAuthorizeRequest
+            example:
+              response_type: code
+              client_id: 7f7f7f7f-aaaa-bbbb-cccc-123456789abc
+              redirect_uri: https://app.example.com/callback
+              state: 9ee4b0ea2a4e4d2a
+              scope: email_read email_send
   /v2/token:
     post:
       tags:
@@ -140,7 +146,17 @@ paths:
           content:
             application/json:
               schema:
-                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/AuthTokenResponse
+              examples:
+                client_credentials:
+                  summary: Server-to-server token response
+                  value:
+                    access_token: eyJhbGciOi...
+                    token_type: Bearer
+                    expires_in: 1080
+                    scope: email_send email_read
+                    rest_instance_url: https://mct1234k8w5xyz.rest.marketingcloudapis.com/
+                    soap_instance_url: https://mct1234k8w5xyz.soap.marketingcloudapis.com/
         '400':
           description: Bad request.
         '401':
@@ -167,7 +183,15 @@ paths:
         content:
           application/json:
             schema:
-              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/AuthTokenRequest
+            examples:
+              client_credentials:
+                summary: Standard installed package server-to-server token exchange
+                value:
+                  grant_type: client_credentials
+                  client_id: 7f7f7f7f-aaaa-bbbb-cccc-123456789abc
+                  client_secret: your-client-secret
+                  account_id: 12345678
   /v1/requestToken:
     post:
       tags:
@@ -184,7 +208,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/AuthTokenResponse
         '400':
           description: Bad request.
         '401':
@@ -211,4 +235,10 @@ paths:
         content:
           application/json:
             schema:
-              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/LegacyRequestTokenRequest
+            examples:
+              legacy_request_token:
+                summary: Legacy package token request
+                value:
+                  clientId: legacy-client-id
+                  clientSecret: legacy-client-secret

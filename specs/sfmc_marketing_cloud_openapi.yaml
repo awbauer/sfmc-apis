@@ -1006,6 +1006,142 @@ components:
           items:
             type: string
       additionalProperties: true
+    AuthDiscoveryResponse:
+      type: object
+      properties:
+        authorization_endpoint:
+          type: string
+          format: uri
+        token_endpoint:
+          type: string
+          format: uri
+        userinfo_endpoint:
+          type: string
+          format: uri
+        revocation_endpoint:
+          type: string
+          format: uri
+        introspection_endpoint:
+          type: string
+          format: uri
+      additionalProperties: true
+    AuthUserInfoResponse:
+      type: object
+      properties:
+        organization:
+          type: object
+          additionalProperties: true
+        user:
+          type: object
+          additionalProperties: true
+        businessUnit:
+          type: object
+          additionalProperties: true
+        scopes:
+          type: array
+          items:
+            type: string
+      additionalProperties: true
+    AuthAuthorizeRequest:
+      type: object
+      properties:
+        response_type:
+          type: string
+          enum:
+          - code
+        client_id:
+          type: string
+        redirect_uri:
+          type: string
+          format: uri
+        state:
+          type: string
+        scope:
+          type: string
+      required:
+      - response_type
+      - client_id
+      - redirect_uri
+      additionalProperties: true
+    AuthAuthorizeResponse:
+      type: object
+      properties:
+        code:
+          type: string
+        state:
+          type: string
+        redirect_uri:
+          type: string
+          format: uri
+      additionalProperties: true
+    AuthTokenRequest:
+      type: object
+      properties:
+        grant_type:
+          type: string
+          enum:
+          - client_credentials
+          - authorization_code
+          - refresh_token
+        client_id:
+          type: string
+        client_secret:
+          type: string
+        code:
+          type: string
+        refresh_token:
+          type: string
+        redirect_uri:
+          type: string
+          format: uri
+        account_id:
+          type: integer
+        scope:
+          type: string
+      required:
+      - grant_type
+      - client_id
+      - client_secret
+      additionalProperties: true
+    LegacyRequestTokenRequest:
+      type: object
+      properties:
+        clientId:
+          type: string
+        clientSecret:
+          type: string
+        accessType:
+          type: string
+      required:
+      - clientId
+      - clientSecret
+      additionalProperties: true
+    AuthTokenResponse:
+      type: object
+      properties:
+        access_token:
+          type: string
+        refresh_token:
+          type: string
+        token_type:
+          type: string
+          enum:
+          - Bearer
+        expires_in:
+          type: integer
+        scope:
+          type: string
+        rest_instance_url:
+          type: string
+          format: uri
+        soap_instance_url:
+          type: string
+          format: uri
+      required:
+      - access_token
+      - token_type
+      - expires_in
+      additionalProperties: true
     GenericRequestBody:
       type: object
       additionalProperties: true
