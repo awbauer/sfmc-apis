@@ -1,0 +1,48 @@
+id: import-journey-event-definitions
+name: Import Journey Builder event definitions
+description: Creates Journey Builder event definitions as a standalone migration
+  flow so data-contract triggers can be prepared before importing full journey
+  definitions.
+direction: import
+source_system: generic-json
+target_system: salesforce-marketing-cloud
+family: journey_builder
+prerequisites:
+  scopes:
+    - journeys_write
+  inputs_required:
+    - event_definitions
+steps:
+  - id: create_event_definition
+    operation_id: post_interaction_v1_eventDefinitions
+    why: Event definitions are the trigger contracts that journeys depend on;
+      create each definition from the supplied array payload.
+    inputs:
+      body:
+        source: "input.event_definitions[*]"
+        required: true
+    outputs:
+      event_definition_id: "$.id"
+      event_definition_key: "$.eventDefinitionKey"
+    retry:
+      on_status: [429, 502, 503, 504]
+      max_attempts: 3
+      backoff: exponential
+    idempotency:
+      key_source: "inputs.body.eventDefinitionKey"
+      notes: Caller must provide stable `eventDefinitionKey` values across retries.
+        If a key already exists, switch to put_interaction_v1_eventDefinitions_id.
+field_mapping_hints:
+  - source_field: "eventDefinitionKey"
+    target_field: "body.eventDefinitionKey"
+    notes: Keep event definition keys stable across environments so dependent
+      journeys can reuse the same trigger keys.
+idempotency_notes: This write flow is retry-safe only when each event definition
+  carries a stable `eventDefinitionKey`.
+rollback:
+  strategy: delete-created
+  notes: If rollback is needed, remove each created definition via
+    delete_interaction_v1_eventDefinitions_id in reverse creation order.
+references:
+  - url: https://developer.salesforce.com/docs/marketing/marketing-cloud/references/mc_rest_interaction
+    title: Journey Builder REST reference
