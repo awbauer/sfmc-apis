@@ -18,7 +18,7 @@ This file now tracks task status explicitly:
 
 ## P1 — Cross-cutting architecture
 
-7. ⬜ **Scope the auth host per operation** — Auth/discovery server scoping still needs explicit operation-level overrides (or a split auth spec).
+7. ✅ **Scope the auth host per operation** — Root server now defaults to tenant REST base URL, and auth/discovery control-plane operations in `specs/paths/auth.yaml` now declare explicit auth-host operation-level `servers` overrides.
 8. ✅ **Add a root-level default `security:`** — Root-level `security:` now defaults to `bearerAuth`; auth/discovery routes still override with `security: []`.
 9. 🟡 **Introduce shared error schemas and reusable responses** — Some families use shared responses; rollout to every operation remains incomplete.
 10. 🟡 **Codify `additionalProperties` policy** — Many schemas conform; full repo-wide sweep still pending.

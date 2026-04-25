@@ -43,11 +43,6 @@ servers:
   variables:
     subdomain:
       default: YOUR_SUBDOMAIN
-- url: https://{subdomain}.auth.marketingcloudapis.com
-  description: Tenant auth base URL for OAuth 2.0 and legacy token routes.
-  variables:
-    subdomain:
-      default: YOUR_SUBDOMAIN
 security:
 - bearerAuth: []
 tags:
