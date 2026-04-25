@@ -67,6 +67,7 @@ Recipes are intentionally sequential. There are no branches, no DAGs, no conditi
 - `lookup_scope_for_operation({ operation_id })` — scopes, permission IDs, and permission paths.
 - `describe_operation({ operation_id })` — flattened method/path/summary/parameters/responses.
 - `resolve_polling_target({ operation_id })` — the status/results pollers for a kicker operation.
+- `plan_migration({ recipe_ids?, task?, direction?, family?, limit? })` — compose a sequential migration plan from explicit recipes or ranked recipe matches.
 
 All tools are read-only. The server never makes SFMC calls.
 

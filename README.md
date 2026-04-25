@@ -25,7 +25,7 @@ Secondary audience: human developers building SFMC integrations who want a route
 - **SFMC vendor extensions** preserved on every operation: `x-sfmc-permission-ids`, `x-sfmc-user-permission-paths`, `x-sfmc-installed-package-scopes`, `x-original-marketing-cloud-paths`.
 - **Recipe library** at `specs/migrations/*.yaml` — one recipe per migration flow (see `AGENTS.md`).
 - **Generated catalog** at `dist/migration-catalog.json` — a flattened, agent-friendly index of operations and recipes built from the spec.
-- **MCP server stub** at `scripts/mcp-server.mjs` — read-only tools (`list_migration_recipes`, `get_migration_recipe`, `get_endpoint_for_task`, `lookup_scope_for_operation`, `describe_operation`, `resolve_polling_target`) served over stdio.
+- **MCP server stub** at `scripts/mcp-server.mjs` — read-only tools (`list_migration_recipes`, `get_migration_recipe`, `get_endpoint_for_task`, `lookup_scope_for_operation`, `describe_operation`, `resolve_polling_target`, `plan_migration`) served over stdio.
 
 ## Supported migration directions
 

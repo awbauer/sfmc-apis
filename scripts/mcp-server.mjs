@@ -40,6 +40,17 @@ function scoreMatch(query, op) {
   return score;
 }
 
+function scoreRecipeMatch(query, recipe) {
+  const haystack = `${recipe.id ?? ''} ${recipe.name ?? ''} ${recipe.summary ?? ''} ${recipe.family ?? ''}`.toLowerCase();
+  const tokens = query.toLowerCase().split(/\s+/).filter(Boolean);
+  if (tokens.length === 0) return 0;
+  let score = 0;
+  for (const t of tokens) {
+    if (haystack.includes(t)) score += 1;
+  }
+  return score;
+}
+
 const TOOL_DEFS = [
   {
     name: 'list_migration_recipes',
@@ -113,6 +124,27 @@ const TOOL_DEFS = [
       additionalProperties: false,
     },
   },
+  {
+    name: 'plan_migration',
+    description:
+      'Compose a lightweight sequential migration plan from one or more recipes, with consolidated prerequisites and step-level operation references.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        recipe_ids: {
+          type: 'array',
+          items: { type: 'string' },
+          minItems: 1,
+          maxItems: 10,
+        },
+        task: { type: 'string' },
+        direction: { type: 'string', enum: ['import', 'export'] },
+        family: { type: 'string' },
+        limit: { type: 'integer', minimum: 1, maximum: 10 },
+      },
+      additionalProperties: false,
+    },
+  },
 ];
 
 function handleList(catalog, args) {
@@ -176,6 +208,87 @@ function handleResolvePolling(catalog, args) {
   return { pollers: matches };
 }
 
+function uniqueSorted(values) {
+  return [...new Set(values.filter(Boolean))].sort((a, b) => String(a).localeCompare(String(b)));
+}
+
+function handlePlanMigration(catalog, args) {
+  let selectedRecipes = [];
+  if (Array.isArray(args.recipe_ids) && args.recipe_ids.length > 0) {
+    const missing = args.recipe_ids.filter((id) => !catalog.recipes.some((r) => r.id === id));
+    if (missing.length > 0) {
+      return { error: `Unknown recipe id(s): ${missing.join(', ')}` };
+    }
+    selectedRecipes = catalog.recipes.filter((r) => args.recipe_ids.includes(r.id));
+  } else {
+    const pool = catalog.recipes.filter((r) => {
+      if (args.direction && r.direction !== args.direction) return false;
+      if (args.family && r.family !== args.family) return false;
+      return true;
+    });
+    const rankedPool = args.task
+      ? pool
+          .map((r) => ({ recipe: r, score: scoreRecipeMatch(args.task, r) }))
+          .filter((entry) => entry.score > 0)
+          .sort((a, b) => b.score - a.score)
+          .map((entry) => entry.recipe)
+      : pool;
+    selectedRecipes = rankedPool.slice(0, args.limit ?? 3);
+  }
+
+  const recipePlans = [];
+  const allScopes = [];
+  const allPermissions = [];
+  const allInputs = [];
+  const allOperationIds = [];
+  for (const recipeEntry of selectedRecipes) {
+    const recipe = loadRecipeByFile(recipeEntry.file);
+    if (!recipe) continue;
+
+    const prerequisites = recipe.prerequisites ?? {};
+    const stepPlan = (recipe.steps ?? []).map((step) => {
+      allOperationIds.push(step.operation_id);
+      return {
+        id: step.id,
+        why: step.why ?? null,
+        operation_id: step.operation_id,
+        polling: step.polling ?? null,
+      };
+    });
+
+    allScopes.push(...(prerequisites.scopes ?? []));
+    allPermissions.push(...(prerequisites.permissions ?? []));
+    allInputs.push(...(prerequisites.inputs_required ?? []));
+
+    recipePlans.push({
+      id: recipe.id,
+      name: recipe.name,
+      direction: recipe.direction,
+      family: recipe.family,
+      source_system: recipe.source_system,
+      target_system: recipe.target_system,
+      prerequisites,
+      steps: stepPlan,
+      rollback: recipe.rollback ?? null,
+      idempotency_notes: recipe.idempotency_notes ?? null,
+      references: recipe.references ?? [],
+    });
+  }
+
+  return {
+    plan: {
+      recipe_count: recipePlans.length,
+      recipes: recipePlans,
+      consolidated_prerequisites: {
+        scopes: uniqueSorted(allScopes),
+        permissions: uniqueSorted(allPermissions),
+        inputs_required: uniqueSorted(allInputs),
+      },
+      operation_ids: uniqueSorted(allOperationIds),
+    },
+  };
+}
+
 const HANDLERS = {
   list_migration_recipes: handleList,
   get_migration_recipe: handleGetRecipe,
@@ -183,6 +296,7 @@ const HANDLERS = {
   lookup_scope_for_operation: handleLookupScope,
   describe_operation: handleDescribe,
   resolve_polling_target: handleResolvePolling,
+  plan_migration: handlePlanMigration,
 };
 
 async function runSelfCheck(catalog) {

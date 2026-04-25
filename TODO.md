@@ -58,13 +58,13 @@ This file now tracks task status explicitly:
 
 - ⬜ Add `export-data-extension-rows` once REST read path is formally represented.
 - ⬜ Add `export-content-builder-assets-full-tenant` recipe.
-- ⬜ Add standalone `import-journey-event-definitions` recipe.
+- ✅ Add standalone `import-journey-event-definitions` recipe.
 - ⬜ Add `export-contacts-by-attribute-set` after Contacts typing completion.
 - ⬜ Add `import-contacts-upsert` after Contacts upsert body typing.
 - ⬜ Add `export-audit-events` after audit envelope typing.
 - ✅ Extend migration extension checks to validate recipe-referenced operations carry required migration metadata.
 - ⬜ Add `x-idempotent: true` on read-only GETs.
-- ⬜ Add MCP `plan_migration` composition tool.
+- ✅ Add MCP `plan_migration` composition tool.
 
 ## Current quality bar
 
