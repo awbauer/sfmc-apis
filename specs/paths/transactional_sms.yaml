@@ -1,5 +1,42 @@
 paths:
   /messaging/v1/sms/definitions:
+    get:
+      tags:
+      - Transactional SMS
+      summary: GET /messaging/v1/sms/definitions
+      operationId: get_sms_definitions
+      description: Lists transactional SMS definitions. Use this route to inventory
+        available definitions and fetch their keys before building send workflows.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/TransactionalSmsDefinitionListResponse
+        '400':
+          $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/responses/BadRequest
+        '401':
+          $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/responses/Unauthorized
+        '403':
+          $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/responses/Forbidden
+        '404':
+          $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/responses/NotFound
+        '429':
+          $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/responses/TooManyRequests
+        '500':
+          $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/responses/ServerError
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '162'
+      x-sfmc-user-permission-paths:
+      - Mobile Connect > SMS Message > Schedule And Send Message
+      x-sfmc-installed-package-scopes:
+      - sms_read
+      x-original-marketing-cloud-paths:
+      - /sms/definitions
     post:
       tags:
       - Transactional SMS
@@ -15,19 +52,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/TransactionalSmsDefinition
         '400':
-          description: Bad request.
+          $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/responses/BadRequest
         '401':
-          description: Unauthorized.
+          $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/responses/Unauthorized
         '403':
-          description: Forbidden.
+          $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/responses/Forbidden
         '404':
-          description: Not found.
+          $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/responses/NotFound
         '429':
-          description: Too many requests or throttled.
+          $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/responses/TooManyRequests
         '500':
-          description: Server error.
+          $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/responses/ServerError
       security:
       - bearerAuth: []
       x-sfmc-permission-ids:
@@ -43,12 +80,12 @@ paths:
         content:
           application/json:
             schema:
-              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
-  /sms/definitions/{definitionKey}:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/TransactionalSmsDefinitionRequest
+  /messaging/v1/sms/definitions/{definitionKey}:
     get:
       tags:
       - Transactional SMS
-      summary: GET /sms/definitions/{definitionKey}
+      summary: GET /messaging/v1/sms/definitions/{definitionKey}
       operationId: get_sms_definitions_definitionKey
       description: Retrieves, updates, or deletes a transactional SMS definition.
         Definitions can be active, inactive, or deleted; sends to an inactive definition
@@ -66,19 +103,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/TransactionalSmsDefinition
         '400':
-          description: Bad request.
+          $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/responses/BadRequest
         '401':
-          description: Unauthorized.
+          $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/responses/Unauthorized
         '403':
-          description: Forbidden.
+          $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/responses/Forbidden
         '404':
-          description: Not found.
+          $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/responses/NotFound
         '429':
-          description: Too many requests or throttled.
+          $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/responses/TooManyRequests
         '500':
-          description: Server error.
+          $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/responses/ServerError
       security:
       - bearerAuth: []
       x-sfmc-permission-ids:
@@ -92,7 +129,7 @@ paths:
     patch:
       tags:
       - Transactional SMS
-      summary: PATCH /sms/definitions/{definitionKey}
+      summary: PATCH /messaging/v1/sms/definitions/{definitionKey}
       operationId: patch_sms_definitions_definitionKey
       description: Retrieves, updates, or deletes a transactional SMS definition.
         Definitions can be active, inactive, or deleted; sends to an inactive definition
@@ -110,19 +147,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/TransactionalSmsDefinition
         '400':
-          description: Bad request.
+          $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/responses/BadRequest
         '401':
-          description: Unauthorized.
+          $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/responses/Unauthorized
         '403':
-          description: Forbidden.
+          $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/responses/Forbidden
         '404':
-          description: Not found.
+          $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/responses/NotFound
         '429':
-          description: Too many requests or throttled.
+          $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/responses/TooManyRequests
         '500':
-          description: Server error.
+          $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/responses/ServerError
       security:
       - bearerAuth: []
       x-sfmc-permission-ids:
@@ -138,11 +175,11 @@ paths:
         content:
           application/json:
             schema:
-              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/TransactionalSmsDefinitionRequest
     delete:
       tags:
       - Transactional SMS
-      summary: DELETE /sms/definitions/{definitionKey}
+      summary: DELETE /messaging/v1/sms/definitions/{definitionKey}
       operationId: delete_sms_definitions_definitionKey
       description: Retrieves, updates, or deletes a transactional SMS definition.
         Definitions can be active, inactive, or deleted; sends to an inactive definition
@@ -160,19 +197,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/TransactionalSmsDefinition
         '400':
-          description: Bad request.
+          $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/responses/BadRequest
         '401':
-          description: Unauthorized.
+          $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/responses/Unauthorized
         '403':
-          description: Forbidden.
+          $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/responses/Forbidden
         '404':
-          description: Not found.
+          $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/responses/NotFound
         '429':
-          description: Too many requests or throttled.
+          $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/responses/TooManyRequests
         '500':
-          description: Server error.
+          $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/responses/ServerError
       security:
       - bearerAuth: []
       x-sfmc-permission-ids:
@@ -183,49 +220,11 @@ paths:
       - sms_write
       x-original-marketing-cloud-paths:
       - /sms/definitions/{definitionKey}
-  /sms/definitions:
+  /messaging/v1/sms/definitions/{definitionKey}/queue:
     get:
       tags:
       - Transactional SMS
-      summary: GET /sms/definitions
-      operationId: get_sms_definitions
-      description: Lists transactional SMS definitions. Use this route to inventory
-        available definitions and fetch their keys before building send workflows.
-      parameters: []
-      responses:
-        '200':
-          description: Successful response.
-          content:
-            application/json:
-              schema:
-                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
-        '400':
-          description: Bad request.
-        '401':
-          description: Unauthorized.
-        '403':
-          description: Forbidden.
-        '404':
-          description: Not found.
-        '429':
-          description: Too many requests or throttled.
-        '500':
-          description: Server error.
-      security:
-      - bearerAuth: []
-      x-sfmc-permission-ids:
-      - '162'
-      x-sfmc-user-permission-paths:
-      - Mobile Connect > SMS Message > Schedule And Send Message
-      x-sfmc-installed-package-scopes:
-      - sms_read
-      x-original-marketing-cloud-paths:
-      - /sms/definitions
-  /sms/definitions/{definitionKey}/queue:
-    get:
-      tags:
-      - Transactional SMS
-      summary: GET /sms/definitions/{definitionKey}/queue
+      summary: GET /messaging/v1/sms/definitions/{definitionKey}/queue
       operationId: get_sms_definitions_definitionKey_queue
       description: Retrieves or clears queue metrics for a transactional SMS definition.
         Salesforce calls out queue depth and age of the oldest unprocessed record
@@ -243,19 +242,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/TransactionalSmsQueueResponse
         '400':
-          description: Bad request.
+          $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/responses/BadRequest
         '401':
-          description: Unauthorized.
+          $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/responses/Unauthorized
         '403':
-          description: Forbidden.
+          $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/responses/Forbidden
         '404':
-          description: Not found.
+          $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/responses/NotFound
         '429':
-          description: Too many requests or throttled.
+          $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/responses/TooManyRequests
         '500':
-          description: Server error.
+          $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/responses/ServerError
       security:
       - bearerAuth: []
       x-sfmc-permission-ids:
@@ -269,7 +268,7 @@ paths:
     delete:
       tags:
       - Transactional SMS
-      summary: DELETE /sms/definitions/{definitionKey}/queue
+      summary: DELETE /messaging/v1/sms/definitions/{definitionKey}/queue
       operationId: delete_sms_definitions_definitionKey_queue
       description: Retrieves or clears queue metrics for a transactional SMS definition.
         Salesforce calls out queue depth and age of the oldest unprocessed record
@@ -287,19 +286,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/TransactionalSmsQueueResponse
         '400':
-          description: Bad request.
+          $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/responses/BadRequest
         '401':
-          description: Unauthorized.
+          $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/responses/Unauthorized
         '403':
-          description: Forbidden.
+          $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/responses/Forbidden
         '404':
-          description: Not found.
+          $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/responses/NotFound
         '429':
-          description: Too many requests or throttled.
+          $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/responses/TooManyRequests
         '500':
-          description: Server error.
+          $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/responses/ServerError
       security:
       - bearerAuth: []
       x-sfmc-permission-ids:
@@ -310,11 +309,11 @@ paths:
       - sms_write
       x-original-marketing-cloud-paths:
       - /sms/definitions/{definitionKey}/queue
-  /sms/messages/{messageKey}:
+  /messaging/v1/sms/messages/{messageKey}:
     get:
       tags:
       - Transactional SMS
-      summary: GET /sms/messages/{messageKey}
+      summary: GET /messaging/v1/sms/messages/{messageKey}
       operationId: get_sms_messages_messageKey
       description: Sends or retrieves a specific transactional SMS message keyed by
         messageKey. This is the direct operational handle for a single SMS send request.
@@ -331,19 +330,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/TransactionalSmsMessage
         '400':
-          description: Bad request.
+          $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/responses/BadRequest
         '401':
-          description: Unauthorized.
+          $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/responses/Unauthorized
         '403':
-          description: Forbidden.
+          $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/responses/Forbidden
         '404':
-          description: Not found.
+          $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/responses/NotFound
         '429':
-          description: Too many requests or throttled.
+          $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/responses/TooManyRequests
         '500':
-          description: Server error.
+          $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/responses/ServerError
       security:
       - bearerAuth: []
       x-sfmc-permission-ids:
@@ -358,7 +357,7 @@ paths:
     post:
       tags:
       - Transactional SMS
-      summary: POST /sms/messages/{messageKey}
+      summary: POST /messaging/v1/sms/messages/{messageKey}
       operationId: post_sms_messages_messageKey
       description: Sends or retrieves a specific transactional SMS message keyed by
         messageKey. This is the direct operational handle for a single SMS send request.
@@ -375,19 +374,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/TransactionalSmsMessage
         '400':
-          description: Bad request.
+          $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/responses/BadRequest
         '401':
-          description: Unauthorized.
+          $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/responses/Unauthorized
         '403':
-          description: Forbidden.
+          $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/responses/Forbidden
         '404':
-          description: Not found.
+          $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/responses/NotFound
         '429':
-          description: Too many requests or throttled.
+          $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/responses/TooManyRequests
         '500':
-          description: Server error.
+          $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/responses/ServerError
       security:
       - bearerAuth: []
       x-sfmc-permission-ids:
@@ -403,12 +402,12 @@ paths:
         content:
           application/json:
             schema:
-              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
-  /sms/messages:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/TransactionalSmsMessageSendRequest
+  /messaging/v1/sms/messages:
     get:
       tags:
       - Transactional SMS
-      summary: GET /sms/messages
+      summary: GET /messaging/v1/sms/messages
       operationId: get_sms_messages
       description: Sends or lists transactional SMS messages using an existing transactional
         SMS definition.
@@ -419,19 +418,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/TransactionalSmsMessageListResponse
         '400':
-          description: Bad request.
+          $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/responses/BadRequest
         '401':
-          description: Unauthorized.
+          $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/responses/Unauthorized
         '403':
-          description: Forbidden.
+          $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/responses/Forbidden
         '404':
-          description: Not found.
+          $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/responses/NotFound
         '429':
-          description: Too many requests or throttled.
+          $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/responses/TooManyRequests
         '500':
-          description: Server error.
+          $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/responses/ServerError
       security:
       - bearerAuth: []
       x-sfmc-permission-ids:
@@ -446,7 +445,7 @@ paths:
     post:
       tags:
       - Transactional SMS
-      summary: POST /sms/messages
+      summary: POST /messaging/v1/sms/messages
       operationId: post_sms_messages
       description: Sends or lists transactional SMS messages using an existing transactional
         SMS definition.
@@ -457,19 +456,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/TransactionalSmsMessage
         '400':
-          description: Bad request.
+          $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/responses/BadRequest
         '401':
-          description: Unauthorized.
+          $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/responses/Unauthorized
         '403':
-          description: Forbidden.
+          $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/responses/Forbidden
         '404':
-          description: Not found.
+          $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/responses/NotFound
         '429':
-          description: Too many requests or throttled.
+          $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/responses/TooManyRequests
         '500':
-          description: Server error.
+          $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/responses/ServerError
       security:
       - bearerAuth: []
       x-sfmc-permission-ids:
@@ -485,4 +484,4 @@ paths:
         content:
           application/json:
             schema:
-              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/TransactionalSmsMessageSendRequest

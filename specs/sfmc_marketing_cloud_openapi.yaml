@@ -143,16 +143,14 @@ paths:
     $ref: ./paths/transactional_email.yaml#/paths/~1messaging~1v1~1email~1definitions~1{definitionKey}
   /messaging/v1/sms/definitions:
     $ref: ./paths/transactional_sms.yaml#/paths/~1messaging~1v1~1sms~1definitions
-  /sms/definitions/{definitionKey}:
-    $ref: ./paths/transactional_sms.yaml#/paths/~1sms~1definitions~1{definitionKey}
-  /sms/definitions:
-    $ref: ./paths/transactional_sms.yaml#/paths/~1sms~1definitions
-  /sms/definitions/{definitionKey}/queue:
-    $ref: ./paths/transactional_sms.yaml#/paths/~1sms~1definitions~1{definitionKey}~1queue
-  /sms/messages/{messageKey}:
-    $ref: ./paths/transactional_sms.yaml#/paths/~1sms~1messages~1{messageKey}
-  /sms/messages:
-    $ref: ./paths/transactional_sms.yaml#/paths/~1sms~1messages
+  /messaging/v1/sms/definitions/{definitionKey}:
+    $ref: ./paths/transactional_sms.yaml#/paths/~1messaging~1v1~1sms~1definitions~1{definitionKey}
+  /messaging/v1/sms/definitions/{definitionKey}/queue:
+    $ref: ./paths/transactional_sms.yaml#/paths/~1messaging~1v1~1sms~1definitions~1{definitionKey}~1queue
+  /messaging/v1/sms/messages/{messageKey}:
+    $ref: ./paths/transactional_sms.yaml#/paths/~1messaging~1v1~1sms~1messages~1{messageKey}
+  /messaging/v1/sms/messages:
+    $ref: ./paths/transactional_sms.yaml#/paths/~1messaging~1v1~1sms~1messages
   /platform/v1/key:
     $ref: ./paths/file_locations.yaml#/paths/~1platform~1v1~1key
   /platform/v1/key/{keyId}:
@@ -1482,6 +1480,117 @@ components:
           items:
             $ref: '#/components/schemas/ContentAssetTypeItem'
       additionalProperties: true
+    TransactionalSmsDefinitionRequest:
+      type: object
+      properties:
+        definitionKey:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        content:
+          type: object
+          additionalProperties: true
+        subscriptions:
+          type: object
+          additionalProperties: true
+        options:
+          type: object
+          additionalProperties: true
+      additionalProperties: true
+    TransactionalSmsDefinition:
+      type: object
+      properties:
+        definitionKey:
+          type: string
+        name:
+          type: string
+        status:
+          type: string
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type: string
+          format: date-time
+        content:
+          type: object
+          additionalProperties: true
+      additionalProperties: true
+    TransactionalSmsDefinitionListResponse:
+      type: object
+      properties:
+        count:
+          type: integer
+        page:
+          type: integer
+        pageSize:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/TransactionalSmsDefinition'
+      additionalProperties: true
+    TransactionalSmsQueueResponse:
+      type: object
+      properties:
+        definitionKey:
+          type: string
+        queuedCount:
+          type: integer
+        oldestQueuedAgeSeconds:
+          type: integer
+        status:
+          type: string
+      additionalProperties: true
+    TransactionalSmsMessageSendRequest:
+      type: object
+      properties:
+        definitionKey:
+          type: string
+        recipient:
+          type: object
+          additionalProperties: true
+        attributes:
+          type: object
+          additionalProperties: true
+        options:
+          type: object
+          additionalProperties: true
+      additionalProperties: true
+    TransactionalSmsMessage:
+      type: object
+      properties:
+        messageKey:
+          type: string
+        definitionKey:
+          type: string
+        status:
+          type: string
+        to:
+          type: string
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type: string
+          format: date-time
+      additionalProperties: true
+    TransactionalSmsMessageListResponse:
+      type: object
+      properties:
+        count:
+          type: integer
+        page:
+          type: integer
+        pageSize:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/TransactionalSmsMessage'
+      additionalProperties: true
     GenericRequestBody:
       type: object
       additionalProperties: true
@@ -1492,3 +1601,51 @@ components:
       additionalProperties: true
       description: Broad fallback response envelope used where the official reference
         does not publish a tighter success body for this route family.
+    SfmcErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        errorcode:
+          type: integer
+        documentation:
+          type: string
+          format: uri
+      additionalProperties: true
+  responses:
+    BadRequest:
+      description: Bad request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SfmcErrorResponse'
+    Unauthorized:
+      description: Unauthorized.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SfmcErrorResponse'
+    Forbidden:
+      description: Forbidden.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SfmcErrorResponse'
+    NotFound:
+      description: Not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SfmcErrorResponse'
+    TooManyRequests:
+      description: Too many requests or throttled.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SfmcErrorResponse'
+    ServerError:
+      description: Server error.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SfmcErrorResponse'

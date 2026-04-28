@@ -1,6 +1,6 @@
 # SFMC Migration Toolkit Backlog
 
-Last audited: **2026-04-24**
+Last audited: **2026-04-28**
 
 This file now tracks task status explicitly:
 - ✅ **Done**
@@ -20,7 +20,7 @@ This file now tracks task status explicitly:
 
 7. ✅ **Scope the auth host per operation** — Root server now defaults to tenant REST base URL, and auth/discovery control-plane operations in `specs/paths/auth.yaml` now declare explicit auth-host operation-level `servers` overrides.
 8. ✅ **Add a root-level default `security:`** — Root-level `security:` now defaults to `bearerAuth`; auth/discovery routes still override with `security: []`.
-9. 🟡 **Introduce shared error schemas and reusable responses** — Some families use shared responses; rollout to every operation remains incomplete.
+9. 🟡 **Introduce shared error schemas and reusable responses** — Shared error envelope + reusable 4xx/5xx responses now cover Transactional SMS; rollout to remaining families is still pending.
 10. 🟡 **Codify `additionalProperties` policy** — Many schemas conform; full repo-wide sweep still pending.
 11. 🟡 **Mark legacy routes deprecated** — Legacy auth token, Automation Studio beta routes, and core MobileConnect send entry points are now flagged; additional superseded variants still need a consistency sweep.
 12. ✅ **Add reusable paging parameters** — Shared `components.parameters.page` and `pageSize` now back the live collection paging usage on Automation Studio.
@@ -28,7 +28,7 @@ This file now tracks task status explicitly:
 ## P2 — Replace fallback schemas with typed models
 
 13. 🟡 Transactional Email (typed coverage improved; full 15-fallback elimination still pending).
-14. ⬜ Transactional SMS typing + canonical base-path consolidation.
+14. ✅ Transactional SMS typing + canonical base-path consolidation (definitions, queue, and message request/response models are typed and now consistently exposed under canonical `/messaging/v1/sms/*` routes).
 15. ⬜ Contacts typing sweep (largest remaining cluster).
 16. ⬜ Content Builder typing/discriminator/query body completion.
 17. ⬜ Mobile Push typing completion.
