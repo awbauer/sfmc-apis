@@ -1,141 +1,177 @@
-# SFMC Migration Toolkit Backlog
+# SFMC Migration Toolkit — Product Backlog
 
-Last audited: **2026-04-30**
+Last audited: **2026-05-01**
 
-This file now tracks task status explicitly:
-- ✅ **Done**
-- 🟡 **In progress / partially done**
-- ⬜ **Not started**
+## Status legend
 
-## P0 — Spec integrity
+| Symbol | Meaning |
+|--------|---------|
+| ✅ | Done |
+| 🔵 | In progress |
+| ⬜ | Not started |
 
-1. ✅ **Define missing Journey lifecycle schemas** — Present in `components.schemas` (`JourneyPauseRequest`, `JourneyResumeRequest`, `JourneyStopRequest`, `JourneyLifecycleRequest`, `JourneyLifecycleResponse`, contact membership schemas).
-2. ✅ **Fix `/v2/authorize` method and shape** — Modeled as `GET` with query params and `302` redirect semantics.
-3. ✅ **Align declared oauth2 scopes with operation usage** — Scope sync check exists and now fails on both missing and unused declarations (`npm run check:scopes`).
-4. ✅ **Resolve duplicate `/messaging/v1/email/messages` paths** — Canonicalized path in root and fragment.
-5. ✅ **Fix malformed `x-original-marketing-cloud-paths`** — Leading slash normalization complete.
-6. ✅ **Make the spec validate cleanly** — `swagger-cli validate` + Spectral + scope/migration checks are in `npm run validate` and CI.
+---
 
-## P1 — Cross-cutting architecture
+## Now — in progress
 
-7. ✅ **Scope the auth host per operation** — Root server now defaults to tenant REST base URL, and auth/discovery control-plane operations in `specs/paths/auth.yaml` now declare explicit auth-host operation-level `servers` overrides.
-8. ✅ **Add a root-level default `security:`** — Root-level `security:` now defaults to `bearerAuth`; auth/discovery routes still override with `security: []`.
-9. 🟡 **Introduce shared error schemas and reusable responses** — Shared error envelope + reusable 4xx/5xx responses now cover Transactional SMS; rollout to remaining families is still pending.
-10. 🟡 **Codify `additionalProperties` policy** — Many schemas conform; full repo-wide sweep still pending.
-11. 🟡 **Mark legacy routes deprecated** — Legacy auth token, Automation Studio beta routes, and core MobileConnect send entry points are now flagged; additional superseded variants still need a consistency sweep.
-12. ✅ **Add reusable paging parameters** — Shared `components.parameters.page` and `pageSize` now back the live collection paging usage on Automation Studio.
+These are actively being worked; finish before pulling new work.
 
-## P2 — Replace fallback schemas with typed models
+- 🔵 **Shared error schemas rollout** — Transactional SMS covered; roll out reusable 4xx/5xx envelope to all remaining API families.
+- 🔵 **`additionalProperties` policy sweep** — Many schemas conform; complete repo-wide pass.
+- 🔵 **Deprecated-route consistency sweep** — Legacy auth, Automation Studio beta, and core MobileConnect entry points flagged; finish remaining superseded variants.
+- 🔵 **Transactional Email typing** — Coverage improved; eliminate remaining 15 fallback schemas.
+- 🔵 **Journey Builder remaining generics** — Lifecycle endpoints done; finish remaining generic endpoints.
 
-13. 🟡 Transactional Email (typed coverage improved; full 15-fallback elimination still pending).
-14. ✅ Transactional SMS typing + canonical base-path consolidation (definitions, queue, and message request/response models are typed and now consistently exposed under canonical `/messaging/v1/sms/*` routes).
-15. ⬜ Contacts typing sweep (largest remaining cluster).
-16. ⬜ Content Builder typing/discriminator/query body completion.
-17. ⬜ Mobile Push typing completion.
-18. ⬜ Event Notification Service typing completion.
-19. ⬜ Tags typing/trailing-slash normalization completion.
-20. ⬜ Data Extensions async rows/results/status typing completion.
-21. ⬜ Campaigns typing + paging/scope confirmation completion.
-22. ⬜ Approvals typing completion.
-23. ⬜ MobileConnect SMS typing + deprecation normalization completion.
-24. 🟡 Journey Builder typing (lifecycle done; remaining generic endpoints pending).
-25. ⬜ Domain Verification typing completion.
-26. ⬜ Address Validation typing completion.
-27. ⬜ Audit Logging envelope typing completion.
+---
 
-## P3 — Examples, tooling, hygiene
+## Milestone 1 — Spec completeness (gate for v1.0)
 
-28. ⬜ Back-fill examples for every write/polling flow.
-29. ✅ **Validation tooling and CI gate** — Implemented via `npm run validate`, Spectral, swagger-cli, and GitHub Action.
-30. ✅ **Add bundling step** — `npm run bundle:openapi` emits `dist/sfmc.yaml`; included in `npm run validate`.
-31. ⬜ Pilot a codegen run and document manual fixes.
-32. ✅ **Fix README file references** — Repo paths now match actual file layout.
-33. ✅ **Add `CHANGELOG.md`** — Added and seeded with current milestone entry.
-34. ✅ **Sweep unused declared scopes** — `openid` removed from oauth2 declarations; scope sync now enforces no unused declarations.
-35. ✅ **Check `operationId` uniqueness in CI** — `npm run check:operationIds` added and chained into `npm run validate`.
+Goal: every endpoint typed, every cross-cutting policy applied, CI green.
 
-## Migration coverage backlog
+### 1a. Finish typed schemas (P2 sweep)
 
-- ⬜ Add `export-data-extension-rows` once REST read path is formally represented.
-- ⬜ Add `export-content-builder-assets-full-tenant` recipe.
-- ✅ Add standalone `import-journey-event-definitions` recipe.
-- ⬜ Add `export-contacts-by-attribute-set` after Contacts typing completion.
-- ⬜ Add `import-contacts-upsert` after Contacts upsert body typing.
-- ⬜ Add `export-audit-events` after audit envelope typing.
-- ✅ Extend migration extension checks to validate recipe-referenced operations carry required migration metadata.
-- ⬜ Add `x-idempotent: true` on read-only GETs.
-- ✅ Add MCP `plan_migration` composition tool.
+Ordered by migration-agent value and inter-item dependencies.
 
-## Tenant-driven backlog (2026-04-30)
+1. ⬜ **Contacts** — largest remaining cluster; blocks `export-contacts-by-attribute-set` and `import-contacts-upsert` recipes.
+2. ⬜ **Content Builder** — discriminator, query body, scope/prerequisite nuances; blocks content export recipes and `export-content-builder-assets-full-tenant`.
+3. ⬜ **Data Extensions async rows / results / status** — blocks `export-data-extension-rows` recipe.
+4. ⬜ **Audit Logging envelope** — blocks `export-audit-events` recipe.
+5. ⬜ **Mobile Push** — standalone family; no upstream dependencies.
+6. ⬜ **MobileConnect SMS** — typing + deprecation normalization.
+7. ⬜ **Campaigns** — typing + paging/scope confirmation.
+8. ⬜ **Event Notification Service** — standalone family.
+9. ⬜ **Tags** — typing + trailing-slash normalization.
+10. ⬜ **Approvals** — standalone family.
+11. ⬜ **Domain Verification** — standalone family.
+12. ⬜ **Address Validation** — standalone family.
 
-These items come from live-tenant testing and an SFMC-architecture review. They are intended to improve both repo quality and the repo's practical usefulness during real migration work.
+### 1b. Finish migration recipes
 
-### Functional gaps for migration agents
+Unlock these after their prerequisite typing work above ships.
 
-- ⬜ **Prioritize Data Extension export/discovery coverage** — add formally modeled read/export kickoff routes, schema/field inspection, and a real `export-data-extension-rows` path instead of only async pollers plus import flows.
-- ⬜ **Add Automation Studio export/discovery recipe coverage** — model useful read-side automation inventory/export flows, not just raw endpoints.
-- ⬜ **Add tenant deep-dive smoke test tooling** — script auth + representative read-only checks (journeys, event definitions, content categories/assets, automations, tenant-validated utility endpoints) and emit structured JSON for repeatable validation.
-- ⬜ **Broaden scope-family coverage against real tenant capability** — close gaps where tenant scopes are present but the catalog has no matching operations or recipes.
-- ⬜ **Add a tenant capability matrix artifact** — document which installed-package scopes map to modeled operations, partially modeled families, and unmapped tenant capabilities.
+- ⬜ **`export-data-extension-rows`** — after DE async rows typing (item 3).
+- ⬜ **`export-content-builder-assets-full-tenant`** — after Content Builder typing (item 2).
+- ⬜ **`export-contacts-by-attribute-set`** — after Contacts typing (item 1).
+- ⬜ **`import-contacts-upsert`** — after Contacts upsert body typing (item 1).
+- ⬜ **`export-audit-events`** — after Audit Logging typing (item 4).
+- ⬜ **Add `x-idempotent: true`** on all read-only GETs.
 
-### Quality / usability improvements
+### 1c. Hygiene
 
-- ⬜ **Fix Content Builder scope/prerequisite modeling** — observed tenant behavior allowed reads that did not line up cleanly with the returned scope string; review assumptions and document nuances.
-- ⬜ **Improve MCP endpoint ranking and family normalization** — make `get_endpoint_for_task` less dependent on exact token overlap and more tolerant of family aliases / human phrasing.
-- ⬜ **Add alias-aware matching between tags, recipe families, and user task language** — e.g. `content_builder` vs `Content Builder`, `data_extensions` vs DE phrasing.
-- ⬜ **Expand migration-ready examples for export flows** — especially for Journey History, Content Builder asset export, and future DE export patterns.
-- ⬜ **Document known tenant-tested behaviors that differ from naive scope expectations** — keep a short living note so future contributors do not assume the scope matrix tells the whole runtime story.
+- ⬜ **Back-fill examples** for every write and polling flow.
+- ⬜ **Pilot codegen run** and document required manual fixes.
 
-### Architect-perspective backlog
+---
 
-- ⬜ **Add modeling/support for governance-sensitive export surfaces** — prioritize assets that matter during real tenant rationalization: journey history, automation inventory, event-definition inventory, audit/event exports, and DE metadata export.
-- ⬜ **Add support for ownership / lifecycle oriented migration planning** — consider MCP/catalog affordances that help agents reason about archive candidates, active vs obsolete assets, and dependency-aware export sequencing.
-- ⬜ **Document recommended pre-migration discovery order** — e.g. tenant context -> scope check -> journeys/events -> content -> automations -> DEs -> audit/dependency sweep.
+## Milestone 2 — Tenant inventory and discovery capabilities
 
-### Additional repo gaps found during expanded tenant extraction (2026-05-01)
+Goal: the repo becomes the canonical tool for an architect-grade tenant assessment, replacing ad hoc extraction scripts.
 
-These were the missing pieces that forced ad hoc extraction logic outside the repo while pulling a deeper architect-grade tenant inventory.
+### 2a. Tenant runner infrastructure *(foundation — do first)*
 
-#### Core extraction/runtime gaps
+- ⬜ **Reusable tenant deep-dive runner** — auth, token refresh, REST pagination, SOAP pagination, normalization, and export packaging in one supported workflow. *(Absorbs "tenant deep-dive smoke test tooling" and "fetched vs blocked" capability reporting.)*
+- ⬜ **SOAP support layer** — retrieve helpers, `ContinueRequest` pagination, XML parsing/normalization, typed mappers for common SFMC SOAP objects.
+- ⬜ **Mixed REST + SOAP workflow support** — treat combined-surface inventories as a first-class pattern.
+- ⬜ **Multi-format report packaging** — XLSX/CSV/JSON deliverables with summary + per-family tabs; no one-off local scripts required.
+- ⬜ **"Fetched vs blocked" capability reporting** — distinguish tenant-granted scope, repo-modeled endpoint, practically fetchable data, and still-unexposed gaps.
 
-- ⬜ **Add a reusable tenant deep-dive runner** — handle auth, token refresh, REST pagination, SOAP pagination, normalization, and export packaging in one supported workflow.
-- ⬜ **Add a SOAP support layer** — include retrieve helpers, `ContinueRequest` pagination, XML parsing/normalization, and typed object mappers for common SFMC SOAP entities.
-- ⬜ **Add mixed REST + SOAP workflow support** — many useful tenant inventories require both surfaces; the repo should treat that as a first-class pattern.
-- ⬜ **Add multi-format report packaging** — generate XLSX/CSV/JSON deliverables with summary + family tabs instead of requiring one-off local scripts.
-- ⬜ **Add explicit “fetched vs blocked” capability reporting** — distinguish tenant-granted scope, repo-modeled endpoint, practically fetchable data, and still-unexposed gaps.
+### 2b. Data Extension intelligence *(highest migration value)*
 
-#### Data model / data-operating-model gaps
+- ⬜ **DE inventory** — folder mapping, sendability flag, retention posture, send-relationship metadata, architecture-oriented export outputs.
+- ⬜ **DE schema export** — field lists, types, max length, required/primary-key flags, schema sampling workflows.
+- ⬜ **DE row-count / storage-pressure** — if exposed; migration sizing depends on this.
+- ⬜ **DataFolder hierarchy / path reconstruction** — canonical folder paths and depth analysis for DEs and other SOAP-backed assets.
 
-- ⬜ **Add full Data Extension inventory support** — inventory, folder mapping, sendability, retention posture, send relationship metadata, and architecture-oriented export outputs.
-- ⬜ **Add Data Extension schema export support** — field lists, types, max length, required/primary-key flags, and schema sampling workflows.
-- ⬜ **Add DE row-count / storage-pressure support if exposed** — inventory without row volume still leaves migration sizing weak.
-- ⬜ **Add DataFolder hierarchy/path reconstruction** — build canonical folder paths and depth analysis for DEs and other SOAP-backed assets.
-- ⬜ **Add QueryDefinition / SQL inventory support** — query text export, target update type analysis, category/folder mapping, and governance heuristics.
-- ⬜ **Add query/dependency heuristics** — flag `SELECT *`, likely test/demo queries, overwrite-heavy patterns, and other migration/ops risk signals.
+### 2c. Query and SQL governance
 
-#### Ownership / governance gaps
+- ⬜ **QueryDefinition / SQL inventory** — query text export, target update-type analysis, category/folder mapping.
+- ⬜ **Query hygiene heuristics** — flag `SELECT *`, likely test/demo queries, overwrite-heavy patterns, and other migration/ops risk signals.
 
-- ⬜ **Add AccountUser inventory support** — inventory users, active/inactive status, API-user detection, and owner-enrichment helpers.
-- ⬜ **Add owner-resolution helpers across assets** — map numeric `createdBy` / `modifiedBy` values and partial owner references back to user inventory.
-- ⬜ **Add installed-package governance coverage** — inventory package owner/purpose/scope mapping/auth pattern/rotation metadata where the platform exposes it.
-- ⬜ **Add environment / BU-context reporting helpers** — make it easier to distinguish enterprise-shared vs BU-local sprawl and reason about environment boundaries.
+### 2d. Ownership and governance
 
-#### Content / messaging / dependency gaps
+- ⬜ **AccountUser inventory** — active/inactive status, API-user detection, owner-enrichment helpers.
+- ⬜ **Owner-resolution helpers** — map numeric `createdBy` / `modifiedBy` values and partial references back to the user inventory.
+- ⬜ **Installed-package governance** — owner, purpose, scope-mapping, auth pattern, rotation metadata.
+- ⬜ **BU / environment-context reporting** — distinguish enterprise-shared vs BU-local sprawl; reason about environment boundaries.
+- ⬜ **Tenant capability matrix artifact** — document which installed-package scopes map to modeled operations, partially modeled families, and unmapped tenant capabilities.
 
-- ⬜ **Add content hierarchy utilities** — Content Builder category path reconstruction, depth analysis, empty-folder detection, and taxonomy reporting.
-- ⬜ **Add content dependency/reuse analysis** — asset-to-journey/email/cloudpage linkage, orphan detection, and archive-candidate reporting where source APIs permit it.
-- ⬜ **Add sender-profile and send-classification inventory/reporting** — normalize sender-layer governance objects into the same assessment flow.
-- ⬜ **Add legacy/triggered send inventory recipes** — support tenants that still rely heavily on Triggered Send Definitions / Email Send Definitions.
-- ⬜ **Add deliverability-oriented coverage where possible** — delivery profiles, sender auth/domain setup, IP strategy references, and send-classification completeness.
+### 2e. Content and messaging
 
-#### Operational-health gaps
+- ⬜ **Content hierarchy utilities** — Content Builder category path reconstruction, depth analysis, empty-folder detection, taxonomy reporting. *(Complements Content Builder typing in M1.)*
+- ⬜ **Content dependency / reuse analysis** — asset-to-journey/email/cloudpage linkage, orphan detection, archive-candidate reporting.
+- ⬜ **Sender-profile and send-classification inventory** — normalize sender-layer governance objects into the assessment flow.
+- ⬜ **Legacy triggered / email send definition inventory** — support tenants still relying on TSD/ESD.
+- ⬜ **Deliverability coverage** — delivery profiles, sender auth/domain setup, IP strategy, send-classification completeness.
 
-- ⬜ **Add Journey History deep-dive workflows** — freshness, top-line summaries, filtered search helpers, and export/report patterns should be first-class repo features.
-- ⬜ **Add Journey / Event Definition health heuristics** — combine metadata, reuse, and history signals instead of leaving the agent to infer health manually.
-- ⬜ **Add automation deep-detail export workflows** — normalize steps, activities, schedules, and hygiene signals across the full automation estate.
-- ⬜ **Add automation runtime history / failure-trend coverage** — last run, failure trends, notifications, and operational criticality are still missing from the repo’s practical assessment surface.
-- ⬜ **Add architect-oriented aggregation/reporting** — governance, lifecycle, ownership, and migration-readiness summaries should be derivable without manual spreadsheet work.
+### 2f. Operational health
 
-## Current quality bar
+- ⬜ **Journey History deep-dive workflows** — freshness, summaries, filtered search, export/report patterns as first-class repo features. *(Builds on tenant-validated endpoints already modeled.)*
+- ⬜ **Journey / Event Definition health heuristics** — combine metadata, reuse, and history signals; do not leave agents to infer health manually.
+- ⬜ **Automation deep-detail export** — normalize steps, activities, schedules, and hygiene signals across the full automation estate.
+- ⬜ **Automation runtime history / failure trends** — last-run, failure trends, notifications, and operational criticality.
+- ⬜ **Architect-oriented aggregation / reporting** — governance, lifecycle, ownership, and migration-readiness summaries derivable without manual spreadsheet work.
 
-To call this spec ready for broader v1.0, all remaining ⬜/🟡 items above should be completed and re-audited.
+---
+
+## Milestone 3 — Developer experience and ecosystem
+
+Goal: make it easy for new contributors and downstream tool authors to adopt this spec.
+
+- ⬜ **Alias-aware tag/family/task matching** — `content_builder` ↔ `Content Builder`, `data_extensions` ↔ DE phrasing; reduce friction in `get_endpoint_for_task`.
+- ⬜ **Improve MCP endpoint ranking** — make retrieval less dependent on exact token overlap; more tolerant of family aliases and human phrasing.
+- ⬜ **Documented pre-migration discovery order** — recommended sequence: tenant context → scope check → journeys/events → content → automations → DEs → audit/dependency sweep.
+- ⬜ **Living note on tenant-tested behaviors** — document runtime nuances that diverge from naive scope expectations so future contributors don't re-discover them.
+- ⬜ **`export-contacts-by-attribute-set` example expansion** — especially Journey History, Content Builder asset export, and DE export patterns.
+
+---
+
+## Completed (archived)
+
+<details>
+<summary>P0 — Spec integrity (all done)</summary>
+
+- ✅ Define missing Journey lifecycle schemas
+- ✅ Fix `/v2/authorize` method and shape
+- ✅ Align declared oauth2 scopes with operation usage (`npm run check:scopes`)
+- ✅ Resolve duplicate `/messaging/v1/email/messages` paths
+- ✅ Fix malformed `x-original-marketing-cloud-paths`
+- ✅ Make the spec validate cleanly (`npm run validate`, Spectral, CI)
+
+</details>
+
+<details>
+<summary>P1 — Cross-cutting architecture (mostly done)</summary>
+
+- ✅ Scope the auth host per operation (tenant REST base URL default; auth/discovery override)
+- ✅ Add root-level default `security:` (bearerAuth; auth/discovery override with `security: []`)
+- ✅ Add reusable paging parameters (`components.parameters.page` / `pageSize`)
+
+</details>
+
+<details>
+<summary>P2 — Typed schemas (partial)</summary>
+
+- ✅ Transactional SMS typing + canonical base-path consolidation
+
+</details>
+
+<details>
+<summary>P3 — Tooling and hygiene (mostly done)</summary>
+
+- ✅ Validation tooling and CI gate (`npm run validate`, Spectral, swagger-cli, GitHub Action)
+- ✅ Bundling step (`npm run bundle:openapi` → `dist/sfmc.yaml`)
+- ✅ Fix README file references
+- ✅ Add `CHANGELOG.md`
+- ✅ Sweep unused declared scopes (`openid` removed; scope sync enforces no unused declarations)
+- ✅ Check `operationId` uniqueness in CI (`npm run check:operationIds`)
+
+</details>
+
+<details>
+<summary>Migration recipes (partial)</summary>
+
+- ✅ Add standalone `import-journey-event-definitions` recipe
+- ✅ Extend migration extension checks (recipe-referenced operations must carry required migration metadata)
+- ✅ Add MCP `plan_migration` composition tool
+
+</details>
