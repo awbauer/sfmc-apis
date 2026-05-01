@@ -11,7 +11,7 @@ const migrationsDir = join(repoRoot, 'specs', 'migrations');
 const distDir = join(repoRoot, 'dist');
 const outPath = join(distDir, 'migration-catalog.json');
 
-const METHODS = new Set(['get', 'post', 'put', 'patch', 'delete', 'head', 'options']);
+const READ_ONLY_METHODS = new Set(['get', 'head', 'options']);
 
 function loadYaml(path) {
   return yaml.load(readFileSync(path, 'utf8'));
@@ -29,7 +29,7 @@ function collectOperations() {
     const paths = doc?.paths ?? {};
     for (const [pathTemplate, pathItem] of Object.entries(paths)) {
       for (const [method, op] of Object.entries(pathItem)) {
-        if (!METHODS.has(method)) continue;
+        if (!['get', 'post', 'put', 'patch', 'delete', 'head', 'options'].includes(method)) continue;
         const opId = op.operationId;
         if (!opId) continue;
         const entry = {
@@ -37,6 +37,7 @@ function collectOperations() {
           file,
           path: pathTemplate,
           method: method.toUpperCase(),
+          readOnly: READ_ONLY_METHODS.has(method),
           tags: op.tags ?? [],
           summary: op.summary ?? '',
           description: op.description ?? '',
@@ -122,6 +123,8 @@ function main() {
     byFamily: groupBy(recipes, 'family'),
     counts: {
       operations: operations.length,
+      readOnlyOperations: operations.filter((o) => o.readOnly).length,
+      writeOperations: operations.filter((o) => !o.readOnly).length,
       recipes: recipes.length,
       bulkCapableOperations: operations.filter((o) => o.migration.bulkCapable).length,
       operationsWithDirection: operations.filter((o) => o.migration.direction !== null).length,

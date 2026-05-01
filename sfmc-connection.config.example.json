@@ -1,0 +1,7 @@
+{
+  "clientId": "YOUR_CLIENT_ID",
+  "clientSecret": "YOUR_CLIENT_SECRET",
+  "authBaseUri": "https://YOUR_SUBDOMAIN.auth.marketingcloudapis.com/",
+  "restBaseUri": "https://YOUR_SUBDOMAIN.rest.marketingcloudapis.com/",
+  "soapBaseUri": "https://YOUR_SUBDOMAIN.soap.marketingcloudapis.com/"
+}

@@ -14,6 +14,20 @@ Give a migration agent everything it needs to plan and execute an SFMC import or
 
 The repo deliberately does not execute SFMC calls. Execution is the agent's responsibility.
 
+## Safety rules — read this before executing any SFMC call
+
+These rules are mandatory. Do not skip them.
+
+1. **Default to read-only.** Only call SFMC operations whose HTTP method is GET (HEAD/OPTIONS are also safe). Never call a POST, PUT, PATCH, or DELETE unless the user has **explicitly** asked for the write operation in the current conversation turn.
+
+2. **Call `check_operation_safety` before every SFMC API call.** If `requires_confirmation` is `true`, stop and relay the `confirmation_prompt` verbatim to the user. Wait for explicit approval. Do not infer consent from earlier instructions or from the recipe itself.
+
+3. **One confirmation per step, not per recipe.** Even if the user approves a full recipe at the planning stage, re-confirm each write step immediately before executing it.
+
+4. **Never auto-approve.** The user typing a recipe name or "run the migration" is not confirmation of individual write operations. Approval must be explicit for each non-GET call.
+
+5. **`plan_migration` is safe to call at any time** — it only produces a plan. The `has_write_operations` and `write_operation_ids` fields in the result tell you upfront how many confirmations will be required.
+
 ## How to use this repo as an agent
 
 1. **Load the catalog.** Start from `dist/migration-catalog.json` (build it with `npm run catalog` if missing). Every operation and every recipe is represented there.
@@ -22,6 +36,7 @@ The repo deliberately does not execute SFMC calls. Execution is the agent's resp
 4. **Walk the steps in order.** For each step:
    - Resolve inputs. Sources are `literal`, `input`, or `step.<id>.output.<jsonpath>`.
    - Look up the operation by `operation_id` in the catalog to get method, path, scopes, and request/response shape.
+   - **Call `check_operation_safety`** with the `operation_id`. If `requires_confirmation: true`, show `confirmation_prompt` to the user and wait for approval before proceeding.
    - Call SFMC. Attach request identifiers to your run log.
    - If `polling` is set, repeat the `poll_operation_id` until status ∈ `terminal_statuses` or `timeout_seconds` elapses.
    - If `retry` is set, retry on listed status codes with the chosen backoff.
@@ -57,10 +72,40 @@ Each recipe in `specs/migrations/*.yaml` conforms to `specs/migrations/_schema.y
 
 Recipes are intentionally sequential. There are no branches, no DAGs, no conditionals. If you need branching, execute two recipes.
 
+## Connection configuration
+
+Before executing any SFMC API calls the agent needs five values from the caller's SFMC installed package:
+
+| Field | Description |
+| ----- | ----------- |
+| `clientId` | OAuth2 Client Id (credentials tab of the installed package) |
+| `clientSecret` | OAuth2 Client Secret (credentials tab of the installed package) |
+| `authBaseUri` | Authentication Base URI shown in the installed package |
+| `restBaseUri` | REST Base URI shown in the installed package |
+| `soapBaseUri` | SOAP Base URI shown in the installed package |
+
+These are stored in `sfmc-connection.config.json` at the repo root (gitignored). Two ways to populate it:
+
+**Interactive CLI (human-facing):**
+```
+npm run setup
+```
+Prompts for each field, shows current values for non-secret fields, and writes the file.
+
+**Via MCP tools (agent-facing):**
+1. Call `get_connection_config` — returns which fields are set and which are `missing_fields`. Secret values are never returned.
+2. For any missing field, ask the user to provide the value.
+3. Call `set_connection_config({ clientId, clientSecret, authBaseUri, restBaseUri, soapBaseUri })` with the collected values. Omit fields that are already set. The tool merges and saves.
+
+`sfmc-connection.config.example.json` contains a placeholder template if the caller needs a reference format.
+
 ## MCP tools
 
 `scripts/mcp-server.mjs` speaks stdio using the MCP SDK. Start with `npm run mcp`. Tools:
 
+- `check_operation_safety({ operation_id })` — **call before every SFMC API call**. Returns `read_only`, `requires_confirmation`, and a `confirmation_prompt` to relay to the user verbatim for any write operation.
+- `get_connection_config()` — returns current connection config status; lists missing fields and never exposes secret values.
+- `set_connection_config({ clientId?, clientSecret?, authBaseUri?, restBaseUri?, soapBaseUri? })` — saves provided fields; merges with existing values.
 - `list_migration_recipes({ direction?, family? })` — summaries filtered by direction and family.
 - `get_migration_recipe({ id })` — full recipe object.
 - `get_endpoint_for_task({ task, direction?, family? })` — ranked operations by keyword overlap.
@@ -69,7 +114,7 @@ Recipes are intentionally sequential. There are no branches, no DAGs, no conditi
 - `resolve_polling_target({ operation_id })` — the status/results pollers for a kicker operation.
 - `plan_migration({ recipe_ids?, task?, direction?, family?, limit? })` — compose a sequential migration plan from explicit recipes or ranked recipe matches.
 
-All tools are read-only. The server never makes SFMC calls.
+The server never makes SFMC calls.
 
 ## Runtime preconditions
 
@@ -92,6 +137,6 @@ Before running any recipe, the agent must have:
 ## Known non-goals
 
 - **No orchestration engine.** Recipes are plans, not workflows. Branching, parallelism, and conditional logic belong to the agent.
-- **No credential storage.** Tokens and client secrets are the caller's responsibility.
+- **No token caching.** Access tokens acquired via `post_v2_token` are the agent's responsibility to cache and refresh; only the installed-package credentials (client ID, secret, base URIs) are stored locally.
 - **No cross-tenant migration as a single recipe.** Compose an `export-*` recipe with an `import-*` recipe if you need to move between SFMC tenants.
 - **No send-time orchestration.** Send endpoints are `x-migration-direction: control-plane` and should not appear as recipe steps.

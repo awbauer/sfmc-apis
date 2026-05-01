@@ -11,6 +11,7 @@
     "check:scopes": "node scripts/check-scope-sync.mjs",
     "check:migrations": "node scripts/check-migration-extensions.mjs",
     "mcp": "node scripts/mcp-server.mjs",
+    "setup": "node scripts/setup-connection.mjs",
     "validate": "npm run validate:openapi && npm run lint:openapi && npm run check:operationIds && npm run check:scopes && npm run check:migrations && npm run catalog && npm run bundle:openapi",
     "check:operationIds": "node scripts/check-operation-ids.mjs",
     "bundle:openapi": "npx -y @apidevtools/swagger-cli bundle -t yaml -o dist/sfmc.yaml specs/sfmc_marketing_cloud_openapi.yaml"

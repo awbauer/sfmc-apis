@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { readFileSync, existsSync, readdirSync } from 'node:fs';
+import { readFileSync, writeFileSync, existsSync, readdirSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { spawnSync } from 'node:child_process';
@@ -10,6 +10,10 @@ const repoRoot = resolve(here, '..');
 const catalogPath = join(repoRoot, 'dist', 'migration-catalog.json');
 const migrationsDir = join(repoRoot, 'specs', 'migrations');
 const pkgPath = join(repoRoot, 'package.json');
+const connectionConfigPath = join(repoRoot, 'sfmc-connection.config.json');
+
+const CONNECTION_FIELDS = ['clientId', 'clientSecret', 'authBaseUri', 'restBaseUri', 'soapBaseUri'];
+const SECRET_FIELDS = new Set(['clientSecret']);
 
 function loadCatalog() {
   if (!existsSync(catalogPath)) {
@@ -145,6 +149,45 @@ const TOOL_DEFS = [
       additionalProperties: false,
     },
   },
+  {
+    name: 'check_operation_safety',
+    description:
+      'Check whether an SFMC operation is read-only before executing it. Returns read_only (true for GET/HEAD/OPTIONS) and requires_confirmation (true for all write operations). MUST be called before every SFMC API call. If requires_confirmation is true, show the confirmation_prompt to the user and wait for explicit approval before proceeding.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        operation_id: { type: 'string', description: 'The operationId to check.' },
+      },
+      required: ['operation_id'],
+      additionalProperties: false,
+    },
+  },
+  {
+    name: 'get_connection_config',
+    description:
+      'Return the current SFMC connection configuration status. Shows which fields are set and which are missing. Secret values (clientSecret) are never returned — only whether they are set. Call this before executing any SFMC API calls to verify the instance is configured.',
+    inputSchema: {
+      type: 'object',
+      properties: {},
+      additionalProperties: false,
+    },
+  },
+  {
+    name: 'set_connection_config',
+    description:
+      'Save SFMC connection configuration fields to sfmc-connection.config.json. Merges with any existing values — omitted fields are left unchanged. Call get_connection_config first to see which fields are already set, then ask the user only for missing ones.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        clientId: { type: 'string', description: 'OAuth2 client ID from the SFMC installed package credentials tab.' },
+        clientSecret: { type: 'string', description: 'OAuth2 client secret from the SFMC installed package credentials tab.' },
+        authBaseUri: { type: 'string', description: 'Authentication Base URI, e.g. https://YOUR_SUBDOMAIN.auth.marketingcloudapis.com/' },
+        restBaseUri: { type: 'string', description: 'REST Base URI, e.g. https://YOUR_SUBDOMAIN.rest.marketingcloudapis.com/' },
+        soapBaseUri: { type: 'string', description: 'SOAP Base URI, e.g. https://YOUR_SUBDOMAIN.soap.marketingcloudapis.com/' },
+      },
+      additionalProperties: false,
+    },
+  },
 ];
 
 function handleList(catalog, args) {
@@ -248,10 +291,13 @@ function handlePlanMigration(catalog, args) {
     const prerequisites = recipe.prerequisites ?? {};
     const stepPlan = (recipe.steps ?? []).map((step) => {
       allOperationIds.push(step.operation_id);
+      const opMeta = catalog.operations.find((o) => o.operationId === step.operation_id);
       return {
         id: step.id,
         why: step.why ?? null,
         operation_id: step.operation_id,
+        read_only: opMeta?.readOnly ?? null,
+        requires_confirmation: opMeta ? !opMeta.readOnly : null,
         polling: step.polling ?? null,
       };
     });
@@ -275,9 +321,12 @@ function handlePlanMigration(catalog, args) {
     });
   }
 
+  const writeSteps = recipePlans.flatMap((r) => r.steps.filter((s) => s.requires_confirmation));
   return {
     plan: {
       recipe_count: recipePlans.length,
+      has_write_operations: writeSteps.length > 0,
+      write_operation_ids: writeSteps.map((s) => s.operation_id),
       recipes: recipePlans,
       consolidated_prerequisites: {
         scopes: uniqueSorted(allScopes),
@@ -289,6 +338,86 @@ function handlePlanMigration(catalog, args) {
   };
 }
 
+function handleCheckOperationSafety(catalog, args) {
+  const op = catalog.operations.find((o) => o.operationId === args.operation_id);
+  if (!op) return { error: `Unknown operationId: ${args.operation_id}` };
+  if (op.readOnly) {
+    return {
+      operation_id: op.operationId,
+      method: op.method,
+      read_only: true,
+      requires_confirmation: false,
+    };
+  }
+  return {
+    operation_id: op.operationId,
+    method: op.method,
+    path: op.path,
+    summary: op.summary,
+    read_only: false,
+    requires_confirmation: true,
+    confirmation_prompt: `This operation (${op.method} ${op.path}) will write to SFMC. Do you want to proceed?`,
+    scopes_required: op.scopes,
+    migration_direction: op.migration?.direction ?? null,
+  };
+}
+
+function readConnectionConfig() {
+  if (!existsSync(connectionConfigPath)) return { ok: true, data: {} };
+  let raw;
+  try {
+    raw = JSON.parse(readFileSync(connectionConfigPath, 'utf8'));
+  } catch (err) {
+    return { ok: false, error: `sfmc-connection.config.json exists but could not be parsed: ${err.message}. Fix or delete the file before proceeding.` };
+  }
+  return { ok: true, data: raw };
+}
+
+function handleGetConnectionConfig(_catalog) {
+  const exists = existsSync(connectionConfigPath);
+  const result = readConnectionConfig();
+  if (!result.ok) return { error: result.error, config_file_exists: exists };
+  const raw = result.data;
+  const fields = {};
+  const missing = [];
+  for (const key of CONNECTION_FIELDS) {
+    const isSet = Boolean(raw[key]);
+    fields[key] = isSet ? (SECRET_FIELDS.has(key) ? '<set — hidden>' : raw[key]) : null;
+    if (!isSet) missing.push(key);
+  }
+  return {
+    configured: missing.length === 0,
+    config_file_exists: exists,
+    fields,
+    missing_fields: missing,
+    ...(missing.length > 0 && {
+      next_step: `Ask the user to provide the following fields, then call set_connection_config: ${missing.join(', ')}`,
+    }),
+  };
+}
+
+function handleSetConnectionConfig(_catalog, args) {
+  const result = readConnectionConfig();
+  if (!result.ok) return { error: result.error, saved: false };
+  const existing = result.data;
+  const updated = { ...existing };
+  for (const key of CONNECTION_FIELDS) {
+    if (args[key] !== undefined && args[key] !== null && String(args[key]).trim() !== '') {
+      updated[key] = String(args[key]).trim();
+    }
+  }
+  writeFileSync(connectionConfigPath, JSON.stringify(updated, null, 2) + '\n', 'utf8');
+  const missing = CONNECTION_FIELDS.filter((k) => !updated[k]);
+  return {
+    saved: true,
+    configured: missing.length === 0,
+    missing_fields: missing,
+    ...(missing.length > 0 && {
+      next_step: `Still missing: ${missing.join(', ')}. Ask the user and call set_connection_config again.`,
+    }),
+  };
+}
+
 const HANDLERS = {
   list_migration_recipes: handleList,
   get_migration_recipe: handleGetRecipe,
@@ -297,6 +426,9 @@ const HANDLERS = {
   describe_operation: handleDescribe,
   resolve_polling_target: handleResolvePolling,
   plan_migration: handlePlanMigration,
+  check_operation_safety: handleCheckOperationSafety,
+  get_connection_config: handleGetConnectionConfig,
+  set_connection_config: handleSetConnectionConfig,
 };
 
 async function runSelfCheck(catalog) {
