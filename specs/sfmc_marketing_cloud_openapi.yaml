@@ -1,30 +1,30 @@
 openapi: 3.0.3
 info:
   title: Salesforce Marketing Cloud Engagement Migration APIs
-  version: 0.19.0
+  version: 0.24.0
   description: >
     Machine-readable OpenAPI contract for migration agents to move data, assets,
     and configuration into and out of Salesforce Marketing Cloud Engagement.
 
-  
     Each operation includes vendor extensions that guide execution:
       - x-migration-direction defines import vs export
       - x-bulk-capable flags bulk support
       - x-polling-endpoint-of maps async job relationships
-  
+
     These annotations enable agents to plan idempotent, reliable migration flows.
-  
-    Coverage spans the documented SFMC REST surface, including:
-      auth, discovery, platform utilities, transactional messaging (email, SMS,
-      OTT/WhatsApp), triggered messaging, MobileConnect, MobilePush,
-      GroupConnect (Facebook Messenger, LINE), Contacts, Journey Builder,
-      Automation Studio, Content Builder (assets, categories, asset types),
-      Campaigns, Approvals, Tags, Event Notification Service, Data Extensions,
-      Domain Verification, File Locations, Address Validation, and Audit Logging.
-  
+
+    Coverage spans the documented SFMC REST surface, including auth, discovery,
+    platform utilities, transactional messaging (email, SMS, OTT/WhatsApp),
+    classic triggered messaging, MobileConnect, MobilePush, GroupConnect chat
+    (Facebook Messenger, LINE), Contacts, Journey Builder, Automation Studio,
+    Content Builder (assets, categories, asset-type taxonomy), Campaigns,
+    Approvals, Tags, Event Notification Service, Data Extensions, Domain
+    Verification, File Locations, Security Headers, Address Validation, and Audit
+    Logging.
+
     Each operation also retains permission metadata via vendor extensions,
     including permission IDs, user-permission paths, and installed-package scopes.
-  
+
     This is not an official Salesforce export. Salesforce does not publish a
     single complete machine-readable contract, so some operations use broader
     schemas where the source documentation is descriptive, polymorphic, or
@@ -72,6 +72,9 @@ tags:
 - name: File Locations
   description: Platform endpoints for external file location keys used by imports
     and file-based integrations.
+- name: Security Headers
+  description: Tenant-level HTTP security header configuration for click and view
+    pages.
 - name: Campaigns
   description: Interactive Marketing Hub campaign resources and campaign-to-asset
     associations.
@@ -155,6 +158,12 @@ paths:
     $ref: ./paths/file_locations.yaml#/paths/~1platform~1v1~1key
   /platform/v1/key/{keyId}:
     $ref: ./paths/file_locations.yaml#/paths/~1platform~1v1~1key~1{keyId}
+  /messaging/v1/securityHeaders:
+    $ref: ./paths/security_headers.yaml#/paths/~1messaging~1v1~1securityHeaders
+  /messaging/v1/securityHeaders/all:
+    $ref: ./paths/security_headers.yaml#/paths/~1messaging~1v1~1securityHeaders~1all
+  /messaging/v1/securityHeaders/{pageType}:
+    $ref: ./paths/security_headers.yaml#/paths/~1messaging~1v1~1securityHeaders~1{pageType}
   /hub/v1/campaigns:
     $ref: ./paths/campaigns.yaml#/paths/~1hub~1v1~1campaigns
   /hub/v1/campaigns/{id}:
@@ -275,6 +284,18 @@ paths:
     $ref: ./paths/journey_builder.yaml#/paths/~1interaction~1v1~1eventDefinitions
   /interaction/v1/interactions:
     $ref: ./paths/journey_builder.yaml#/paths/~1interaction~1v1~1interactions
+  /interaction/v1/interactions/journeyhistory/freshness:
+    $ref: ./paths/journey_builder.yaml#/paths/~1interaction~1v1~1interactions~1journeyhistory~1freshness
+  /interaction/v1/interactions/journeyhistory/estimate:
+    $ref: ./paths/journey_builder.yaml#/paths/~1interaction~1v1~1interactions~1journeyhistory~1estimate
+  /interaction/v1/interactions/journeyhistory/download:
+    $ref: ./paths/journey_builder.yaml#/paths/~1interaction~1v1~1interactions~1journeyhistory~1download
+  /interaction/v1/interactions/journeyhistory/summary:
+    $ref: ./paths/journey_builder.yaml#/paths/~1interaction~1v1~1interactions~1journeyhistory~1summary
+  /interaction/v1/interactions/journeyhistory/filter:
+    $ref: ./paths/journey_builder.yaml#/paths/~1interaction~1v1~1interactions~1journeyhistory~1filter
+  /interaction/v1/interactions/journeyhistory/search:
+    $ref: ./paths/journey_builder.yaml#/paths/~1interaction~1v1~1interactions~1journeyhistory~1search
   /interaction/v1/interactions/{id}/audit/{action}:
     $ref: ./paths/journey_builder.yaml#/paths/~1interaction~1v1~1interactions~1{id}~1audit~1{action}
   /interaction/v1/interactions/publishStatus/{statusId}:
@@ -487,9 +508,11 @@ components:
             event_notification_subscription_read: Read ENS subscriptions
             event_notification_subscription_update: Update ENS subscriptions
             event_notification_subscription_delete: Delete ENS subscriptions
-            file_location_create: Create file locations
-            file_location_view: View file locations
-            file_location_delete: Delete file locations
+            file_locations_read: View file locations
+            file_locations_write: Create, update, or delete file locations
+            http_headers_view: View configured HTTP security headers
+            http_headers_update: Update configured HTTP security headers
+            http_headers_delete: Delete configured HTTP security headers
             contacts_read: Read contact preferences and profile data
             contacts_write: Create and update contact preferences and profile data
             data_extensions_read: Read data extension async job and row resources
@@ -566,6 +589,209 @@ components:
               details:
                 type: object
                 additionalProperties: true
+      additionalProperties: true
+    JourneyHistoryDownloadRequest:
+      type: object
+      properties:
+        definitionIds:
+          type: array
+          items:
+            type: string
+        columns:
+          type: string
+          description: Comma-separated Journey History columns to return in the export.
+        start:
+          type: string
+          format: date-time
+        end:
+          type: string
+          format: date-time
+        format:
+          type: string
+          enum:
+          - csv
+        statuses:
+          type: array
+          items:
+            type: string
+      additionalProperties: true
+    JourneyHistoryEstimateResponse:
+      type: object
+      properties:
+        rowCount:
+          type: integer
+        downloadSize:
+          type: integer
+        compressedSize:
+          type: integer
+      additionalProperties: true
+    JourneyHistoryFreshnessResponse:
+      type: object
+      properties:
+        secondsBehind:
+          type: integer
+      additionalProperties: true
+    JourneyHistorySummaryResponse:
+      type: object
+      properties:
+        total:
+          type: integer
+        waiting:
+          type: integer
+        expired:
+          type: integer
+        warningCount:
+          type: integer
+        errorCount:
+          type: integer
+        successCount:
+          type: integer
+        totalContactCount:
+          type: integer
+        cameOffWait:
+          type: integer
+        tags:
+          type: array
+          items:
+            type: string
+      additionalProperties: true
+    JourneyHistoryFilterLists:
+      type: object
+      properties:
+        status:
+          type: array
+          items:
+            type: string
+        activityType:
+          type: array
+          items:
+            type: string
+        journeyId:
+          type: array
+          items:
+            type: string
+      additionalProperties: true
+    JourneyHistoryFilterResponse:
+      type: object
+      properties:
+        filterLists:
+          $ref: '#/components/schemas/JourneyHistoryFilterLists'
+      additionalProperties: true
+    JourneyHistoryMessage:
+      type: object
+      properties:
+        level:
+          type: string
+        errorCode:
+          type: string
+        message:
+          type: string
+        type:
+          type: string
+        parameters:
+          type: object
+          additionalProperties: true
+      additionalProperties: true
+    JourneyHistoryResult:
+      type: object
+      properties:
+        status:
+          type: string
+        outcome:
+          type: object
+          additionalProperties: true
+        tags:
+          type: array
+          items:
+            type: string
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/JourneyHistoryMessage'
+      additionalProperties: true
+    JourneyHistorySearchItem:
+      type: object
+      properties:
+        id:
+          type: string
+        longId:
+          type: integer
+        mid:
+          type: integer
+        eventId:
+          type: string
+        definitionId:
+          type: string
+        definitionName:
+          type: string
+        eventName:
+          type: string
+        contactKey:
+          type: string
+        entrySource:
+          type: string
+        epochTimeInMilliseconds:
+          type: integer
+        transactionTime:
+          type: string
+          format: date-time
+        status:
+          type: string
+        clientStatus:
+          type: string
+        message:
+          type: string
+        activityId:
+          type: string
+        activityType:
+          type: string
+        activityName:
+          type: string
+        definitionInstanceId:
+          type: string
+        activityBatchInstanceId:
+          type: string
+        createdDate:
+          type: string
+        eid:
+          type: integer
+        startDate:
+          type: string
+        endDate:
+          type: string
+        outcomeActivityId:
+          type: string
+        sourceType:
+          type: integer
+        _score:
+          type: number
+        messageSource:
+          type: integer
+        result:
+          $ref: '#/components/schemas/JourneyHistoryResult'
+      additionalProperties: true
+    JourneyHistorySearchResponse:
+      type: object
+      properties:
+        count:
+          type: integer
+        page:
+          type: integer
+        pageSize:
+          type: integer
+        links:
+          type: object
+          additionalProperties: true
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/JourneyHistorySearchItem'
+      additionalProperties: true
+    AcceptedRequestResponse:
+      type: object
+      properties:
+        requestId:
+          type: string
       additionalProperties: true
     JourneyContactExitRequest:
       type: object
@@ -1230,7 +1456,7 @@ components:
     EndpointDiscoveryItem:
       type: object
       properties:
-        endpointType:
+        type:
           type: string
         url:
           type: string
@@ -1239,6 +1465,12 @@ components:
     EndpointDiscoveryResponse:
       type: object
       properties:
+        count:
+          type: integer
+        page:
+          type: integer
+        pageSize:
+          type: integer
         items:
           type: array
           items:
@@ -1247,7 +1479,7 @@ components:
     SingleEndpointDiscoveryResponse:
       type: object
       properties:
-        endpointType:
+        type:
           type: string
         url:
           type: string
@@ -1256,11 +1488,23 @@ components:
     TokenContextResponse:
       type: object
       properties:
+        enterprise:
+          type: object
+          properties:
+            id:
+              type: integer
+          additionalProperties: true
         organization:
           type: object
+          properties:
+            id:
+              type: integer
           additionalProperties: true
         user:
           type: object
+          properties:
+            id:
+              type: integer
           additionalProperties: true
         businessUnit:
           type: object
@@ -1305,6 +1549,94 @@ components:
           type: array
           items:
             type: string
+      additionalProperties: true
+    SecurityHeaderDefinition:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+          enum:
+          - Cache-Control
+          - Content-Security-Policy
+          - Permissions-Policy
+          - Referrer-Policy
+          - Set-Cookie
+          - Strict-Transport-Security
+          - X-Content-Type-Options
+          - X-Frame-Options
+          - X-XSS-Protection
+        value:
+          type: string
+      additionalProperties: true
+    SecurityHeaderCatalogResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SecurityHeaderDefinition'
+        requestId:
+          type: string
+      additionalProperties: true
+    SecurityHeaderUpdateRequest:
+      type: object
+      properties:
+        securityHeaders:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              name:
+                type: string
+                enum:
+                - Cache-Control
+                - Content-Security-Policy
+                - Permissions-Policy
+                - Referrer-Policy
+                - Set-Cookie
+                - Strict-Transport-Security
+                - X-Content-Type-Options
+                - X-Frame-Options
+                - X-XSS-Protection
+            required:
+            - id
+            - name
+            additionalProperties: true
+        pageType:
+          type: string
+          enum:
+          - view
+          - click
+      required:
+      - securityHeaders
+      - pageType
+      additionalProperties: true
+    SecurityHeaderPageTypeConfiguration:
+      type: object
+      properties:
+        pageType:
+          type: string
+          enum:
+          - view
+          - click
+        securityHeaders:
+          type: array
+          items:
+            $ref: '#/components/schemas/SecurityHeaderDefinition'
+      additionalProperties: true
+    SecurityHeadersByPageTypeResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SecurityHeaderPageTypeConfiguration'
+        requestId:
+          type: string
       additionalProperties: true
     AuthAuthorizeRequest:
       type: object

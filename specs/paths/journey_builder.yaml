@@ -492,6 +492,280 @@ paths:
           application/json:
             schema:
               $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+  /interaction/v1/interactions/journeyhistory/freshness:
+    get:
+      tags:
+      - Journey Builder
+      summary: GET /interaction/v1/interactions/journeyhistory/freshness
+      operationId: get_interaction_v1_interactions_journeyhistory_freshness
+      x-migration-direction: export
+      description: Returns how far behind the Journey History data pipeline is in seconds. This is useful before requesting history exports so agents can decide whether the available history is fresh enough for migration validation or analytics handoff.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/JourneyHistoryFreshnessResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1220'
+      x-sfmc-user-permission-paths:
+      - Journey Builder > General > Access, View
+      x-sfmc-installed-package-scopes:
+      - journeys_read
+      x-original-marketing-cloud-paths:
+      - /interaction/v1/interactions/journeyhistory/freshness
+  /interaction/v1/interactions/journeyhistory/estimate:
+    post:
+      tags:
+      - Journey Builder
+      summary: POST /interaction/v1/interactions/journeyhistory/estimate
+      operationId: post_interaction_v1_interactions_journeyhistory_estimate
+      x-migration-direction: export
+      description: Estimates the row count and download size for a Journey History export before requesting the file itself. This is useful for migration planning, sizing, and deciding whether to split exports by date range or definition set.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/JourneyHistoryEstimateResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1220'
+      x-sfmc-user-permission-paths:
+      - Journey Builder > General > Access, View
+      x-sfmc-installed-package-scopes:
+      - journeys_read
+      x-original-marketing-cloud-paths:
+      - /interaction/v1/interactions/journeyhistory/estimate
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/JourneyHistoryDownloadRequest
+  /interaction/v1/interactions/journeyhistory/download:
+    post:
+      tags:
+      - Journey Builder
+      summary: POST /interaction/v1/interactions/journeyhistory/download
+      operationId: post_interaction_v1_interactions_journeyhistory_download
+      x-migration-direction: export
+      description: >-
+        Streams or returns a Journey History export for the requested definitions
+        and date range. When callers set `x-direct-pipe: true`, Marketing Cloud
+        can respond directly with CSV content instead of an intermediate JSON
+        envelope.
+      parameters:
+      - name: x-direct-pipe
+        in: header
+        required: false
+        schema:
+          type: string
+          enum:
+          - 'true'
+          - 'false'
+        description: Requests direct streaming of the generated history export when supported.
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            text/csv:
+              schema:
+                type: string
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1220'
+      x-sfmc-user-permission-paths:
+      - Journey Builder > General > Access, View
+      x-sfmc-installed-package-scopes:
+      - journeys_read
+      x-original-marketing-cloud-paths:
+      - /interaction/v1/interactions/journeyhistory/download
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/JourneyHistoryDownloadRequest
+  /interaction/v1/interactions/journeyhistory/summary:
+    post:
+      tags:
+      - Journey Builder
+      summary: POST /interaction/v1/interactions/journeyhistory/summary
+      operationId: post_interaction_v1_interactions_journeyhistory_summary
+      x-migration-direction: export
+      description: Returns aggregated Journey History totals across the requested time range and filters. In tenant validation, an empty request body returned global totals immediately, making this useful for fast migration sizing and health checks before full exports.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/JourneyHistorySummaryResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1220'
+      x-sfmc-user-permission-paths:
+      - Journey Builder > General > Access, View
+      x-sfmc-installed-package-scopes:
+      - journeys_read
+      x-original-marketing-cloud-paths:
+      - /interaction/v1/interactions/journeyhistory/summary
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+  /interaction/v1/interactions/journeyhistory/filter:
+    post:
+      tags:
+      - Journey Builder
+      summary: POST /interaction/v1/interactions/journeyhistory/filter
+      operationId: post_interaction_v1_interactions_journeyhistory_filter
+      x-migration-direction: export
+      description: Returns the available Journey History filter values for the requested criteria. Tenant validation returned live `status`, `activityType`, and `journeyId` lists, which makes this a strong discovery helper for building bounded export requests.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/JourneyHistoryFilterResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1220'
+      x-sfmc-user-permission-paths:
+      - Journey Builder > General > Access, View
+      x-sfmc-installed-package-scopes:
+      - journeys_read
+      x-original-marketing-cloud-paths:
+      - /interaction/v1/interactions/journeyhistory/filter
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
+  /interaction/v1/interactions/journeyhistory/search:
+    post:
+      tags:
+      - Journey Builder
+      summary: POST /interaction/v1/interactions/journeyhistory/search
+      operationId: post_interaction_v1_interactions_journeyhistory_search
+      x-migration-direction: export
+      description: Searches Journey History records and returns paged execution events. Tenant validation returned live result rows even with an empty request body, confirming this route is a practical discovery and export surface for contact-level journey history analysis.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/JourneyHistorySearchResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - '1220'
+      x-sfmc-user-permission-paths:
+      - Journey Builder > General > Access, View
+      x-sfmc-installed-package-scopes:
+      - journeys_read
+      x-original-marketing-cloud-paths:
+      - /interaction/v1/interactions/journeyhistory/search
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/GenericRequestBody
   /interaction/v1/interactions/{id}/audit/{action}:
     get:
       tags:

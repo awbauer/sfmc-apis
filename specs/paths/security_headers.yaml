@@ -1,0 +1,167 @@
+paths:
+  /messaging/v1/securityHeaders:
+    get:
+      tags:
+      - Security Headers
+      summary: GET /messaging/v1/securityHeaders
+      operationId: get_messaging_v1_securityHeaders
+      x-migration-direction: export
+      description: Returns the currently configured HTTP security headers grouped by page type. In observed tenant responses, Marketing Cloud returns one object per pageType (for example `view` and `click`) with that page type's configured securityHeaders array.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/SecurityHeadersByPageTypeResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - Not published
+      x-sfmc-user-permission-paths:
+      - Not published
+      x-sfmc-installed-package-scopes:
+      - http_headers_view
+      x-original-marketing-cloud-paths:
+      - /messaging/v1/securityHeaders
+    post:
+      tags:
+      - Security Headers
+      summary: POST /messaging/v1/securityHeaders
+      operationId: post_messaging_v1_securityHeaders
+      x-migration-direction: import
+      description: Updates the configured HTTP security headers for a business unit's SAP-branded `view` or `click` domain. In tenant validation with a read-only package, this route returned `403 InsufficientPrivileges`, confirming route presence without changing tenant state.
+      parameters: []
+      responses:
+        '202':
+          description: Accepted.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/SecurityHeadersByPageTypeResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - Not published
+      x-sfmc-user-permission-paths:
+      - Security > HTTP Headers > Update
+      x-sfmc-installed-package-scopes:
+      - http_headers_update
+      x-original-marketing-cloud-paths:
+      - /messaging/v1/securityHeaders
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/SecurityHeaderUpdateRequest
+  /messaging/v1/securityHeaders/all:
+    get:
+      tags:
+      - Security Headers
+      summary: GET /messaging/v1/securityHeaders/all
+      operationId: get_messaging_v1_securityHeaders_all
+      x-migration-direction: export
+      description: Returns the catalog of supported HTTP security headers and their current values. In observed tenant responses, Marketing Cloud returns a `data` array containing header definitions such as `Content-Security-Policy`, `Strict-Transport-Security`, and `X-Frame-Options`.
+      parameters: []
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/SecurityHeaderCatalogResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - Not published
+      x-sfmc-user-permission-paths:
+      - Not published
+      x-sfmc-installed-package-scopes:
+      - http_headers_view
+      x-original-marketing-cloud-paths:
+      - /messaging/v1/securityHeaders/all
+  /messaging/v1/securityHeaders/{pageType}:
+    delete:
+      tags:
+      - Security Headers
+      summary: DELETE /messaging/v1/securityHeaders/{pageType}
+      operationId: delete_messaging_v1_securityHeaders_by_pageType
+      x-migration-direction: import
+      description: Deletes all configured HTTP security headers from a business unit's SAP-branded `view` or `click` domain. In tenant validation with a read-only package, this route returned `403 InsufficientPrivileges`, confirming route presence without mutating tenant state.
+      parameters:
+      - name: pageType
+        in: path
+        required: true
+        schema:
+          type: string
+          enum:
+          - view
+          - click
+        description: Domain page type whose configured headers should be removed.
+      responses:
+        '202':
+          description: Accepted.
+          content:
+            application/json:
+              schema:
+                $ref: ../sfmc_marketing_cloud_openapi.yaml#/components/schemas/AcceptedRequestResponse
+        '400':
+          description: Bad request.
+        '401':
+          description: Unauthorized.
+        '403':
+          description: Forbidden.
+        '404':
+          description: Not found.
+        '429':
+          description: Too many requests or throttled.
+        '500':
+          description: Server error.
+      security:
+      - bearerAuth: []
+      x-sfmc-permission-ids:
+      - Not published
+      x-sfmc-user-permission-paths:
+      - Security > HTTP Headers > Delete
+      x-sfmc-installed-package-scopes:
+      - http_headers_delete
+      x-original-marketing-cloud-paths:
+      - /messaging/v1/securityHeaders/{pageType}
