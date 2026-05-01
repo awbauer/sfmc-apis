@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { readFileSync, existsSync, readdirSync } from 'node:fs';
+import { readFileSync, writeFileSync, existsSync, readdirSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { spawnSync } from 'node:child_process';
@@ -10,6 +10,10 @@ const repoRoot = resolve(here, '..');
 const catalogPath = join(repoRoot, 'dist', 'migration-catalog.json');
 const migrationsDir = join(repoRoot, 'specs', 'migrations');
 const pkgPath = join(repoRoot, 'package.json');
+const connectionConfigPath = join(repoRoot, 'sfmc-connection.config.json');
+
+const CONNECTION_FIELDS = ['clientId', 'clientSecret', 'authBaseUri', 'restBaseUri', 'soapBaseUri'];
+const SECRET_FIELDS = new Set(['clientSecret']);
 
 function loadCatalog() {
   if (!existsSync(catalogPath)) {
@@ -141,6 +145,32 @@ const TOOL_DEFS = [
         direction: { type: 'string', enum: ['import', 'export'] },
         family: { type: 'string' },
         limit: { type: 'integer', minimum: 1, maximum: 10 },
+      },
+      additionalProperties: false,
+    },
+  },
+  {
+    name: 'get_connection_config',
+    description:
+      'Return the current SFMC connection configuration status. Shows which fields are set and which are missing. Secret values (clientSecret) are never returned — only whether they are set. Call this before executing any SFMC API calls to verify the instance is configured.',
+    inputSchema: {
+      type: 'object',
+      properties: {},
+      additionalProperties: false,
+    },
+  },
+  {
+    name: 'set_connection_config',
+    description:
+      'Save SFMC connection configuration fields to sfmc-connection.config.json. Merges with any existing values — omitted fields are left unchanged. Call get_connection_config first to see which fields are already set, then ask the user only for missing ones.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        clientId: { type: 'string', description: 'OAuth2 client ID from the SFMC installed package credentials tab.' },
+        clientSecret: { type: 'string', description: 'OAuth2 client secret from the SFMC installed package credentials tab.' },
+        authBaseUri: { type: 'string', description: 'Authentication Base URI, e.g. https://YOUR_SUBDOMAIN.auth.marketingcloudapis.com/' },
+        restBaseUri: { type: 'string', description: 'REST Base URI, e.g. https://YOUR_SUBDOMAIN.rest.marketingcloudapis.com/' },
+        soapBaseUri: { type: 'string', description: 'SOAP Base URI, e.g. https://YOUR_SUBDOMAIN.soap.marketingcloudapis.com/' },
       },
       additionalProperties: false,
     },
@@ -289,6 +319,49 @@ function handlePlanMigration(catalog, args) {
   };
 }
 
+function handleGetConnectionConfig(_catalog) {
+  const exists = existsSync(connectionConfigPath);
+  const raw = exists ? (() => { try { return JSON.parse(readFileSync(connectionConfigPath, 'utf8')); } catch { return {}; } })() : {};
+  const fields = {};
+  const missing = [];
+  for (const key of CONNECTION_FIELDS) {
+    const isSet = Boolean(raw[key]);
+    fields[key] = isSet ? (SECRET_FIELDS.has(key) ? '<set — hidden>' : raw[key]) : null;
+    if (!isSet) missing.push(key);
+  }
+  return {
+    configured: missing.length === 0,
+    config_file_exists: exists,
+    fields,
+    missing_fields: missing,
+    ...(missing.length > 0 && {
+      next_step: `Ask the user to provide the following fields, then call set_connection_config: ${missing.join(', ')}`,
+    }),
+  };
+}
+
+function handleSetConnectionConfig(_catalog, args) {
+  const existing = existsSync(connectionConfigPath)
+    ? (() => { try { return JSON.parse(readFileSync(connectionConfigPath, 'utf8')); } catch { return {}; } })()
+    : {};
+  const updated = { ...existing };
+  for (const key of CONNECTION_FIELDS) {
+    if (args[key] !== undefined && args[key] !== null && String(args[key]).trim() !== '') {
+      updated[key] = String(args[key]).trim();
+    }
+  }
+  writeFileSync(connectionConfigPath, JSON.stringify(updated, null, 2) + '\n', 'utf8');
+  const missing = CONNECTION_FIELDS.filter((k) => !updated[k]);
+  return {
+    saved: true,
+    configured: missing.length === 0,
+    missing_fields: missing,
+    ...(missing.length > 0 && {
+      next_step: `Still missing: ${missing.join(', ')}. Ask the user and call set_connection_config again.`,
+    }),
+  };
+}
+
 const HANDLERS = {
   list_migration_recipes: handleList,
   get_migration_recipe: handleGetRecipe,
@@ -297,6 +370,8 @@ const HANDLERS = {
   describe_operation: handleDescribe,
   resolve_polling_target: handleResolvePolling,
   plan_migration: handlePlanMigration,
+  get_connection_config: handleGetConnectionConfig,
+  set_connection_config: handleSetConnectionConfig,
 };
 
 async function runSelfCheck(catalog) {

@@ -57,10 +57,39 @@ Each recipe in `specs/migrations/*.yaml` conforms to `specs/migrations/_schema.y
 
 Recipes are intentionally sequential. There are no branches, no DAGs, no conditionals. If you need branching, execute two recipes.
 
+## Connection configuration
+
+Before executing any SFMC API calls the agent needs five values from the caller's SFMC installed package:
+
+| Field | Description |
+| ----- | ----------- |
+| `clientId` | OAuth2 Client Id (credentials tab of the installed package) |
+| `clientSecret` | OAuth2 Client Secret (credentials tab of the installed package) |
+| `authBaseUri` | Authentication Base URI shown in the installed package |
+| `restBaseUri` | REST Base URI shown in the installed package |
+| `soapBaseUri` | SOAP Base URI shown in the installed package |
+
+These are stored in `sfmc-connection.config.json` at the repo root (gitignored). Two ways to populate it:
+
+**Interactive CLI (human-facing):**
+```
+npm run setup
+```
+Prompts for each field, shows current values for non-secret fields, and writes the file.
+
+**Via MCP tools (agent-facing):**
+1. Call `get_connection_config` — returns which fields are set and which are `missing_fields`. Secret values are never returned.
+2. For any missing field, ask the user to provide the value.
+3. Call `set_connection_config({ clientId, clientSecret, authBaseUri, restBaseUri, soapBaseUri })` with the collected values. Omit fields that are already set. The tool merges and saves.
+
+`sfmc-connection.config.example.json` contains a placeholder template if the caller needs a reference format.
+
 ## MCP tools
 
 `scripts/mcp-server.mjs` speaks stdio using the MCP SDK. Start with `npm run mcp`. Tools:
 
+- `get_connection_config()` — returns current connection config status; lists missing fields and never exposes secret values.
+- `set_connection_config({ clientId?, clientSecret?, authBaseUri?, restBaseUri?, soapBaseUri? })` — saves provided fields; merges with existing values.
 - `list_migration_recipes({ direction?, family? })` — summaries filtered by direction and family.
 - `get_migration_recipe({ id })` — full recipe object.
 - `get_endpoint_for_task({ task, direction?, family? })` — ranked operations by keyword overlap.
@@ -69,7 +98,7 @@ Recipes are intentionally sequential. There are no branches, no DAGs, no conditi
 - `resolve_polling_target({ operation_id })` — the status/results pollers for a kicker operation.
 - `plan_migration({ recipe_ids?, task?, direction?, family?, limit? })` — compose a sequential migration plan from explicit recipes or ranked recipe matches.
 
-All tools are read-only. The server never makes SFMC calls.
+The server never makes SFMC calls.
 
 ## Runtime preconditions
 
@@ -92,6 +121,6 @@ Before running any recipe, the agent must have:
 ## Known non-goals
 
 - **No orchestration engine.** Recipes are plans, not workflows. Branching, parallelism, and conditional logic belong to the agent.
-- **No credential storage.** Tokens and client secrets are the caller's responsibility.
+- **No token caching.** Access tokens acquired via `post_v2_token` are the agent's responsibility to cache and refresh; only the installed-package credentials (client ID, secret, base URIs) are stored locally.
 - **No cross-tenant migration as a single recipe.** Compose an `export-*` recipe with an `import-*` recipe if you need to move between SFMC tenants.
 - **No send-time orchestration.** Send endpoints are `x-migration-direction: control-plane` and should not appear as recipe steps.
