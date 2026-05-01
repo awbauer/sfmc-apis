@@ -1,4 +1,4 @@
-# SFMC Migration Toolkit for Agents
+# SFMC Toolkit for Agents
 
 ## About this project
 
