@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: Salesforce Marketing Cloud Engagement Migration APIs
-  version: 0.20.0
+  version: 0.21.0
   description: >
     Machine-readable OpenAPI contract for migration agents to move data, assets,
     and configuration into and out of Salesforce Marketing Cloud Engagement.
@@ -282,6 +282,12 @@ paths:
     $ref: ./paths/journey_builder.yaml#/paths/~1interaction~1v1~1eventDefinitions
   /interaction/v1/interactions:
     $ref: ./paths/journey_builder.yaml#/paths/~1interaction~1v1~1interactions
+  /interaction/v1/interactions/journeyhistory/freshness:
+    $ref: ./paths/journey_builder.yaml#/paths/~1interaction~1v1~1interactions~1journeyhistory~1freshness
+  /interaction/v1/interactions/journeyhistory/estimate:
+    $ref: ./paths/journey_builder.yaml#/paths/~1interaction~1v1~1interactions~1journeyhistory~1estimate
+  /interaction/v1/interactions/journeyhistory/download:
+    $ref: ./paths/journey_builder.yaml#/paths/~1interaction~1v1~1interactions~1journeyhistory~1download
   /interaction/v1/interactions/{id}/audit/{action}:
     $ref: ./paths/journey_builder.yaml#/paths/~1interaction~1v1~1interactions~1{id}~1audit~1{action}
   /interaction/v1/interactions/publishStatus/{statusId}:
@@ -574,6 +580,47 @@ components:
               details:
                 type: object
                 additionalProperties: true
+      additionalProperties: true
+    JourneyHistoryDownloadRequest:
+      type: object
+      properties:
+        definitionIds:
+          type: array
+          items:
+            type: string
+        columns:
+          type: string
+          description: Comma-separated Journey History columns to return in the export.
+        start:
+          type: string
+          format: date-time
+        end:
+          type: string
+          format: date-time
+        format:
+          type: string
+          enum:
+          - csv
+        statuses:
+          type: array
+          items:
+            type: string
+      additionalProperties: true
+    JourneyHistoryEstimateResponse:
+      type: object
+      properties:
+        rowCount:
+          type: integer
+        downloadSize:
+          type: integer
+        compressedSize:
+          type: integer
+      additionalProperties: true
+    JourneyHistoryFreshnessResponse:
+      type: object
+      properties:
+        secondsBehind:
+          type: integer
       additionalProperties: true
     JourneyContactExitRequest:
       type: object
