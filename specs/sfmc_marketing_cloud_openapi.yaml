@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: Salesforce Marketing Cloud Engagement Migration APIs
-  version: 0.23.0
+  version: 0.24.0
   description: >
     Machine-readable OpenAPI contract for migration agents to move data, assets,
     and configuration into and out of Salesforce Marketing Cloud Engagement.
@@ -508,9 +508,8 @@ components:
             event_notification_subscription_read: Read ENS subscriptions
             event_notification_subscription_update: Update ENS subscriptions
             event_notification_subscription_delete: Delete ENS subscriptions
-            file_location_create: Create file locations
-            file_location_view: View file locations
-            file_location_delete: Delete file locations
+            file_locations_read: View file locations
+            file_locations_write: Create, update, or delete file locations
             http_headers_view: View configured HTTP security headers
             http_headers_update: Update configured HTTP security headers
             http_headers_delete: Delete configured HTTP security headers

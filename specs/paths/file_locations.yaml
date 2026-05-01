@@ -35,7 +35,7 @@ paths:
       x-sfmc-user-permission-paths:
       - Email > Admin > External Object Sources > File Location > Create
       x-sfmc-installed-package-scopes:
-      - file_location_create
+      - file_locations_write
       x-original-marketing-cloud-paths:
       - /platform/v1/key
       requestBody:
@@ -79,7 +79,7 @@ paths:
       x-sfmc-user-permission-paths:
       - Email > Admin > External Object Sources > File Location > View
       x-sfmc-installed-package-scopes:
-      - file_location_view
+      - file_locations_read
       x-original-marketing-cloud-paths:
       - /platform/v1/key
   /platform/v1/key/{keyId}:
@@ -124,6 +124,6 @@ paths:
       x-sfmc-user-permission-paths:
       - Email > Admin > External Object Sources > File Location > Delete
       x-sfmc-installed-package-scopes:
-      - file_location_delete
+      - file_locations_write
       x-original-marketing-cloud-paths:
       - /platform/v1/key/{keyId}

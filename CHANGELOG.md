@@ -2,6 +2,11 @@
 
 All notable changes to this SFMC migration toolkit are documented in this file.
 
+## [0.24.0] - 2026-04-30
+
+### Changed
+- Aligned File Locations installed-package scopes with the current Salesforce scope catalog and live tenant token naming by switching modeled operations from legacy singular names to `file_locations_read` and `file_locations_write`.
+
 ## [0.23.0] - 2026-04-30
 
 ### Added
