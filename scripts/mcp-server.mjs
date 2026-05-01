@@ -150,6 +150,19 @@ const TOOL_DEFS = [
     },
   },
   {
+    name: 'check_operation_safety',
+    description:
+      'Check whether an SFMC operation is read-only before executing it. Returns read_only (true for GET/HEAD/OPTIONS) and requires_confirmation (true for all write operations). MUST be called before every SFMC API call. If requires_confirmation is true, show the confirmation_prompt to the user and wait for explicit approval before proceeding.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        operation_id: { type: 'string', description: 'The operationId to check.' },
+      },
+      required: ['operation_id'],
+      additionalProperties: false,
+    },
+  },
+  {
     name: 'get_connection_config',
     description:
       'Return the current SFMC connection configuration status. Shows which fields are set and which are missing. Secret values (clientSecret) are never returned — only whether they are set. Call this before executing any SFMC API calls to verify the instance is configured.',
@@ -278,10 +291,13 @@ function handlePlanMigration(catalog, args) {
     const prerequisites = recipe.prerequisites ?? {};
     const stepPlan = (recipe.steps ?? []).map((step) => {
       allOperationIds.push(step.operation_id);
+      const opMeta = catalog.operations.find((o) => o.operationId === step.operation_id);
       return {
         id: step.id,
         why: step.why ?? null,
         operation_id: step.operation_id,
+        read_only: opMeta?.readOnly ?? null,
+        requires_confirmation: opMeta ? !opMeta.readOnly : null,
         polling: step.polling ?? null,
       };
     });
@@ -305,9 +321,12 @@ function handlePlanMigration(catalog, args) {
     });
   }
 
+  const writeSteps = recipePlans.flatMap((r) => r.steps.filter((s) => s.requires_confirmation));
   return {
     plan: {
       recipe_count: recipePlans.length,
+      has_write_operations: writeSteps.length > 0,
+      write_operation_ids: writeSteps.map((s) => s.operation_id),
       recipes: recipePlans,
       consolidated_prerequisites: {
         scopes: uniqueSorted(allScopes),
@@ -316,6 +335,30 @@ function handlePlanMigration(catalog, args) {
       },
       operation_ids: uniqueSorted(allOperationIds),
     },
+  };
+}
+
+function handleCheckOperationSafety(catalog, args) {
+  const op = catalog.operations.find((o) => o.operationId === args.operation_id);
+  if (!op) return { error: `Unknown operationId: ${args.operation_id}` };
+  if (op.readOnly) {
+    return {
+      operation_id: op.operationId,
+      method: op.method,
+      read_only: true,
+      requires_confirmation: false,
+    };
+  }
+  return {
+    operation_id: op.operationId,
+    method: op.method,
+    path: op.path,
+    summary: op.summary,
+    read_only: false,
+    requires_confirmation: true,
+    confirmation_prompt: `This operation (${op.method} ${op.path}) will write to SFMC. Do you want to proceed?`,
+    scopes_required: op.scopes,
+    migration_direction: op.migration?.direction ?? null,
   };
 }
 
@@ -370,6 +413,7 @@ const HANDLERS = {
   describe_operation: handleDescribe,
   resolve_polling_target: handleResolvePolling,
   plan_migration: handlePlanMigration,
+  check_operation_safety: handleCheckOperationSafety,
   get_connection_config: handleGetConnectionConfig,
   set_connection_config: handleSetConnectionConfig,
 };
