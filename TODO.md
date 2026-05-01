@@ -92,6 +92,50 @@ These items come from live-tenant testing and an SFMC-architecture review. They 
 - ⬜ **Add support for ownership / lifecycle oriented migration planning** — consider MCP/catalog affordances that help agents reason about archive candidates, active vs obsolete assets, and dependency-aware export sequencing.
 - ⬜ **Document recommended pre-migration discovery order** — e.g. tenant context -> scope check -> journeys/events -> content -> automations -> DEs -> audit/dependency sweep.
 
+### Additional repo gaps found during expanded tenant extraction (2026-05-01)
+
+These were the missing pieces that forced ad hoc extraction logic outside the repo while pulling a deeper architect-grade tenant inventory.
+
+#### Core extraction/runtime gaps
+
+- ⬜ **Add a reusable tenant deep-dive runner** — handle auth, token refresh, REST pagination, SOAP pagination, normalization, and export packaging in one supported workflow.
+- ⬜ **Add a SOAP support layer** — include retrieve helpers, `ContinueRequest` pagination, XML parsing/normalization, and typed object mappers for common SFMC SOAP entities.
+- ⬜ **Add mixed REST + SOAP workflow support** — many useful tenant inventories require both surfaces; the repo should treat that as a first-class pattern.
+- ⬜ **Add multi-format report packaging** — generate XLSX/CSV/JSON deliverables with summary + family tabs instead of requiring one-off local scripts.
+- ⬜ **Add explicit “fetched vs blocked” capability reporting** — distinguish tenant-granted scope, repo-modeled endpoint, practically fetchable data, and still-unexposed gaps.
+
+#### Data model / data-operating-model gaps
+
+- ⬜ **Add full Data Extension inventory support** — inventory, folder mapping, sendability, retention posture, send relationship metadata, and architecture-oriented export outputs.
+- ⬜ **Add Data Extension schema export support** — field lists, types, max length, required/primary-key flags, and schema sampling workflows.
+- ⬜ **Add DE row-count / storage-pressure support if exposed** — inventory without row volume still leaves migration sizing weak.
+- ⬜ **Add DataFolder hierarchy/path reconstruction** — build canonical folder paths and depth analysis for DEs and other SOAP-backed assets.
+- ⬜ **Add QueryDefinition / SQL inventory support** — query text export, target update type analysis, category/folder mapping, and governance heuristics.
+- ⬜ **Add query/dependency heuristics** — flag `SELECT *`, likely test/demo queries, overwrite-heavy patterns, and other migration/ops risk signals.
+
+#### Ownership / governance gaps
+
+- ⬜ **Add AccountUser inventory support** — inventory users, active/inactive status, API-user detection, and owner-enrichment helpers.
+- ⬜ **Add owner-resolution helpers across assets** — map numeric `createdBy` / `modifiedBy` values and partial owner references back to user inventory.
+- ⬜ **Add installed-package governance coverage** — inventory package owner/purpose/scope mapping/auth pattern/rotation metadata where the platform exposes it.
+- ⬜ **Add environment / BU-context reporting helpers** — make it easier to distinguish enterprise-shared vs BU-local sprawl and reason about environment boundaries.
+
+#### Content / messaging / dependency gaps
+
+- ⬜ **Add content hierarchy utilities** — Content Builder category path reconstruction, depth analysis, empty-folder detection, and taxonomy reporting.
+- ⬜ **Add content dependency/reuse analysis** — asset-to-journey/email/cloudpage linkage, orphan detection, and archive-candidate reporting where source APIs permit it.
+- ⬜ **Add sender-profile and send-classification inventory/reporting** — normalize sender-layer governance objects into the same assessment flow.
+- ⬜ **Add legacy/triggered send inventory recipes** — support tenants that still rely heavily on Triggered Send Definitions / Email Send Definitions.
+- ⬜ **Add deliverability-oriented coverage where possible** — delivery profiles, sender auth/domain setup, IP strategy references, and send-classification completeness.
+
+#### Operational-health gaps
+
+- ⬜ **Add Journey History deep-dive workflows** — freshness, top-line summaries, filtered search helpers, and export/report patterns should be first-class repo features.
+- ⬜ **Add Journey / Event Definition health heuristics** — combine metadata, reuse, and history signals instead of leaving the agent to infer health manually.
+- ⬜ **Add automation deep-detail export workflows** — normalize steps, activities, schedules, and hygiene signals across the full automation estate.
+- ⬜ **Add automation runtime history / failure-trend coverage** — last run, failure trends, notifications, and operational criticality are still missing from the repo’s practical assessment surface.
+- ⬜ **Add architect-oriented aggregation/reporting** — governance, lifecycle, ownership, and migration-readiness summaries should be derivable without manual spreadsheet work.
+
 ## Current quality bar
 
 To call this spec ready for broader v1.0, all remaining ⬜/🟡 items above should be completed and re-audited.
