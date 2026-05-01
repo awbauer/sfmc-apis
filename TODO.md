@@ -1,4 +1,4 @@
-# SFMC Migration Toolkit — Product Backlog
+# SFMC Toolkit — Product Backlog
 
 Last audited: **2026-05-01**
 
