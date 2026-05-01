@@ -2,6 +2,13 @@
 
 All notable changes to this SFMC migration toolkit are documented in this file.
 
+## [0.20.0] - 2026-04-30
+
+### Added
+- Added Security Headers coverage for `GET /messaging/v1/securityHeaders` and `GET /messaging/v1/securityHeaders/all`.
+- Added the `http_headers_view` installed-package scope to the declared OAuth2 scope catalog.
+- Added response schemas for tenant HTTP security-header catalogs and page-type-specific header configuration.
+
 ## [0.19.0] - 2026-04-24
 
 ### Added

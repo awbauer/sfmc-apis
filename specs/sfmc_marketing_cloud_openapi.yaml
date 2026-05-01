@@ -1,30 +1,30 @@
 openapi: 3.0.3
 info:
   title: Salesforce Marketing Cloud Engagement Migration APIs
-  version: 0.19.0
+  version: 0.20.0
   description: >
     Machine-readable OpenAPI contract for migration agents to move data, assets,
     and configuration into and out of Salesforce Marketing Cloud Engagement.
 
-  
     Each operation includes vendor extensions that guide execution:
       - x-migration-direction defines import vs export
       - x-bulk-capable flags bulk support
       - x-polling-endpoint-of maps async job relationships
-  
+
     These annotations enable agents to plan idempotent, reliable migration flows.
-  
-    Coverage spans the documented SFMC REST surface, including:
-      auth, discovery, platform utilities, transactional messaging (email, SMS,
-      OTT/WhatsApp), triggered messaging, MobileConnect, MobilePush,
-      GroupConnect (Facebook Messenger, LINE), Contacts, Journey Builder,
-      Automation Studio, Content Builder (assets, categories, asset types),
-      Campaigns, Approvals, Tags, Event Notification Service, Data Extensions,
-      Domain Verification, File Locations, Address Validation, and Audit Logging.
-  
+
+    Coverage spans the documented SFMC REST surface, including auth, discovery,
+    platform utilities, transactional messaging (email, SMS, OTT/WhatsApp),
+    classic triggered messaging, MobileConnect, MobilePush, GroupConnect chat
+    (Facebook Messenger, LINE), Contacts, Journey Builder, Automation Studio,
+    Content Builder (assets, categories, asset-type taxonomy), Campaigns,
+    Approvals, Tags, Event Notification Service, Data Extensions, Domain
+    Verification, File Locations, Security Headers, Address Validation, and Audit
+    Logging.
+
     Each operation also retains permission metadata via vendor extensions,
     including permission IDs, user-permission paths, and installed-package scopes.
-  
+
     This is not an official Salesforce export. Salesforce does not publish a
     single complete machine-readable contract, so some operations use broader
     schemas where the source documentation is descriptive, polymorphic, or
@@ -72,6 +72,9 @@ tags:
 - name: File Locations
   description: Platform endpoints for external file location keys used by imports
     and file-based integrations.
+- name: Security Headers
+  description: Tenant-level HTTP security header configuration for click and view
+    pages.
 - name: Campaigns
   description: Interactive Marketing Hub campaign resources and campaign-to-asset
     associations.
@@ -155,6 +158,10 @@ paths:
     $ref: ./paths/file_locations.yaml#/paths/~1platform~1v1~1key
   /platform/v1/key/{keyId}:
     $ref: ./paths/file_locations.yaml#/paths/~1platform~1v1~1key~1{keyId}
+  /messaging/v1/securityHeaders:
+    $ref: ./paths/security_headers.yaml#/paths/~1messaging~1v1~1securityHeaders
+  /messaging/v1/securityHeaders/all:
+    $ref: ./paths/security_headers.yaml#/paths/~1messaging~1v1~1securityHeaders~1all
   /hub/v1/campaigns:
     $ref: ./paths/campaigns.yaml#/paths/~1hub~1v1~1campaigns
   /hub/v1/campaigns/{id}:
@@ -490,6 +497,7 @@ components:
             file_location_create: Create file locations
             file_location_view: View file locations
             file_location_delete: Delete file locations
+            http_headers_view: View configured HTTP security headers
             contacts_read: Read contact preferences and profile data
             contacts_write: Create and update contact preferences and profile data
             data_extensions_read: Read data extension async job and row resources
@@ -1305,6 +1313,59 @@ components:
           type: array
           items:
             type: string
+      additionalProperties: true
+    SecurityHeaderDefinition:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+          enum:
+          - Cache-Control
+          - Content-Security-Policy
+          - Permissions-Policy
+          - Referrer-Policy
+          - Set-Cookie
+          - Strict-Transport-Security
+          - X-Content-Type-Options
+          - X-Frame-Options
+          - X-XSS-Protection
+        value:
+          type: string
+      additionalProperties: true
+    SecurityHeaderCatalogResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SecurityHeaderDefinition'
+        requestId:
+          type: string
+      additionalProperties: true
+    SecurityHeaderPageTypeConfiguration:
+      type: object
+      properties:
+        pageType:
+          type: string
+          enum:
+          - view
+          - click
+        securityHeaders:
+          type: array
+          items:
+            $ref: '#/components/schemas/SecurityHeaderDefinition'
+      additionalProperties: true
+    SecurityHeadersByPageTypeResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SecurityHeaderPageTypeConfiguration'
+        requestId:
+          type: string
       additionalProperties: true
     AuthAuthorizeRequest:
       type: object
