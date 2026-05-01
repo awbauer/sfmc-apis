@@ -44,13 +44,28 @@ function loadExisting() {
   if (!existsSync(configPath)) return {};
   try {
     return JSON.parse(readFileSync(configPath, 'utf8'));
-  } catch {
-    return {};
+  } catch (err) {
+    console.error(`Error: sfmc-connection.config.json exists but could not be parsed: ${err.message}`);
+    console.error('Fix or delete the file before running setup again.');
+    process.exit(1);
   }
 }
 
 function prompt(rl, question) {
   return new Promise((resolve) => rl.question(question, resolve));
+}
+
+function promptSecret(rl, question) {
+  return new Promise((resolve) => {
+    process.stdout.write(question);
+    const origWrite = rl.output.write.bind(rl.output);
+    rl.output.write = () => {};
+    rl.question('', (answer) => {
+      rl.output.write = origWrite;
+      process.stdout.write('\n');
+      resolve(answer);
+    });
+  });
 }
 
 async function main() {
@@ -75,7 +90,10 @@ async function main() {
       currentDisplay = field.secret ? ' [currently set — hidden]' : ` [current: ${current}]`;
     }
 
-    const answer = await prompt(rl, `${field.label}${currentDisplay}\n  (${field.hint})\n  > `);
+    const question = `${field.label}${currentDisplay}\n  (${field.hint})\n  > `;
+    const answer = field.secret
+      ? await promptSecret(rl, question)
+      : await prompt(rl, question);
     const value = answer.trim();
 
     if (value) {

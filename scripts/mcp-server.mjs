@@ -362,9 +362,22 @@ function handleCheckOperationSafety(catalog, args) {
   };
 }
 
+function readConnectionConfig() {
+  if (!existsSync(connectionConfigPath)) return { ok: true, data: {} };
+  let raw;
+  try {
+    raw = JSON.parse(readFileSync(connectionConfigPath, 'utf8'));
+  } catch (err) {
+    return { ok: false, error: `sfmc-connection.config.json exists but could not be parsed: ${err.message}. Fix or delete the file before proceeding.` };
+  }
+  return { ok: true, data: raw };
+}
+
 function handleGetConnectionConfig(_catalog) {
   const exists = existsSync(connectionConfigPath);
-  const raw = exists ? (() => { try { return JSON.parse(readFileSync(connectionConfigPath, 'utf8')); } catch { return {}; } })() : {};
+  const result = readConnectionConfig();
+  if (!result.ok) return { error: result.error, config_file_exists: exists };
+  const raw = result.data;
   const fields = {};
   const missing = [];
   for (const key of CONNECTION_FIELDS) {
@@ -384,9 +397,9 @@ function handleGetConnectionConfig(_catalog) {
 }
 
 function handleSetConnectionConfig(_catalog, args) {
-  const existing = existsSync(connectionConfigPath)
-    ? (() => { try { return JSON.parse(readFileSync(connectionConfigPath, 'utf8')); } catch { return {}; } })()
-    : {};
+  const result = readConnectionConfig();
+  if (!result.ok) return { error: result.error, saved: false };
+  const existing = result.data;
   const updated = { ...existing };
   for (const key of CONNECTION_FIELDS) {
     if (args[key] !== undefined && args[key] !== null && String(args[key]).trim() !== '') {
