@@ -1,6 +1,6 @@
 # SFMC Migration Toolkit Backlog
 
-Last audited: **2026-04-28**
+Last audited: **2026-04-30**
 
 This file now tracks task status explicitly:
 - ✅ **Done**
@@ -65,6 +65,32 @@ This file now tracks task status explicitly:
 - ✅ Extend migration extension checks to validate recipe-referenced operations carry required migration metadata.
 - ⬜ Add `x-idempotent: true` on read-only GETs.
 - ✅ Add MCP `plan_migration` composition tool.
+
+## Tenant-driven backlog (2026-04-30)
+
+These items come from live-tenant testing and an SFMC-architecture review. They are intended to improve both repo quality and the repo's practical usefulness during real migration work.
+
+### Functional gaps for migration agents
+
+- ⬜ **Prioritize Data Extension export/discovery coverage** — add formally modeled read/export kickoff routes, schema/field inspection, and a real `export-data-extension-rows` path instead of only async pollers plus import flows.
+- ⬜ **Add Automation Studio export/discovery recipe coverage** — model useful read-side automation inventory/export flows, not just raw endpoints.
+- ⬜ **Add tenant deep-dive smoke test tooling** — script auth + representative read-only checks (journeys, event definitions, content categories/assets, automations, tenant-validated utility endpoints) and emit structured JSON for repeatable validation.
+- ⬜ **Broaden scope-family coverage against real tenant capability** — close gaps where tenant scopes are present but the catalog has no matching operations or recipes.
+- ⬜ **Add a tenant capability matrix artifact** — document which installed-package scopes map to modeled operations, partially modeled families, and unmapped tenant capabilities.
+
+### Quality / usability improvements
+
+- ⬜ **Fix Content Builder scope/prerequisite modeling** — observed tenant behavior allowed reads that did not line up cleanly with the returned scope string; review assumptions and document nuances.
+- ⬜ **Improve MCP endpoint ranking and family normalization** — make `get_endpoint_for_task` less dependent on exact token overlap and more tolerant of family aliases / human phrasing.
+- ⬜ **Add alias-aware matching between tags, recipe families, and user task language** — e.g. `content_builder` vs `Content Builder`, `data_extensions` vs DE phrasing.
+- ⬜ **Expand migration-ready examples for export flows** — especially for Journey History, Content Builder asset export, and future DE export patterns.
+- ⬜ **Document known tenant-tested behaviors that differ from naive scope expectations** — keep a short living note so future contributors do not assume the scope matrix tells the whole runtime story.
+
+### Architect-perspective backlog
+
+- ⬜ **Add modeling/support for governance-sensitive export surfaces** — prioritize assets that matter during real tenant rationalization: journey history, automation inventory, event-definition inventory, audit/event exports, and DE metadata export.
+- ⬜ **Add support for ownership / lifecycle oriented migration planning** — consider MCP/catalog affordances that help agents reason about archive candidates, active vs obsolete assets, and dependency-aware export sequencing.
+- ⬜ **Document recommended pre-migration discovery order** — e.g. tenant context -> scope check -> journeys/events -> content -> automations -> DEs -> audit/dependency sweep.
 
 ## Current quality bar
 
