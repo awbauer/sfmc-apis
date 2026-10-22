@@ -6,6 +6,7 @@
   "scripts": {
     "build": "node scripts/build-swagger-site.mjs",
     "catalog": "node scripts/build-migration-catalog.mjs",
+    "postman:soap": "node scripts/build-postman-soap-collection.mjs",
     "validate:openapi": "npx -y @apidevtools/swagger-cli validate specs/sfmc_marketing_cloud_openapi.yaml",
     "lint:openapi": "npx -y @stoplight/spectral-cli lint --fail-severity=error specs/sfmc_marketing_cloud_openapi.yaml",
     "check:scopes": "node scripts/check-scope-sync.mjs",
